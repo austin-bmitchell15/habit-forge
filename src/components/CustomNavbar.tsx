@@ -4,15 +4,19 @@ import {
     List,
     ListItem,
     ListItemPrefix,
-    ListItemSuffix,
-    Chip,
   } from "@material-tailwind/react";
   import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
   import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
   import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
   import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+  import { useState } from "react";
+
+  interface CustomNavbarProps {
+    selected: number;
+    onChangeSelected: Function;
+  }
    
-  export default function DefaultSidebar() {
+  export default function CustomNavbar({selected, onChangeSelected} : CustomNavbarProps) {
     return (
       <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
         <div className="mb-2 p-4">
@@ -21,25 +25,25 @@ import {
           </Typography>
         </div>
         <List>
-          <ListItem>
+          <ListItem selected={selected===1} onClick={() => onChangeSelected(1)}>
             <ListItemPrefix>
               <FitnessCenterRoundedIcon/>
             </ListItemPrefix>
-            Dashboard
+            Workout Planner
           </ListItem>
-          <ListItem>
+          <ListItem selected={selected===2} onClick={() => onChangeSelected(2)}>
             <ListItemPrefix>
               <CalendarMonthOutlinedIcon/>
             </ListItemPrefix>
             Habit Tracker
           </ListItem>
-          <ListItem>
+          <ListItem selected={selected===3} onClick={() => onChangeSelected(3)}>
             <ListItemPrefix>
               <AccountCircleOutlinedIcon/>
             </ListItemPrefix>
             Profile
           </ListItem>
-          <ListItem>
+          <ListItem selected={selected===4} onClick={() => onChangeSelected(4)}>
             <ListItemPrefix>
               <LogoutOutlinedIcon/>
             </ListItemPrefix>
