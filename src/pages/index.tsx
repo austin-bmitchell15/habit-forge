@@ -1,12 +1,16 @@
 import Image from "next/image";
-import { Inter } from "next/font/google";
 import CustomNavbar from '../components/CustomNavbar'
-
-const inter = Inter({ subsets: ["latin"] });
-const [selected, setSelected] = useState(1);
+import { useState } from "react";
+import Layout from "../components/Layout"
+import Habits from "./habits";
 
 export default function Home() {
+  const [selected, setSelected] = useState(1);
+  function onChangeSelected(value : number) {
+    setSelected(value);
+  }
+
   return (
-    <CustomNavbar selected={selected} onChangeSelected={onChangeSelected}/>
+    <></>
   );
 }

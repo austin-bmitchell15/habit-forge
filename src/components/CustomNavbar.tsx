@@ -10,40 +10,38 @@ import {
   import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
   import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
   import { useState } from "react";
+  import { useRouter} from 'next/router'
 
-  interface CustomNavbarProps {
-    selected: number;
-    onChangeSelected: Function;
-  }
    
-  export default function CustomNavbar({selected, onChangeSelected} : CustomNavbarProps) {
+  export default function CustomNavbar() {
+    const router = useRouter()
     return (
-      <Card className="h-[calc(100vh-2rem)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
+      <Card className="flex h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
         <div className="mb-2 p-4">
           <Typography variant="h5" color="blue-gray">
             Austin's Forge
           </Typography>
         </div>
         <List>
-          <ListItem selected={selected===1} onClick={() => onChangeSelected(1)}>
+          <ListItem onClick={() => router.push('/workout-planner')}>
             <ListItemPrefix>
               <FitnessCenterRoundedIcon/>
             </ListItemPrefix>
             Workout Planner
           </ListItem>
-          <ListItem selected={selected===2} onClick={() => onChangeSelected(2)}>
+          <ListItem onClick={() => router.push('/habits')}>
             <ListItemPrefix>
               <CalendarMonthOutlinedIcon/>
             </ListItemPrefix>
             Habit Tracker
           </ListItem>
-          <ListItem selected={selected===3} onClick={() => onChangeSelected(3)}>
+          <ListItem onClick={() => router.push('/profile')}>
             <ListItemPrefix>
               <AccountCircleOutlinedIcon/>
             </ListItemPrefix>
             Profile
           </ListItem>
-          <ListItem selected={selected===4} onClick={() => onChangeSelected(4)}>
+          <ListItem onClick={() => router.push('/')}>
             <ListItemPrefix>
               <LogoutOutlinedIcon/>
             </ListItemPrefix>
