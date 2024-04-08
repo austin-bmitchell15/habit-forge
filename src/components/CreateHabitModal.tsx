@@ -26,7 +26,7 @@ function CreateHabitModal(props: CreateHabitModalProps) {
           <Typography className="-mb-2" variant="h6">
             What type of Habit is this?
           </Typography>
-          <Select label="Type of Habit" value={habitType} onChange={(val) => setHabitType(val)}>
+          <Select label="Type of Habit" value={habitType} onChange={(val) => val ? setHabitType(val) : null}>
             <Option value={Habit.General}>General Habit</Option>
             <Option value={Habit.Progressive}>Progressive Habit</Option>
             <Option value={Habit.Progressive}>Activity Habit</Option>
@@ -35,7 +35,6 @@ function CreateHabitModal(props: CreateHabitModalProps) {
           <Typography className="-mb-2" variant="h6">
             What is the name of the Habit?
           </Typography>
-          <Input label="Habit Name" size="lg" />
         </CardBody>
         <CardFooter className="pt-0">
           <Button variant="gradient" onClick={handler} fullWidth>
