@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import CustomNavbar from './CustomNavbar'
+import NewCustomNavbar from './CustomNavbar'
 
 interface Props {
     children?: ReactNode
@@ -8,7 +8,7 @@ interface Props {
 export default function Layout({ children } : Props) {
   return (
     <div className='flex flex-wrap'>
-      <CustomNavbar />
+      <NewCustomNavbar />
       <main>{children}</main>
     </div>
   )

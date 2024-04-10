@@ -9,44 +9,37 @@ import {
   import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
   import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
   import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-  import { useState } from "react";
-  import { useRouter} from 'next/router'
-
-   
+  import { useRouter } from 'next/router';
+  
   export default function CustomNavbar() {
-    const router = useRouter()
+    const router = useRouter();
+    const navItems = [
+      { icon: FitnessCenterRoundedIcon, label: 'Workout Planner', path: '/workout-planner' },
+      { icon: CalendarMonthOutlinedIcon, label: 'Habit Tracker', path: '/habits' },
+      { icon: AccountCircleOutlinedIcon, label: 'Profile', path: '/profile' },
+      { icon: LogoutOutlinedIcon, label: 'Log Out', path: '/' },
+    ];
+  
     return (
-      <Card className="flex h-[calc(100vh)] w-full max-w-[20rem] p-4 shadow-xl shadow-blue-gray-900/5">
-        <div className="mb-2 p-4">
-          <Typography variant="h5" color="blue-gray">
+      <Card className="flex h-[calc(100vh)] w-full max-w-xs pl-4 pt-4 shadow-xl shadow-blue-gray-900/5">
+        <div className="mb-6">
+          <Typography variant="h5" color="blue-gray" className="font-bold">
             Austin&apos;s Forge
           </Typography>
         </div>
         <List>
-          <ListItem onClick={() => router.push('/workout-planner')}>
-            <ListItemPrefix>
-              <FitnessCenterRoundedIcon/>
-            </ListItemPrefix>
-            Workout Planner
-          </ListItem>
-          <ListItem onClick={() => router.push('/habits')}>
-            <ListItemPrefix>
-              <CalendarMonthOutlinedIcon/>
-            </ListItemPrefix>
-            Habit Tracker
-          </ListItem>
-          <ListItem onClick={() => router.push('/profile')}>
-            <ListItemPrefix>
-              <AccountCircleOutlinedIcon/>
-            </ListItemPrefix>
-            Profile
-          </ListItem>
-          <ListItem onClick={() => router.push('/')}>
-            <ListItemPrefix>
-              <LogoutOutlinedIcon/>
-            </ListItemPrefix>
-            Log Out
-          </ListItem>
+          {navItems.map(({ icon: Icon, label, path }) => (
+            <ListItem 
+              key={label} 
+              className="cursor-pointer hover:bg-blue-gray-100 rounded-lg -mx-4 pb-5"
+              onClick={() => router.push(path)}
+            >
+              <ListItemPrefix className="mr-2">
+                <Icon />
+              </ListItemPrefix>
+              {label}
+            </ListItem>
+          ))}
         </List>
       </Card>
     );
