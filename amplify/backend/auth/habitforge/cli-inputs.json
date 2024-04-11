@@ -1,10 +1,10 @@
 {
   "version": "1",
   "cognitoConfig": {
-    "identityPoolName": "habitforge2da0a577_identitypool_2da0a577",
+    "identityPoolName": "testAuthIdentityPool",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "habitf2da0a577",
-    "userPoolName": "habitforge2da0a577_userpool_2da0a577",
+    "resourceNameTruncated": "habitf8f4cfc27",
+    "userPoolName": "habitforge",
     "autoVerifiedAttributes": [
       "email"
     ],
@@ -20,28 +20,30 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-      "email"
+      "email",
+      "given_name",
+      "family_name"
     ],
     "aliasAttributes": [],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
-    "userpoolClientWriteAttributes": [
-      "email"
-    ],
-    "userpoolClientReadAttributes": [
-      "email"
-    ],
-    "userpoolClientLambdaRole": "habitf2da0a577_userpoolclient_lambda_role",
+    "userpoolClientWriteAttributes": [],
+    "userpoolClientReadAttributes": [],
+    "userpoolClientLambdaRole": "habitf8f4cfc27_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "2da0a577",
-    "resourceName": "habitforge2da0a577",
+    "sharedId": "8f4cfc27",
+    "resourceName": "habitforge",
     "authSelections": "identityPoolAndUserPool",
-    "useDefault": "default",
+    "serviceName": "Cognito",
     "usernameAttributes": [
       "email"
     ],
+    "useDefault": "manual",
+    "userPoolGroups": false,
     "userPoolGroupList": [],
-    "serviceName": "Cognito",
+    "adminQueries": false,
+    "thirdPartyAuth": false,
+    "authProviders": [],
     "usernameCaseSensitive": false,
     "useEnabledMfas": true
   }
