@@ -2292,7 +2292,7 @@
   dependencies:
     "possible-typed-array-names" "^1.0.0"
 
-"aws-amplify@^6.0.2":
+"aws-amplify@^6.0.2", "aws-amplify@^6.0.28":
   "integrity" "sha512-gxP/osZNDGb5skWUpka6XCTjAyMsWLMI6gGpIuehxzA4xZ8/V/lOcwy4yoY0UB6830zEh5Jw8AZOBBpBTgrdZQ=="
   "resolved" "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.28.tgz"
   "version" "6.0.28"
