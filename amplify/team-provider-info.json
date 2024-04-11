@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-habitforge-dev-9ad2b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::282887702085:role/amplify-habitforge-dev-9ad2b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::282887702085:role/amplify-habitforge-dev-9ad2b-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
+      "UnauthRoleName": "amplify-habitforge-dev-9ad2b-unauthRole",
+      "StackName": "amplify-habitforge-dev-9ad2b",
+      "StackId": "arn:aws:cloudformation:us-east-1:282887702085:stack/amplify-habitforge-dev-9ad2b/d71230c0-f797-11ee-ae65-0affc310bfab",
+      "AmplifyAppId": "d246ea4sj801dz"
+    },
+    "categories": {
+      "auth": {
+        "habitforge2da0a577": {}
+      }
+    }
+  }
+}
