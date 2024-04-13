@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "paths": {
+    "/habits": {
+      "name": "/habits",
+      "lambdaFunction": "habitforgef60a951c",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
+    }
+  }
+}
