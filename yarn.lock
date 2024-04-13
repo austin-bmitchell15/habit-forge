@@ -144,6 +144,16 @@
     "qrcode" "1.5.0"
     "tslib" "^2.5.2"
 
+"@aws-amplify/ui@^6.0.13":
+  "integrity" "sha512-65yHXSrTm4O9oa8NJIFKYC/ZLZOUqWvUCEd7PX8bq3VbaTHrb0linatedwJdiTX1no8BUOnm/ldgprmbFOCCig=="
+  "resolved" "https://registry.npmjs.org/@aws-amplify/ui/-/ui-6.0.13.tgz"
+  "version" "6.0.13"
+  dependencies:
+    "csstype" "^3.1.1"
+    "lodash" "4.17.21"
+    "style-dictionary" "3.9.1"
+    "tslib" "^2.5.2"
+
 "@aws-amplify/ui@6.0.12":
   "integrity" "sha512-8TygWyqtn3hnfUzO67xJtitBTreblbfj3cfRwfDgpoy8JfhIZPrjCDTPGqemXMKLGW2P0TaMnTvz+OxX2X637w=="
   "resolved" "https://registry.npmjs.org/@aws-amplify/ui/-/ui-6.0.12.tgz"
@@ -2292,7 +2302,7 @@
   dependencies:
     "possible-typed-array-names" "^1.0.0"
 
-"aws-amplify@^6.0.2", "aws-amplify@^6.0.28":
+"aws-amplify@^6.0.2", "aws-amplify@^6.0.26", "aws-amplify@^6.0.28":
   "integrity" "sha512-gxP/osZNDGb5skWUpka6XCTjAyMsWLMI6gGpIuehxzA4xZ8/V/lOcwy4yoY0UB6830zEh5Jw8AZOBBpBTgrdZQ=="
   "resolved" "https://registry.npmjs.org/aws-amplify/-/aws-amplify-6.0.28.tgz"
   "version" "6.0.28"

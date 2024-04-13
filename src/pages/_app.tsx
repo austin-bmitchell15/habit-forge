@@ -12,7 +12,7 @@ interface MyAppProps extends AppProps, WithAuthenticatorProps {};
 
 function App({ Component, pageProps, signOut, user }: MyAppProps) {
   return (
-    <Layout>
+    <Layout user={user} signOut={signOut}>
       <Component {...pageProps} />
     </Layout>
   );

@@ -5,19 +5,25 @@ import {
     ListItem,
     ListItemPrefix,
   } from "@material-tailwind/react";
-  import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
-  import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
-  import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
-  import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
-  import { useRouter } from 'next/router';
+import FitnessCenterRoundedIcon from '@mui/icons-material/FitnessCenterRounded';
+import CalendarMonthOutlinedIcon from '@mui/icons-material/CalendarMonthOutlined';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import { useRouter } from 'next/router';
+import { AuthUser } from "@aws-amplify/auth";
+import { AuthEventData } from "@aws-amplify/ui";
+
+  interface CustomNavbarProps {
+    user: AuthUser | undefined;
+    signOut: ((data?: AuthEventData | undefined) => void) | undefined;
+  }
   
-  export default function CustomNavbar() {
+  export default function CustomNavbar({ user, signOut }:CustomNavbarProps) {
     const router = useRouter();
     const navItems = [
       { icon: FitnessCenterRoundedIcon, label: 'Workout Planner', path: '/workout-planner' },
       { icon: CalendarMonthOutlinedIcon, label: 'Habit Tracker', path: '/habits' },
       { icon: AccountCircleOutlinedIcon, label: 'Profile', path: '/profile' },
-      { icon: LogoutOutlinedIcon, label: 'Log Out', path: '/' },
     ];
   
     return (
@@ -40,6 +46,16 @@ import {
               {label}
             </ListItem>
           ))}
+          <ListItem 
+              key="Sign Out" 
+              className="cursor-pointer hover:bg-blue-gray-100 rounded-lg -mx-4 pb-5"
+              onClick={signOut}
+            >
+              <ListItemPrefix className="mr-2">
+                <LogoutOutlinedIcon />
+              </ListItemPrefix>
+              {"Sign Out"}
+            </ListItem>
         </List>
       </Card>
     );
