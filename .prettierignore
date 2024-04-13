@@ -1,0 +1,30 @@
+# Dependency directories
+node_modules/
+amplify/
+.build/
+
+# Next.js specific files
+.next/
+out/
+
+# Build outputs
+dist/
+build/
+
+# Various configuration files
+*.json
+
+# Logs
+*.log
+
+# Other files and directories that are commonly ignored
+.DS_Store
+.env*
+.vscode/
+
+# Ignore specific file types that should not be altered
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
