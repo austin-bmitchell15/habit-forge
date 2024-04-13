@@ -1995,10 +1995,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0", "@types/react@^17.0.0 || ^18.0.0", "@types/react@18.2.42":
-  "integrity" "sha512-c1zEr96MjakLYus/wPnuWDo1/zErfdU9rNsIGmE+NV71nx88FG9Ttgo5dqorXTu/LImX2f63WBP986gJkMPNbA=="
-  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.42.tgz"
-  "version" "18.2.42"
+"@types/react@*", "@types/react@^16.8.0 || ^17.0.0 || ^18.0.0", "@types/react@^16.9.0 || ^17.0.0 || ^18.0.0", "@types/react@^17.0.0 || ^18.0.0", "@types/react@18.2.19":
+  "integrity" "sha512-e2S8wmY1ePfM517PqCG80CcE48Xs5k0pwJzuDZsfE8IZRRBfOMCF+XqnFxu6mWtyivum1MQm4aco+WIt6Coimw=="
+  "resolved" "https://registry.npmjs.org/@types/react/-/react-18.2.19.tgz"
+  "version" "18.2.19"
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"

@@ -6,7 +6,7 @@ export default function Habits() {
   const [showHabitModal, setShowHabitModal] = useState(false);
   return (
     <div>
-      <CreateHabitModal open={showHabitModal} handler={setShowHabitModal} />
+      <CreateHabitModal open={showHabitModal} setOpen={setShowHabitModal} />
       <Button variant="text" onClick={() => setShowHabitModal(true)}>
         Create Habit
       </Button>

@@ -1,5 +1,6 @@
-export enum Habit {
+export enum HabitTypes {
     General = "general",
     Progressive = "progressive",
     Activity = "activity",
 }
+

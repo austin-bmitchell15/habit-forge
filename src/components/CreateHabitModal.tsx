@@ -1,49 +1,84 @@
-import { Habit } from '@/utils/types/habit';
-import { Button, Card, CardBody, CardFooter, Checkbox, Dialog, DialogHeader, DialogProps, Input, Option, Select, Typography } from '@material-tailwind/react';
-import { handler } from '@material-tailwind/react/types/components/dialog';
-import React, { useState } from 'react'
+import { HabitTypes } from "@/utils/types/habit";
+import { Button, Dialog, DialogBody, DialogFooter, DialogHeader, Input, MenuItem, Option, Select, Textarea, Typography } from "@material-tailwind/react";
+import { MouseEventHandler, useState } from "react";
 
 interface CreateHabitModalProps {
   open : boolean;
-  handler : handler;
+  setOpen : (val : boolean) => void;
 }
 
-function CreateHabitModal(props: CreateHabitModalProps) {
-  const { open, handler } = props
-  const habitValues = {
-    type : String
-  }
+export default function CreateHabitModal({ open, setOpen } : CreateHabitModalProps) {
+  const [habitType, setHabitType] = useState<string | undefined>('');
+  const [goal, setGoal] = useState<string>('');
+  const [unit, setUnit] = useState<string>('');
+  const [sessionsPerWeek, setSessionsPerWeek] = useState<string>('');
 
-  const [habitType, setHabitType] = useState("general")
+  const handleSubmit = (event : MouseEvent) => {
+      event.preventDefault();
+      // Handle form submission logic here
+      console.log({ habitType, goal, unit, sessionsPerWeek });
+      handleClose();
+  };
+  
+  const handleClose = () => {
+    setHabitType('');
+    setGoal('');
+    setUnit('');
+    setSessionsPerWeek('');
+    setOpen(false);
+  };
 
   return (
-    <Dialog open={open} handler={handler}>
-      <Card className="mx-auto w-full max-w-[24rem]">
-        <CardBody className="flex flex-col gap-4">
-          <Typography variant="h4" color="blue-gray">
-            Create a New Habit
-          </Typography>
-          <Typography className="-mb-2" variant="h6">
-            What type of Habit is this?
-          </Typography>
-          <Select label="Type of Habit" value={habitType} onChange={(val) => val ? setHabitType(val) : null}>
-            <Option value={Habit.General}>General Habit</Option>
-            <Option value={Habit.Progressive}>Progressive Habit</Option>
-            <Option value={Habit.Progressive}>Activity Habit</Option>
+    <Dialog open={open} handler={handleClose}>
+        <DialogHeader>Add New Habit</DialogHeader>
+        <DialogBody className="flex flex-col space-y-4">
+          <Select
+              value={habitType}
+              label="Type of Habit"
+              onChange={(val) => setHabitType(val)}
+          >
+              <Option value={HabitTypes.Progressive}>Progressive Habit</Option>
+              <Option value={HabitTypes.Activity}>Activity Habit</Option>
+              <Option value={HabitTypes.General}>General Habit</Option>
           </Select>
-          {habitType === 'progressive'}
-          <Typography className="-mb-2" variant="h6">
-            What is the name of the Habit?
-          </Typography>
-        </CardBody>
-        <CardFooter className="pt-0">
-          <Button variant="gradient" onClick={handler} fullWidth>
-            Create
-          </Button>
-        </CardFooter>
-      </Card>
+          {habitType === HabitTypes.Progressive && (
+              <>
+                  <Input
+                    className=""
+                    label="Goal"
+                    value={goal}
+                    onChange={(e) => setGoal(e.target.value)}
+                  />
+                  <Input
+                    className=""
+                    label="Unit"
+                    value={unit}
+                    onChange={(e) => setUnit(e.target.value)}
+                  />
+              </>
+          )}
+          {habitType === HabitTypes.Activity && (
+              <Input
+                className="my-3"
+                label="Sessions Per Week"
+                type="number"
+                value={sessionsPerWeek}
+                onChange={(e) => setSessionsPerWeek(e.target.value)}
+              />
+          )}
+          {habitType === HabitTypes.General && (
+              <Input
+                className="my-3"
+                label="Description"
+                value={goal}
+                onChange={(e) => setGoal(e.target.value)}
+              />
+          )}
+        </DialogBody>
+        <DialogFooter className="space-x-2">
+            <Button variant="outlined" onClick={handleClose}>Cancel</Button>
+            <Button onClick={(e) => handleSubmit(e)}>Save Habit</Button>
+        </DialogFooter>
     </Dialog>
-  )
+  );
 }
-
-export default CreateHabitModal
