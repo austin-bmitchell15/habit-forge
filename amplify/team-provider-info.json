@@ -19,11 +19,11 @@
       "function": {
         "habitforgef60a951c": {
           "deploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
-          "s3Key": "amplify-builds/habitforgef60a951c-762b4f326d7a626b4777-build.zip"
+          "s3Key": "amplify-builds/habitforgef60a951c-7030445142666931566e-build.zip"
         }
       },
       "api": {
-        "habitforgeAPI": {}
+        "habitforge": {}
       }
     }
   }

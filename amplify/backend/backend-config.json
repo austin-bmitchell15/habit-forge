@@ -1,18 +1,37 @@
 {
   "api": {
-    "habitforgeAPI": {
+    "habitforge": {
       "dependsOn": [
         {
           "attributes": [
-            "Name",
-            "Arn"
+            "UserPoolId"
           ],
-          "category": "function",
-          "resourceName": "habitforgef60a951c"
+          "category": "auth",
+          "resourceName": "habitforge"
         }
       ],
+      "output": {
+        "authConfig": {
+          "additionalAuthenticationProviders": [
+            {
+              "apiKeyConfig": {
+                "apiKeyExpirationDate": "2025-04-14T21:26:19.745Z",
+                "apiKeyExpirationDays": 365,
+                "description": "habit-forge-api-key"
+              },
+              "authenticationType": "API_KEY"
+            }
+          ],
+          "defaultAuthentication": {
+            "authenticationType": "AMAZON_COGNITO_USER_POOLS",
+            "userPoolConfig": {
+              "userPoolId": "authhabitforge"
+            }
+          }
+        }
+      },
       "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
+      "service": "AppSync"
     }
   },
   "auth": {

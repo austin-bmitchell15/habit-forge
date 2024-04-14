@@ -11,20 +11,8 @@ export default function Habits() {
   const [error, setError] = useState<string | null>(null);
   const [habits, setHabits] = useState<Promise<any>[]>([]);
 
-  useEffect(() => {
-    HabitService.getAllHabits()
-      .then((data) => {
-        setHabits(data);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-      });
-    setLoading(false);
-  }, []);
-
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error}</div>;
+  // if (loading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error}</div>;
 
   return (
     <div>

@@ -1,25 +1,25 @@
-import { Habit } from '@/utils/types/habit';
-import { Amplify } from 'aws-amplify';
-import { get } from 'aws-amplify/api';
-import UserService from './UserService';
+import { generateClient, get } from 'aws-amplify/api';
+import * as mutations from '../graphql/mutations';
+import { CreateHabitInput } from '@/API';
 
 class HabitService {
-  async getAllHabits(): Promise<any> {
+  private client: any;  // Define the type based on what generateClient returns
+
+  constructor() {
+    this.client = generateClient();  // Setup the client on instantiation
+  }
+  
+  async createHabit(input : CreateHabitInput): Promise<any> {
     try {
-      const user = await UserService.getUserToken();
-      const response = await get({
-        apiName: 'habitforgeAPI',
-        path: '/habits',
-        options: {
-          headers: {
-            Authorization: user ?? '',
-          },
-        },
-      }).response;
-      return response;
+      console.log("test")
+      const newHabit = await this.client.graphql({
+        query: mutations.createHabit,
+        variables: { input }
+      });
+      return newHabit;
     } catch (error) {
-      console.error('Error fetching habits:', error);
-      throw new Error('Failed to fetch habits');
+      console.error('Error creating habit', error);
+      throw new Error('Failed to create habit');
     }
   }
 }

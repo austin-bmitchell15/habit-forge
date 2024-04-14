@@ -1,3 +1,6 @@
+import { ActivityDetailsInput, CreateHabitInput, GeneralDetailsInput, HabitDetailsInput, HabitType, ProgressiveDetailsInput } from '@/API';
+import { createHabit } from '@/graphql/mutations';
+import HabitService from '@/services/HabitService';
 import { HabitTypes } from '@/utils/types/habit';
 import {
   Button,
@@ -23,21 +26,49 @@ export default function CreateHabitModal({
   open,
   setOpen,
 }: CreateHabitModalProps) {
-  const [habitType, setHabitType] = useState<string | undefined>('');
-  const [goal, setGoal] = useState<string>('');
+  const [habitType, setHabitType] = useState<HabitType>(HabitType.GENERAL);
+  const [name, setName] = useState<string>('');
   const [unit, setUnit] = useState<string>('');
   const [sessionsPerWeek, setSessionsPerWeek] = useState<string>('');
+  const [goal, setGoal] = useState<string>('0');
 
-  const handleSubmit = (event: MouseEvent) => {
+  const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
-    // Handle form submission logic here
-    console.log({ habitType, goal, unit, sessionsPerWeek });
+    let details: HabitDetailsInput = {};
+
+    switch (habitType) {
+        case 'PROGRESSIVE':
+            details.progressiveDetails = {
+                goal: parseFloat(goal),
+                unit: unit,
+                currentProgress: 0 // default starting progress
+            } as ProgressiveDetailsInput;
+            break;
+        case 'ACTIVITY':
+            details.activityDetails = {
+                sessionsPerWeek: parseInt(sessionsPerWeek),
+                completedSessions: 0 // default starting sessions
+            } as ActivityDetailsInput;
+            break;
+    }
+
+    const habitData: CreateHabitInput = {
+        name,
+        type: habitType,
+        details
+    };
+    try {
+      const newHabit = await HabitService.createHabit(habitData);
+      console.log('Success:', newHabit);
+    } catch (err) {
+      console.error('Error creating habit:', err);
+    }
     handleClose();
   };
 
   const handleClose = () => {
-    setHabitType('');
-    setGoal('');
+    setHabitType(HabitType.GENERAL);
+    setName('');
     setUnit('');
     setSessionsPerWeek('');
     setOpen(false);
@@ -47,20 +78,27 @@ export default function CreateHabitModal({
     <Dialog open={open} handler={handleClose}>
       <DialogHeader>Add New Habit</DialogHeader>
       <DialogBody className="flex flex-col space-y-4">
+        <Input
+          className=""
+          label="Name of Habit"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
         <Select
           value={habitType}
           label="Type of Habit"
-          onChange={(val) => setHabitType(val)}
+          onChange={(val) => setHabitType(val as HabitType.PROGRESSIVE | HabitType.ACTIVITY | HabitType.GENERAL)}
         >
-          <Option value={HabitTypes.Progressive}>Progressive Habit</Option>
-          <Option value={HabitTypes.Activity}>Activity Habit</Option>
-          <Option value={HabitTypes.General}>General Habit</Option>
+          <Option value={HabitType.PROGRESSIVE}>Progressive Habit</Option>
+          <Option value={HabitType.ACTIVITY}>Activity Habit</Option>
+          <Option value={HabitType.GENERAL}>General Habit</Option>
         </Select>
-        {habitType === HabitTypes.Progressive && (
+        {habitType === HabitType.PROGRESSIVE && (
           <>
             <Input
               className=""
               label="Goal"
+              type="number"
               value={goal}
               onChange={(e) => setGoal(e.target.value)}
             />
@@ -72,21 +110,13 @@ export default function CreateHabitModal({
             />
           </>
         )}
-        {habitType === HabitTypes.Activity && (
+        {habitType === HabitType.ACTIVITY && (
           <Input
             className="my-3"
             label="Sessions Per Week"
             type="number"
             value={sessionsPerWeek}
             onChange={(e) => setSessionsPerWeek(e.target.value)}
-          />
-        )}
-        {habitType === HabitTypes.General && (
-          <Input
-            className="my-3"
-            label="Description"
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
           />
         )}
       </DialogBody>
