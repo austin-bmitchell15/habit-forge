@@ -14,26 +14,28 @@ export const getHabit = /* GraphQL */ `query GetHabit($id: ID!) {
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -74,6 +76,7 @@ export const getProgressiveDetails = /* GraphQL */ `query GetProgressiveDetails(
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -98,6 +101,7 @@ export const listProgressiveDetails = /* GraphQL */ `query ListProgressiveDetail
       currentProgress
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -115,6 +119,7 @@ export const getActivityDetails = /* GraphQL */ `query GetActivityDetails($id: I
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -134,6 +139,7 @@ export const listActivityDetails = /* GraphQL */ `query ListActivityDetails(
       completedSessions
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken
@@ -150,6 +156,7 @@ export const getGeneralDetails = /* GraphQL */ `query GetGeneralDetails($id: ID!
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -168,6 +175,7 @@ export const listGeneralDetails = /* GraphQL */ `query ListGeneralDetails(
       completed
       createdAt
       updatedAt
+      owner
       __typename
     }
     nextToken

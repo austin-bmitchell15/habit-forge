@@ -104,8 +104,10 @@ export type Habit = {
   owner?: string | null,
 };
 
-export type HabitDetails = ProgressiveDetails | ActivityDetails | GeneralDetails
-
+export type HabitDetails = {
+  __typename: "HabitDetails",
+  id: string,
+};
 
 export type ProgressiveDetails = {
   __typename: "ProgressiveDetails",
@@ -115,6 +117,7 @@ export type ProgressiveDetails = {
   currentProgress?: number | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type ActivityDetails = {
@@ -124,6 +127,7 @@ export type ActivityDetails = {
   completedSessions?: number | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type GeneralDetails = {
@@ -132,6 +136,7 @@ export type GeneralDetails = {
   completed?: boolean | null,
   createdAt: string,
   updatedAt: string,
+  owner?: string | null,
 };
 
 export type UpdateHabitInput = {
@@ -161,6 +166,7 @@ export type ModelProgressiveDetailsConditionInput = {
   not?: ModelProgressiveDetailsConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelFloatInput = {
@@ -200,6 +206,7 @@ export type ModelActivityDetailsConditionInput = {
   not?: ModelActivityDetailsConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelIntInput = {
@@ -236,6 +243,7 @@ export type ModelGeneralDetailsConditionInput = {
   not?: ModelGeneralDetailsConditionInput | null,
   createdAt?: ModelStringInput | null,
   updatedAt?: ModelStringInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelBooleanInput = {
@@ -298,6 +306,7 @@ export type ModelProgressiveDetailsFilterInput = {
   and?: Array< ModelProgressiveDetailsFilterInput | null > | null,
   or?: Array< ModelProgressiveDetailsFilterInput | null > | null,
   not?: ModelProgressiveDetailsFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelProgressiveDetailsConnection = {
@@ -315,6 +324,7 @@ export type ModelActivityDetailsFilterInput = {
   and?: Array< ModelActivityDetailsFilterInput | null > | null,
   or?: Array< ModelActivityDetailsFilterInput | null > | null,
   not?: ModelActivityDetailsFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelActivityDetailsConnection = {
@@ -331,6 +341,7 @@ export type ModelGeneralDetailsFilterInput = {
   and?: Array< ModelGeneralDetailsFilterInput | null > | null,
   or?: Array< ModelGeneralDetailsFilterInput | null > | null,
   not?: ModelGeneralDetailsFilterInput | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelGeneralDetailsConnection = {
@@ -389,6 +400,7 @@ export type ModelSubscriptionProgressiveDetailsFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionProgressiveDetailsFilterInput | null > | null,
   or?: Array< ModelSubscriptionProgressiveDetailsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionFloatInput = {
@@ -411,6 +423,7 @@ export type ModelSubscriptionActivityDetailsFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionActivityDetailsFilterInput | null > | null,
   or?: Array< ModelSubscriptionActivityDetailsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionIntInput = {
@@ -432,6 +445,7 @@ export type ModelSubscriptionGeneralDetailsFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null,
   and?: Array< ModelSubscriptionGeneralDetailsFilterInput | null > | null,
   or?: Array< ModelSubscriptionGeneralDetailsFilterInput | null > | null,
+  owner?: ModelStringInput | null,
 };
 
 export type ModelSubscriptionBooleanInput = {
@@ -458,6 +472,7 @@ export type CreateHabitMutation = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -465,12 +480,14 @@ export type CreateHabitMutation = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -498,6 +515,7 @@ export type UpdateHabitMutation = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -505,12 +523,14 @@ export type UpdateHabitMutation = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -538,6 +558,7 @@ export type DeleteHabitMutation = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -545,12 +566,14 @@ export type DeleteHabitMutation = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -573,6 +596,7 @@ export type CreateProgressiveDetailsMutation = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -590,6 +614,7 @@ export type UpdateProgressiveDetailsMutation = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -607,6 +632,7 @@ export type DeleteProgressiveDetailsMutation = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -623,6 +649,7 @@ export type CreateActivityDetailsMutation = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -639,6 +666,7 @@ export type UpdateActivityDetailsMutation = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -655,6 +683,7 @@ export type DeleteActivityDetailsMutation = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -670,6 +699,7 @@ export type CreateGeneralDetailsMutation = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -685,6 +715,7 @@ export type UpdateGeneralDetailsMutation = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -700,6 +731,7 @@ export type DeleteGeneralDetailsMutation = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -721,6 +753,7 @@ export type GetHabitQuery = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -728,12 +761,14 @@ export type GetHabitQuery = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -777,6 +812,7 @@ export type GetProgressiveDetailsQuery = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -797,6 +833,7 @@ export type ListProgressiveDetailsQuery = {
       currentProgress?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -814,6 +851,7 @@ export type GetActivityDetailsQuery = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -833,6 +871,7 @@ export type ListActivityDetailsQuery = {
       completedSessions?: number | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -849,6 +888,7 @@ export type GetGeneralDetailsQuery = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
@@ -867,6 +907,7 @@ export type ListGeneralDetailsQuery = {
       completed?: boolean | null,
       createdAt: string,
       updatedAt: string,
+      owner?: string | null,
     } | null >,
     nextToken?: string | null,
   } | null,
@@ -891,6 +932,7 @@ export type OnCreateHabitSubscription = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -898,12 +940,14 @@ export type OnCreateHabitSubscription = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -931,6 +975,7 @@ export type OnUpdateHabitSubscription = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -938,12 +983,14 @@ export type OnUpdateHabitSubscription = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -971,6 +1018,7 @@ export type OnDeleteHabitSubscription = {
         currentProgress?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "ActivityDetails",
         id: string,
@@ -978,12 +1026,14 @@ export type OnDeleteHabitSubscription = {
         completedSessions?: number | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       } | {
         __typename: "GeneralDetails",
         id: string,
         completed?: boolean | null,
         createdAt: string,
         updatedAt: string,
+        owner?: string | null,
       }
     ) | null,
     createdAt: string,
@@ -994,6 +1044,7 @@ export type OnDeleteHabitSubscription = {
 
 export type OnCreateProgressiveDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionProgressiveDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateProgressiveDetailsSubscription = {
@@ -1005,11 +1056,13 @@ export type OnCreateProgressiveDetailsSubscription = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateProgressiveDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionProgressiveDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateProgressiveDetailsSubscription = {
@@ -1021,11 +1074,13 @@ export type OnUpdateProgressiveDetailsSubscription = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteProgressiveDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionProgressiveDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteProgressiveDetailsSubscription = {
@@ -1037,11 +1092,13 @@ export type OnDeleteProgressiveDetailsSubscription = {
     currentProgress?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnCreateActivityDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionActivityDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateActivityDetailsSubscription = {
@@ -1052,11 +1109,13 @@ export type OnCreateActivityDetailsSubscription = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateActivityDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionActivityDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateActivityDetailsSubscription = {
@@ -1067,11 +1126,13 @@ export type OnUpdateActivityDetailsSubscription = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteActivityDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionActivityDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteActivityDetailsSubscription = {
@@ -1082,11 +1143,13 @@ export type OnDeleteActivityDetailsSubscription = {
     completedSessions?: number | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnCreateGeneralDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionGeneralDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnCreateGeneralDetailsSubscription = {
@@ -1096,11 +1159,13 @@ export type OnCreateGeneralDetailsSubscription = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnUpdateGeneralDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionGeneralDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnUpdateGeneralDetailsSubscription = {
@@ -1110,11 +1175,13 @@ export type OnUpdateGeneralDetailsSubscription = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };
 
 export type OnDeleteGeneralDetailsSubscriptionVariables = {
   filter?: ModelSubscriptionGeneralDetailsFilterInput | null,
+  owner?: string | null,
 };
 
 export type OnDeleteGeneralDetailsSubscription = {
@@ -1124,5 +1191,6 @@ export type OnDeleteGeneralDetailsSubscription = {
     completed?: boolean | null,
     createdAt: string,
     updatedAt: string,
+    owner?: string | null,
   } | null,
 };

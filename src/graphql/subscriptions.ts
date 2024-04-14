@@ -17,26 +17,28 @@ export const onCreateHabit = /* GraphQL */ `subscription OnCreateHabit(
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -58,26 +60,28 @@ export const onUpdateHabit = /* GraphQL */ `subscription OnUpdateHabit(
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -99,26 +103,28 @@ export const onDeleteHabit = /* GraphQL */ `subscription OnDeleteHabit(
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -133,14 +139,16 @@ export const onDeleteHabit = /* GraphQL */ `subscription OnDeleteHabit(
 >;
 export const onCreateProgressiveDetails = /* GraphQL */ `subscription OnCreateProgressiveDetails(
   $filter: ModelSubscriptionProgressiveDetailsFilterInput
+  $owner: String
 ) {
-  onCreateProgressiveDetails(filter: $filter) {
+  onCreateProgressiveDetails(filter: $filter, owner: $owner) {
     id
     goal
     unit
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -150,14 +158,16 @@ export const onCreateProgressiveDetails = /* GraphQL */ `subscription OnCreatePr
 >;
 export const onUpdateProgressiveDetails = /* GraphQL */ `subscription OnUpdateProgressiveDetails(
   $filter: ModelSubscriptionProgressiveDetailsFilterInput
+  $owner: String
 ) {
-  onUpdateProgressiveDetails(filter: $filter) {
+  onUpdateProgressiveDetails(filter: $filter, owner: $owner) {
     id
     goal
     unit
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -167,14 +177,16 @@ export const onUpdateProgressiveDetails = /* GraphQL */ `subscription OnUpdatePr
 >;
 export const onDeleteProgressiveDetails = /* GraphQL */ `subscription OnDeleteProgressiveDetails(
   $filter: ModelSubscriptionProgressiveDetailsFilterInput
+  $owner: String
 ) {
-  onDeleteProgressiveDetails(filter: $filter) {
+  onDeleteProgressiveDetails(filter: $filter, owner: $owner) {
     id
     goal
     unit
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -184,13 +196,15 @@ export const onDeleteProgressiveDetails = /* GraphQL */ `subscription OnDeletePr
 >;
 export const onCreateActivityDetails = /* GraphQL */ `subscription OnCreateActivityDetails(
   $filter: ModelSubscriptionActivityDetailsFilterInput
+  $owner: String
 ) {
-  onCreateActivityDetails(filter: $filter) {
+  onCreateActivityDetails(filter: $filter, owner: $owner) {
     id
     sessionsPerWeek
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -200,13 +214,15 @@ export const onCreateActivityDetails = /* GraphQL */ `subscription OnCreateActiv
 >;
 export const onUpdateActivityDetails = /* GraphQL */ `subscription OnUpdateActivityDetails(
   $filter: ModelSubscriptionActivityDetailsFilterInput
+  $owner: String
 ) {
-  onUpdateActivityDetails(filter: $filter) {
+  onUpdateActivityDetails(filter: $filter, owner: $owner) {
     id
     sessionsPerWeek
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -216,13 +232,15 @@ export const onUpdateActivityDetails = /* GraphQL */ `subscription OnUpdateActiv
 >;
 export const onDeleteActivityDetails = /* GraphQL */ `subscription OnDeleteActivityDetails(
   $filter: ModelSubscriptionActivityDetailsFilterInput
+  $owner: String
 ) {
-  onDeleteActivityDetails(filter: $filter) {
+  onDeleteActivityDetails(filter: $filter, owner: $owner) {
     id
     sessionsPerWeek
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -232,12 +250,14 @@ export const onDeleteActivityDetails = /* GraphQL */ `subscription OnDeleteActiv
 >;
 export const onCreateGeneralDetails = /* GraphQL */ `subscription OnCreateGeneralDetails(
   $filter: ModelSubscriptionGeneralDetailsFilterInput
+  $owner: String
 ) {
-  onCreateGeneralDetails(filter: $filter) {
+  onCreateGeneralDetails(filter: $filter, owner: $owner) {
     id
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -247,12 +267,14 @@ export const onCreateGeneralDetails = /* GraphQL */ `subscription OnCreateGenera
 >;
 export const onUpdateGeneralDetails = /* GraphQL */ `subscription OnUpdateGeneralDetails(
   $filter: ModelSubscriptionGeneralDetailsFilterInput
+  $owner: String
 ) {
-  onUpdateGeneralDetails(filter: $filter) {
+  onUpdateGeneralDetails(filter: $filter, owner: $owner) {
     id
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -262,12 +284,14 @@ export const onUpdateGeneralDetails = /* GraphQL */ `subscription OnUpdateGenera
 >;
 export const onDeleteGeneralDetails = /* GraphQL */ `subscription OnDeleteGeneralDetails(
   $filter: ModelSubscriptionGeneralDetailsFilterInput
+  $owner: String
 ) {
-  onDeleteGeneralDetails(filter: $filter) {
+  onDeleteGeneralDetails(filter: $filter, owner: $owner) {
     id
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }

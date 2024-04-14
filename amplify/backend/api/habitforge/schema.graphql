@@ -10,10 +10,12 @@ type Habit @model @auth(rules: [{ allow: owner }]) {
 }
 
 # Define union for different habit details
-union HabitDetails = ProgressiveDetails | ActivityDetails | GeneralDetails
+interface HabitDetails{
+  id: ID!
+}
 
 # Define specific details for Progressive habit type
-type ProgressiveDetails @model {
+type ProgressiveDetails implements HabitDetails @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   goal: Float!
   unit: String!
@@ -21,14 +23,14 @@ type ProgressiveDetails @model {
 }
 
 # Define specific details for Activity habit type
-type ActivityDetails @model {
+type ActivityDetails implements HabitDetails @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   sessionsPerWeek: Int!
   completedSessions: Int @default(value: "0")
 }
 
 # Define specific details for General habit type
-type GeneralDetails @model {
+type GeneralDetails implements HabitDetails @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   completed: Boolean @default(value: "false")
 }

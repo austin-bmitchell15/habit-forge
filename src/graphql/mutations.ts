@@ -17,26 +17,28 @@ export const createHabit = /* GraphQL */ `mutation CreateHabit(
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -58,26 +60,28 @@ export const updateHabit = /* GraphQL */ `mutation UpdateHabit(
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -99,26 +103,28 @@ export const deleteHabit = /* GraphQL */ `mutation DeleteHabit(
     name
     type
     details {
+      id
+
       ... on ProgressiveDetails {
-        id
         goal
         unit
         currentProgress
         createdAt
         updatedAt
+        owner
       }
       ... on ActivityDetails {
-        id
         sessionsPerWeek
         completedSessions
         createdAt
         updatedAt
+        owner
       }
       ... on GeneralDetails {
-        id
         completed
         createdAt
         updatedAt
+        owner
       }
     }
     createdAt
@@ -142,6 +148,7 @@ export const createProgressiveDetails = /* GraphQL */ `mutation CreateProgressiv
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -160,6 +167,7 @@ export const updateProgressiveDetails = /* GraphQL */ `mutation UpdateProgressiv
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -178,6 +186,7 @@ export const deleteProgressiveDetails = /* GraphQL */ `mutation DeleteProgressiv
     currentProgress
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -195,6 +204,7 @@ export const createActivityDetails = /* GraphQL */ `mutation CreateActivityDetai
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -212,6 +222,7 @@ export const updateActivityDetails = /* GraphQL */ `mutation UpdateActivityDetai
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -229,6 +240,7 @@ export const deleteActivityDetails = /* GraphQL */ `mutation DeleteActivityDetai
     completedSessions
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -245,6 +257,7 @@ export const createGeneralDetails = /* GraphQL */ `mutation CreateGeneralDetails
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -261,6 +274,7 @@ export const updateGeneralDetails = /* GraphQL */ `mutation UpdateGeneralDetails
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
@@ -277,6 +291,7 @@ export const deleteGeneralDetails = /* GraphQL */ `mutation DeleteGeneralDetails
     completed
     createdAt
     updatedAt
+    owner
     __typename
   }
 }
