@@ -5,17 +5,17 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from "react";
+import * as React from 'react';
 import {
   Button,
   Flex,
   Grid,
   SelectField,
   TextField,
-} from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { generateClient } from "aws-amplify/api";
-import { createHabit } from "../graphql/mutations";
+} from '@aws-amplify/ui-react';
+import { fetchByPath, getOverrideProps, validateField } from './utils';
+import { generateClient } from 'aws-amplify/api';
+import { createHabit } from '../graphql/mutations';
 const client = generateClient();
 export default function HabitCreateForm(props) {
   const {
@@ -29,8 +29,8 @@ export default function HabitCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
-    type: "",
+    name: '',
+    type: '',
   };
   const [name, setName] = React.useState(initialValues.name);
   const [type, setType] = React.useState(initialValues.type);
@@ -41,13 +41,13 @@ export default function HabitCreateForm(props) {
     setErrors({});
   };
   const validations = {
-    name: [{ type: "Required" }],
-    type: [{ type: "Required" }],
+    name: [{ type: 'Required' }],
+    type: [{ type: 'Required' }],
   };
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue
+    getDisplayValue,
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -78,16 +78,16 @@ export default function HabitCreateForm(props) {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item)
-                )
+                  runValidationTasks(fieldName, item),
+                ),
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName])
+              runValidationTasks(fieldName, modelFields[fieldName]),
             );
             return promises;
-          }, [])
+          }, []),
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -97,12 +97,12 @@ export default function HabitCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
+            if (typeof value === 'string' && value === '') {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: createHabit.replaceAll("__typename", ""),
+            query: createHabit.replaceAll('__typename', ''),
             variables: {
               input: {
                 ...modelFields,
@@ -117,12 +117,12 @@ export default function HabitCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
+            const messages = err.errors.map((e) => e.message).join('\n');
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, "HabitCreateForm")}
+      {...getOverrideProps(overrides, 'HabitCreateForm')}
       {...rest}
     >
       <TextField
@@ -141,14 +141,14 @@ export default function HabitCreateForm(props) {
             value = result?.name ?? value;
           }
           if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+            runValidationTasks('name', value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
+        onBlur={() => runValidationTasks('name', name)}
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        {...getOverrideProps(overrides, 'name')}
       ></TextField>
       <SelectField
         label="Type"
@@ -166,34 +166,34 @@ export default function HabitCreateForm(props) {
             value = result?.type ?? value;
           }
           if (errors.type?.hasError) {
-            runValidationTasks("type", value);
+            runValidationTasks('type', value);
           }
           setType(value);
         }}
-        onBlur={() => runValidationTasks("type", type)}
+        onBlur={() => runValidationTasks('type', type)}
         errorMessage={errors.type?.errorMessage}
         hasError={errors.type?.hasError}
-        {...getOverrideProps(overrides, "type")}
+        {...getOverrideProps(overrides, 'type')}
       >
         <option
           children="Progressive"
           value="PROGRESSIVE"
-          {...getOverrideProps(overrides, "typeoption0")}
+          {...getOverrideProps(overrides, 'typeoption0')}
         ></option>
         <option
           children="Activity"
           value="ACTIVITY"
-          {...getOverrideProps(overrides, "typeoption1")}
+          {...getOverrideProps(overrides, 'typeoption1')}
         ></option>
         <option
           children="General"
           value="GENERAL"
-          {...getOverrideProps(overrides, "typeoption2")}
+          {...getOverrideProps(overrides, 'typeoption2')}
         ></option>
       </SelectField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, "CTAFlex")}
+        {...getOverrideProps(overrides, 'CTAFlex')}
       >
         <Button
           children="Clear"
@@ -202,18 +202,18 @@ export default function HabitCreateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          {...getOverrideProps(overrides, 'ClearButton')}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
         >
           <Button
             children="Submit"
             type="submit"
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
-            {...getOverrideProps(overrides, "SubmitButton")}
+            {...getOverrideProps(overrides, 'SubmitButton')}
           ></Button>
         </Flex>
       </Flex>

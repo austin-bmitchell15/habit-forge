@@ -5,17 +5,17 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from "react";
+import * as React from 'react';
 import {
   Button,
   Flex,
   Grid,
   SwitchField,
   TextField,
-} from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { generateClient } from "aws-amplify/api";
-import { createHabitDetails } from "../graphql/mutations";
+} from '@aws-amplify/ui-react';
+import { fetchByPath, getOverrideProps, validateField } from './utils';
+import { generateClient } from 'aws-amplify/api';
+import { createHabitDetails } from '../graphql/mutations';
 const client = generateClient();
 export default function HabitDetailsCreateForm(props) {
   const {
@@ -29,23 +29,23 @@ export default function HabitDetailsCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    goal: "",
-    unit: "",
-    currentProgress: "",
-    sessionsPerWeek: "",
-    completedSessions: "",
+    goal: '',
+    unit: '',
+    currentProgress: '',
+    sessionsPerWeek: '',
+    completedSessions: '',
     completed: false,
   };
   const [goal, setGoal] = React.useState(initialValues.goal);
   const [unit, setUnit] = React.useState(initialValues.unit);
   const [currentProgress, setCurrentProgress] = React.useState(
-    initialValues.currentProgress
+    initialValues.currentProgress,
   );
   const [sessionsPerWeek, setSessionsPerWeek] = React.useState(
-    initialValues.sessionsPerWeek
+    initialValues.sessionsPerWeek,
   );
   const [completedSessions, setCompletedSessions] = React.useState(
-    initialValues.completedSessions
+    initialValues.completedSessions,
   );
   const [completed, setCompleted] = React.useState(initialValues.completed);
   const [errors, setErrors] = React.useState({});
@@ -69,7 +69,7 @@ export default function HabitDetailsCreateForm(props) {
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue
+    getDisplayValue,
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -104,16 +104,16 @@ export default function HabitDetailsCreateForm(props) {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item)
-                )
+                  runValidationTasks(fieldName, item),
+                ),
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName])
+              runValidationTasks(fieldName, modelFields[fieldName]),
             );
             return promises;
-          }, [])
+          }, []),
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -123,12 +123,12 @@ export default function HabitDetailsCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
+            if (typeof value === 'string' && value === '') {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: createHabitDetails.replaceAll("__typename", ""),
+            query: createHabitDetails.replaceAll('__typename', ''),
             variables: {
               input: {
                 ...modelFields,
@@ -143,12 +143,12 @@ export default function HabitDetailsCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
+            const messages = err.errors.map((e) => e.message).join('\n');
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, "HabitDetailsCreateForm")}
+      {...getOverrideProps(overrides, 'HabitDetailsCreateForm')}
       {...rest}
     >
       <TextField
@@ -175,14 +175,14 @@ export default function HabitDetailsCreateForm(props) {
             value = result?.goal ?? value;
           }
           if (errors.goal?.hasError) {
-            runValidationTasks("goal", value);
+            runValidationTasks('goal', value);
           }
           setGoal(value);
         }}
-        onBlur={() => runValidationTasks("goal", goal)}
+        onBlur={() => runValidationTasks('goal', goal)}
         errorMessage={errors.goal?.errorMessage}
         hasError={errors.goal?.hasError}
-        {...getOverrideProps(overrides, "goal")}
+        {...getOverrideProps(overrides, 'goal')}
       ></TextField>
       <TextField
         label="Unit"
@@ -204,14 +204,14 @@ export default function HabitDetailsCreateForm(props) {
             value = result?.unit ?? value;
           }
           if (errors.unit?.hasError) {
-            runValidationTasks("unit", value);
+            runValidationTasks('unit', value);
           }
           setUnit(value);
         }}
-        onBlur={() => runValidationTasks("unit", unit)}
+        onBlur={() => runValidationTasks('unit', unit)}
         errorMessage={errors.unit?.errorMessage}
         hasError={errors.unit?.hasError}
-        {...getOverrideProps(overrides, "unit")}
+        {...getOverrideProps(overrides, 'unit')}
       ></TextField>
       <TextField
         label="Current progress"
@@ -237,14 +237,14 @@ export default function HabitDetailsCreateForm(props) {
             value = result?.currentProgress ?? value;
           }
           if (errors.currentProgress?.hasError) {
-            runValidationTasks("currentProgress", value);
+            runValidationTasks('currentProgress', value);
           }
           setCurrentProgress(value);
         }}
-        onBlur={() => runValidationTasks("currentProgress", currentProgress)}
+        onBlur={() => runValidationTasks('currentProgress', currentProgress)}
         errorMessage={errors.currentProgress?.errorMessage}
         hasError={errors.currentProgress?.hasError}
-        {...getOverrideProps(overrides, "currentProgress")}
+        {...getOverrideProps(overrides, 'currentProgress')}
       ></TextField>
       <TextField
         label="Sessions per week"
@@ -270,14 +270,14 @@ export default function HabitDetailsCreateForm(props) {
             value = result?.sessionsPerWeek ?? value;
           }
           if (errors.sessionsPerWeek?.hasError) {
-            runValidationTasks("sessionsPerWeek", value);
+            runValidationTasks('sessionsPerWeek', value);
           }
           setSessionsPerWeek(value);
         }}
-        onBlur={() => runValidationTasks("sessionsPerWeek", sessionsPerWeek)}
+        onBlur={() => runValidationTasks('sessionsPerWeek', sessionsPerWeek)}
         errorMessage={errors.sessionsPerWeek?.errorMessage}
         hasError={errors.sessionsPerWeek?.hasError}
-        {...getOverrideProps(overrides, "sessionsPerWeek")}
+        {...getOverrideProps(overrides, 'sessionsPerWeek')}
       ></TextField>
       <TextField
         label="Completed sessions"
@@ -303,16 +303,16 @@ export default function HabitDetailsCreateForm(props) {
             value = result?.completedSessions ?? value;
           }
           if (errors.completedSessions?.hasError) {
-            runValidationTasks("completedSessions", value);
+            runValidationTasks('completedSessions', value);
           }
           setCompletedSessions(value);
         }}
         onBlur={() =>
-          runValidationTasks("completedSessions", completedSessions)
+          runValidationTasks('completedSessions', completedSessions)
         }
         errorMessage={errors.completedSessions?.errorMessage}
         hasError={errors.completedSessions?.hasError}
-        {...getOverrideProps(overrides, "completedSessions")}
+        {...getOverrideProps(overrides, 'completedSessions')}
       ></TextField>
       <SwitchField
         label="Completed"
@@ -334,18 +334,18 @@ export default function HabitDetailsCreateForm(props) {
             value = result?.completed ?? value;
           }
           if (errors.completed?.hasError) {
-            runValidationTasks("completed", value);
+            runValidationTasks('completed', value);
           }
           setCompleted(value);
         }}
-        onBlur={() => runValidationTasks("completed", completed)}
+        onBlur={() => runValidationTasks('completed', completed)}
         errorMessage={errors.completed?.errorMessage}
         hasError={errors.completed?.hasError}
-        {...getOverrideProps(overrides, "completed")}
+        {...getOverrideProps(overrides, 'completed')}
       ></SwitchField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, "CTAFlex")}
+        {...getOverrideProps(overrides, 'CTAFlex')}
       >
         <Button
           children="Clear"
@@ -354,18 +354,18 @@ export default function HabitDetailsCreateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          {...getOverrideProps(overrides, 'ClearButton')}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
         >
           <Button
             children="Submit"
             type="submit"
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
-            {...getOverrideProps(overrides, "SubmitButton")}
+            {...getOverrideProps(overrides, 'SubmitButton')}
           ></Button>
         </Flex>
       </Flex>
