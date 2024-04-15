@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../API";
+import * as APITypes from '../API';
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
@@ -15,31 +15,20 @@ export const getHabit = /* GraphQL */ `query GetHabit($id: ID!) {
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -57,6 +46,7 @@ export const listHabits = /* GraphQL */ `query ListHabits(
       type
       createdAt
       updatedAt
+      habitDetailsId
       owner
       __typename
     }
@@ -68,91 +58,14 @@ export const listHabits = /* GraphQL */ `query ListHabits(
   APITypes.ListHabitsQueryVariables,
   APITypes.ListHabitsQuery
 >;
-export const getProgressiveDetails = /* GraphQL */ `query GetProgressiveDetails($id: ID!) {
-  getProgressiveDetails(id: $id) {
+export const getHabitDetails = /* GraphQL */ `query GetHabitDetails($id: ID!) {
+  getHabitDetails(id: $id) {
     id
     goal
     unit
     currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetProgressiveDetailsQueryVariables,
-  APITypes.GetProgressiveDetailsQuery
->;
-export const listProgressiveDetails = /* GraphQL */ `query ListProgressiveDetails(
-  $filter: ModelProgressiveDetailsFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listProgressiveDetails(
-    filter: $filter
-    limit: $limit
-    nextToken: $nextToken
-  ) {
-    items {
-      id
-      goal
-      unit
-      currentProgress
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListProgressiveDetailsQueryVariables,
-  APITypes.ListProgressiveDetailsQuery
->;
-export const getActivityDetails = /* GraphQL */ `query GetActivityDetails($id: ID!) {
-  getActivityDetails(id: $id) {
-    id
     sessionsPerWeek
     completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.GetActivityDetailsQueryVariables,
-  APITypes.GetActivityDetailsQuery
->;
-export const listActivityDetails = /* GraphQL */ `query ListActivityDetails(
-  $filter: ModelActivityDetailsFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listActivityDetails(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      id
-      sessionsPerWeek
-      completedSessions
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    nextToken
-    __typename
-  }
-}
-` as GeneratedQuery<
-  APITypes.ListActivityDetailsQueryVariables,
-  APITypes.ListActivityDetailsQuery
->;
-export const getGeneralDetails = /* GraphQL */ `query GetGeneralDetails($id: ID!) {
-  getGeneralDetails(id: $id) {
-    id
     completed
     createdAt
     updatedAt
@@ -161,17 +74,22 @@ export const getGeneralDetails = /* GraphQL */ `query GetGeneralDetails($id: ID!
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetGeneralDetailsQueryVariables,
-  APITypes.GetGeneralDetailsQuery
+  APITypes.GetHabitDetailsQueryVariables,
+  APITypes.GetHabitDetailsQuery
 >;
-export const listGeneralDetails = /* GraphQL */ `query ListGeneralDetails(
-  $filter: ModelGeneralDetailsFilterInput
+export const listHabitDetails = /* GraphQL */ `query ListHabitDetails(
+  $filter: ModelHabitDetailsFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listGeneralDetails(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listHabitDetails(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
       completed
       createdAt
       updatedAt
@@ -183,6 +101,6 @@ export const listGeneralDetails = /* GraphQL */ `query ListGeneralDetails(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListGeneralDetailsQueryVariables,
-  APITypes.ListGeneralDetailsQuery
+  APITypes.ListHabitDetailsQueryVariables,
+  APITypes.ListHabitDetailsQuery
 >;

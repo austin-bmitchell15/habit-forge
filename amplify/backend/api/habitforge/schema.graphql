@@ -6,32 +6,17 @@ type Habit @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   type: HabitType!
-  details: HabitDetails
-}
-
-# Define union for different habit details
-interface HabitDetails{
-  id: ID!
+  details: HabitDetails @hasOne
 }
 
 # Define specific details for Progressive habit type
-type ProgressiveDetails implements HabitDetails @model @auth(rules: [{ allow: owner }]) {
+type HabitDetails @model @auth(rules: [{ allow: owner }]) {
   id: ID!
-  goal: Float!
-  unit: String!
+  goal: Float
+  unit: String
   currentProgress: Float @default(value: "0")
-}
-
-# Define specific details for Activity habit type
-type ActivityDetails implements HabitDetails @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
-  sessionsPerWeek: Int!
+  sessionsPerWeek: Int
   completedSessions: Int @default(value: "0")
-}
-
-# Define specific details for General habit type
-type GeneralDetails implements HabitDetails @model @auth(rules: [{ allow: owner }]) {
-  id: ID!
   completed: Boolean @default(value: "false")
 }
 

@@ -1,4 +1,4 @@
-import { ActivityDetailsInput, CreateHabitInput, GeneralDetailsInput, HabitDetailsInput, HabitType, ProgressiveDetailsInput } from '@/API';
+import { CreateHabitDetailsInput, CreateHabitInput, HabitType } from '@/API';
 import { createHabit } from '@/graphql/mutations';
 import HabitService from '@/services/HabitService';
 import { HabitTypes } from '@/utils/types/habit';
@@ -34,30 +34,20 @@ export default function CreateHabitModal({
 
   const handleSubmit = async (event: MouseEvent) => {
     event.preventDefault();
-    let details: HabitDetailsInput = {};
-
-    switch (habitType) {
-        case 'PROGRESSIVE':
-            details.progressiveDetails = {
-                goal: parseFloat(goal),
-                unit: unit,
-                currentProgress: 0 // default starting progress
-            } as ProgressiveDetailsInput;
-            break;
-        case 'ACTIVITY':
-            details.activityDetails = {
-                sessionsPerWeek: parseInt(sessionsPerWeek),
-                completedSessions: 0 // default starting sessions
-            } as ActivityDetailsInput;
-            break;
-    }
-
-    const habitData: CreateHabitInput = {
-        name,
-        type: habitType,
-        details
+    const details = {
+      goal: parseInt(goal),
+      unit,
+      sessionsPerWeek: parseInt(sessionsPerWeek),
     };
     try {
+      const newDetails = await HabitService.createHabitDetails(
+        details as CreateHabitDetailsInput,
+      );
+      const habitData: CreateHabitInput = {
+        name,
+        type: habitType,
+        habitDetailsId: newDetails.id,
+      };
       const newHabit = await HabitService.createHabit(habitData);
       console.log('Success:', newHabit);
     } catch (err) {
@@ -87,7 +77,14 @@ export default function CreateHabitModal({
         <Select
           value={habitType}
           label="Type of Habit"
-          onChange={(val) => setHabitType(val as HabitType.PROGRESSIVE | HabitType.ACTIVITY | HabitType.GENERAL)}
+          onChange={(val) =>
+            setHabitType(
+              val as
+                | HabitType.PROGRESSIVE
+                | HabitType.ACTIVITY
+                | HabitType.GENERAL,
+            )
+          }
         >
           <Option value={HabitType.PROGRESSIVE}>Progressive Habit</Option>
           <Option value={HabitType.ACTIVITY}>Activity Habit</Option>

@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../API";
+import * as APITypes from '../API';
 type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionInput: InputType;
   __generatedSubscriptionOutput: OutputType;
@@ -18,31 +18,20 @@ export const onCreateHabit = /* GraphQL */ `subscription OnCreateHabit(
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -61,31 +50,20 @@ export const onUpdateHabit = /* GraphQL */ `subscription OnUpdateHabit(
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -104,31 +82,20 @@ export const onDeleteHabit = /* GraphQL */ `subscription OnDeleteHabit(
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -137,123 +104,18 @@ export const onDeleteHabit = /* GraphQL */ `subscription OnDeleteHabit(
   APITypes.OnDeleteHabitSubscriptionVariables,
   APITypes.OnDeleteHabitSubscription
 >;
-export const onCreateProgressiveDetails = /* GraphQL */ `subscription OnCreateProgressiveDetails(
-  $filter: ModelSubscriptionProgressiveDetailsFilterInput
+export const onCreateHabitDetails =
+  /* GraphQL */ `subscription OnCreateHabitDetails(
+  $filter: ModelSubscriptionHabitDetailsFilterInput
   $owner: String
 ) {
-  onCreateProgressiveDetails(filter: $filter, owner: $owner) {
+  onCreateHabitDetails(filter: $filter, owner: $owner) {
     id
     goal
     unit
     currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateProgressiveDetailsSubscriptionVariables,
-  APITypes.OnCreateProgressiveDetailsSubscription
->;
-export const onUpdateProgressiveDetails = /* GraphQL */ `subscription OnUpdateProgressiveDetails(
-  $filter: ModelSubscriptionProgressiveDetailsFilterInput
-  $owner: String
-) {
-  onUpdateProgressiveDetails(filter: $filter, owner: $owner) {
-    id
-    goal
-    unit
-    currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateProgressiveDetailsSubscriptionVariables,
-  APITypes.OnUpdateProgressiveDetailsSubscription
->;
-export const onDeleteProgressiveDetails = /* GraphQL */ `subscription OnDeleteProgressiveDetails(
-  $filter: ModelSubscriptionProgressiveDetailsFilterInput
-  $owner: String
-) {
-  onDeleteProgressiveDetails(filter: $filter, owner: $owner) {
-    id
-    goal
-    unit
-    currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteProgressiveDetailsSubscriptionVariables,
-  APITypes.OnDeleteProgressiveDetailsSubscription
->;
-export const onCreateActivityDetails = /* GraphQL */ `subscription OnCreateActivityDetails(
-  $filter: ModelSubscriptionActivityDetailsFilterInput
-  $owner: String
-) {
-  onCreateActivityDetails(filter: $filter, owner: $owner) {
-    id
     sessionsPerWeek
     completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnCreateActivityDetailsSubscriptionVariables,
-  APITypes.OnCreateActivityDetailsSubscription
->;
-export const onUpdateActivityDetails = /* GraphQL */ `subscription OnUpdateActivityDetails(
-  $filter: ModelSubscriptionActivityDetailsFilterInput
-  $owner: String
-) {
-  onUpdateActivityDetails(filter: $filter, owner: $owner) {
-    id
-    sessionsPerWeek
-    completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnUpdateActivityDetailsSubscriptionVariables,
-  APITypes.OnUpdateActivityDetailsSubscription
->;
-export const onDeleteActivityDetails = /* GraphQL */ `subscription OnDeleteActivityDetails(
-  $filter: ModelSubscriptionActivityDetailsFilterInput
-  $owner: String
-) {
-  onDeleteActivityDetails(filter: $filter, owner: $owner) {
-    id
-    sessionsPerWeek
-    completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedSubscription<
-  APITypes.OnDeleteActivityDetailsSubscriptionVariables,
-  APITypes.OnDeleteActivityDetailsSubscription
->;
-export const onCreateGeneralDetails = /* GraphQL */ `subscription OnCreateGeneralDetails(
-  $filter: ModelSubscriptionGeneralDetailsFilterInput
-  $owner: String
-) {
-  onCreateGeneralDetails(filter: $filter, owner: $owner) {
-    id
     completed
     createdAt
     updatedAt
@@ -262,15 +124,21 @@ export const onCreateGeneralDetails = /* GraphQL */ `subscription OnCreateGenera
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnCreateGeneralDetailsSubscriptionVariables,
-  APITypes.OnCreateGeneralDetailsSubscription
->;
-export const onUpdateGeneralDetails = /* GraphQL */ `subscription OnUpdateGeneralDetails(
-  $filter: ModelSubscriptionGeneralDetailsFilterInput
+    APITypes.OnCreateHabitDetailsSubscriptionVariables,
+    APITypes.OnCreateHabitDetailsSubscription
+  >;
+export const onUpdateHabitDetails =
+  /* GraphQL */ `subscription OnUpdateHabitDetails(
+  $filter: ModelSubscriptionHabitDetailsFilterInput
   $owner: String
 ) {
-  onUpdateGeneralDetails(filter: $filter, owner: $owner) {
+  onUpdateHabitDetails(filter: $filter, owner: $owner) {
     id
+    goal
+    unit
+    currentProgress
+    sessionsPerWeek
+    completedSessions
     completed
     createdAt
     updatedAt
@@ -279,15 +147,21 @@ export const onUpdateGeneralDetails = /* GraphQL */ `subscription OnUpdateGenera
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnUpdateGeneralDetailsSubscriptionVariables,
-  APITypes.OnUpdateGeneralDetailsSubscription
->;
-export const onDeleteGeneralDetails = /* GraphQL */ `subscription OnDeleteGeneralDetails(
-  $filter: ModelSubscriptionGeneralDetailsFilterInput
+    APITypes.OnUpdateHabitDetailsSubscriptionVariables,
+    APITypes.OnUpdateHabitDetailsSubscription
+  >;
+export const onDeleteHabitDetails =
+  /* GraphQL */ `subscription OnDeleteHabitDetails(
+  $filter: ModelSubscriptionHabitDetailsFilterInput
   $owner: String
 ) {
-  onDeleteGeneralDetails(filter: $filter, owner: $owner) {
+  onDeleteHabitDetails(filter: $filter, owner: $owner) {
     id
+    goal
+    unit
+    currentProgress
+    sessionsPerWeek
+    completedSessions
     completed
     createdAt
     updatedAt
@@ -296,6 +170,6 @@ export const onDeleteGeneralDetails = /* GraphQL */ `subscription OnDeleteGenera
   }
 }
 ` as GeneratedSubscription<
-  APITypes.OnDeleteGeneralDetailsSubscriptionVariables,
-  APITypes.OnDeleteGeneralDetailsSubscription
->;
+    APITypes.OnDeleteHabitDetailsSubscriptionVariables,
+    APITypes.OnDeleteHabitDetailsSubscription
+  >;

@@ -2,7 +2,7 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../API";
+import * as APITypes from '../API';
 type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationInput: InputType;
   __generatedMutationOutput: OutputType;
@@ -18,31 +18,20 @@ export const createHabit = /* GraphQL */ `mutation CreateHabit(
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -61,31 +50,20 @@ export const updateHabit = /* GraphQL */ `mutation UpdateHabit(
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -104,31 +82,20 @@ export const deleteHabit = /* GraphQL */ `mutation DeleteHabit(
     type
     details {
       id
-
-      ... on ProgressiveDetails {
-        goal
-        unit
-        currentProgress
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on ActivityDetails {
-        sessionsPerWeek
-        completedSessions
-        createdAt
-        updatedAt
-        owner
-      }
-      ... on GeneralDetails {
-        completed
-        createdAt
-        updatedAt
-        owner
-      }
+      goal
+      unit
+      currentProgress
+      sessionsPerWeek
+      completedSessions
+      completed
+      createdAt
+      updatedAt
+      owner
+      __typename
     }
     createdAt
     updatedAt
+    habitDetailsId
     owner
     __typename
   }
@@ -137,123 +104,17 @@ export const deleteHabit = /* GraphQL */ `mutation DeleteHabit(
   APITypes.DeleteHabitMutationVariables,
   APITypes.DeleteHabitMutation
 >;
-export const createProgressiveDetails = /* GraphQL */ `mutation CreateProgressiveDetails(
-  $input: CreateProgressiveDetailsInput!
-  $condition: ModelProgressiveDetailsConditionInput
+export const createHabitDetails = /* GraphQL */ `mutation CreateHabitDetails(
+  $input: CreateHabitDetailsInput!
+  $condition: ModelHabitDetailsConditionInput
 ) {
-  createProgressiveDetails(input: $input, condition: $condition) {
+  createHabitDetails(input: $input, condition: $condition) {
     id
     goal
     unit
     currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateProgressiveDetailsMutationVariables,
-  APITypes.CreateProgressiveDetailsMutation
->;
-export const updateProgressiveDetails = /* GraphQL */ `mutation UpdateProgressiveDetails(
-  $input: UpdateProgressiveDetailsInput!
-  $condition: ModelProgressiveDetailsConditionInput
-) {
-  updateProgressiveDetails(input: $input, condition: $condition) {
-    id
-    goal
-    unit
-    currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateProgressiveDetailsMutationVariables,
-  APITypes.UpdateProgressiveDetailsMutation
->;
-export const deleteProgressiveDetails = /* GraphQL */ `mutation DeleteProgressiveDetails(
-  $input: DeleteProgressiveDetailsInput!
-  $condition: ModelProgressiveDetailsConditionInput
-) {
-  deleteProgressiveDetails(input: $input, condition: $condition) {
-    id
-    goal
-    unit
-    currentProgress
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteProgressiveDetailsMutationVariables,
-  APITypes.DeleteProgressiveDetailsMutation
->;
-export const createActivityDetails = /* GraphQL */ `mutation CreateActivityDetails(
-  $input: CreateActivityDetailsInput!
-  $condition: ModelActivityDetailsConditionInput
-) {
-  createActivityDetails(input: $input, condition: $condition) {
-    id
     sessionsPerWeek
     completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateActivityDetailsMutationVariables,
-  APITypes.CreateActivityDetailsMutation
->;
-export const updateActivityDetails = /* GraphQL */ `mutation UpdateActivityDetails(
-  $input: UpdateActivityDetailsInput!
-  $condition: ModelActivityDetailsConditionInput
-) {
-  updateActivityDetails(input: $input, condition: $condition) {
-    id
-    sessionsPerWeek
-    completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateActivityDetailsMutationVariables,
-  APITypes.UpdateActivityDetailsMutation
->;
-export const deleteActivityDetails = /* GraphQL */ `mutation DeleteActivityDetails(
-  $input: DeleteActivityDetailsInput!
-  $condition: ModelActivityDetailsConditionInput
-) {
-  deleteActivityDetails(input: $input, condition: $condition) {
-    id
-    sessionsPerWeek
-    completedSessions
-    createdAt
-    updatedAt
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteActivityDetailsMutationVariables,
-  APITypes.DeleteActivityDetailsMutation
->;
-export const createGeneralDetails = /* GraphQL */ `mutation CreateGeneralDetails(
-  $input: CreateGeneralDetailsInput!
-  $condition: ModelGeneralDetailsConditionInput
-) {
-  createGeneralDetails(input: $input, condition: $condition) {
-    id
     completed
     createdAt
     updatedAt
@@ -262,15 +123,20 @@ export const createGeneralDetails = /* GraphQL */ `mutation CreateGeneralDetails
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateGeneralDetailsMutationVariables,
-  APITypes.CreateGeneralDetailsMutation
+  APITypes.CreateHabitDetailsMutationVariables,
+  APITypes.CreateHabitDetailsMutation
 >;
-export const updateGeneralDetails = /* GraphQL */ `mutation UpdateGeneralDetails(
-  $input: UpdateGeneralDetailsInput!
-  $condition: ModelGeneralDetailsConditionInput
+export const updateHabitDetails = /* GraphQL */ `mutation UpdateHabitDetails(
+  $input: UpdateHabitDetailsInput!
+  $condition: ModelHabitDetailsConditionInput
 ) {
-  updateGeneralDetails(input: $input, condition: $condition) {
+  updateHabitDetails(input: $input, condition: $condition) {
     id
+    goal
+    unit
+    currentProgress
+    sessionsPerWeek
+    completedSessions
     completed
     createdAt
     updatedAt
@@ -279,15 +145,20 @@ export const updateGeneralDetails = /* GraphQL */ `mutation UpdateGeneralDetails
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateGeneralDetailsMutationVariables,
-  APITypes.UpdateGeneralDetailsMutation
+  APITypes.UpdateHabitDetailsMutationVariables,
+  APITypes.UpdateHabitDetailsMutation
 >;
-export const deleteGeneralDetails = /* GraphQL */ `mutation DeleteGeneralDetails(
-  $input: DeleteGeneralDetailsInput!
-  $condition: ModelGeneralDetailsConditionInput
+export const deleteHabitDetails = /* GraphQL */ `mutation DeleteHabitDetails(
+  $input: DeleteHabitDetailsInput!
+  $condition: ModelHabitDetailsConditionInput
 ) {
-  deleteGeneralDetails(input: $input, condition: $condition) {
+  deleteHabitDetails(input: $input, condition: $condition) {
     id
+    goal
+    unit
+    currentProgress
+    sessionsPerWeek
+    completedSessions
     completed
     createdAt
     updatedAt
@@ -296,6 +167,6 @@ export const deleteGeneralDetails = /* GraphQL */ `mutation DeleteGeneralDetails
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteGeneralDetailsMutationVariables,
-  APITypes.DeleteGeneralDetailsMutation
+  APITypes.DeleteHabitDetailsMutationVariables,
+  APITypes.DeleteHabitDetailsMutation
 >;
