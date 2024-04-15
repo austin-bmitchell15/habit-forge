@@ -32,7 +32,9 @@ export default function CreateHabitModal({
   const [sessionsPerWeek, setSessionsPerWeek] = useState<string>('');
   const [goal, setGoal] = useState<string>('0');
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
     event.preventDefault();
     const details = {
       goal: parseInt(goal),
