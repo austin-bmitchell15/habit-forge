@@ -4,7 +4,7 @@ import { JWT, UserAttributeKey } from '@aws-amplify/auth';
 import { Button, Dialog, DialogHeader } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import UserService from '@/services/UserService';
-import HabitList from '@/components/HabitList';
+import HabitList from '@/components/HabitList/HabitList';
 import { Habit } from '@/API';
 
 export default function Habits() {
@@ -32,13 +32,24 @@ export default function Habits() {
     fetchHabits();
   }, []);
 
-  return (
-    <div>
-      <CreateHabitModal open={showHabitModal} setOpen={setShowHabitModal} />
-      <HabitList habits={habits} />
-      <Button variant="text" onClick={() => setShowHabitModal(true)}>
-        Create Habit
-      </Button>
-    </div>
-  );
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+      return <div>Error: {error}</div>;
+  }
+
+  else {
+    return (
+      <div className='flex flex-col flex-grow space-y-4 p-4'>
+        <CreateHabitModal open={showHabitModal} setOpen={setShowHabitModal} />
+        <HabitList habits={habits} />
+        <Button variant="text" onClick={() => setShowHabitModal(true)}>
+          Create Habit
+        </Button>
+      </div>
+    );
+  }
+  
 }
