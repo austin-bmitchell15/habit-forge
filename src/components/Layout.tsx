@@ -13,7 +13,7 @@ export default function Layout({ children, user, signOut }: Props) {
   return (
     <div className="flex flex-row">
       <CustomNavbar user={user} signOut={signOut} />
-      <main className='flex w-full'>{children}</main>
+      <main className="flex w-full">{children}</main>
     </div>
   );
 }

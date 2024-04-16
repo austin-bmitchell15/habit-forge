@@ -2,47 +2,35 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
-type Habit @model @auth(rules: [{ allow: owner }]) {
+# Model for Progressive habits
+type ProgressiveHabit @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
   type: HabitType!
-  details: HabitDetails @hasOne
+  goal: Float!
+  unit: String!
+  currentProgress: Float
 }
 
-# Define specific details for Progressive habit type
-type HabitDetails @model @auth(rules: [{ allow: owner }]) {
+# Model for Activity habits
+type ActivityHabit @model @auth(rules: [{ allow: owner }]) {
   id: ID!
-  goal: Float
-  unit: String
-  currentProgress: Float @default(value: "0")
-  sessionsPerWeek: Int
-  completedSessions: Int @default(value: "0")
-  completed: Boolean @default(value: "false")
+  name: String!
+  type: HabitType!
+  sessionsPerWeek: Int!
+  completedSessions: Int
+}
+
+# Model for General habits
+type GeneralHabit @model @auth(rules: [{ allow: owner }]) {
+  id: ID!
+  name: String!
+  type: HabitType!
+  completed: Boolean
 }
 
 enum HabitType {
   PROGRESSIVE
   ACTIVITY
   GENERAL
-}
-
-input HabitDetailsInput {
-  progressiveDetails: ProgressiveDetailsInput
-  activityDetails: ActivityDetailsInput
-  generalDetails: GeneralDetailsInput
-}
-
-input ProgressiveDetailsInput {
-  goal: Float
-  unit: String
-  currentProgress: Float
-}
-
-input ActivityDetailsInput {
-  sessionsPerWeek: Int
-  completedSessions: Int
-}
-
-input GeneralDetailsInput {
-  completed: Boolean
 }

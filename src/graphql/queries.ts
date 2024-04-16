@@ -8,45 +8,40 @@ type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryOutput: OutputType;
 };
 
-export const getHabit = /* GraphQL */ `query GetHabit($id: ID!) {
-  getHabit(id: $id) {
+export const getProgressiveHabit =
+  /* GraphQL */ `query GetProgressiveHabit($id: ID!) {
+  getProgressiveHabit(id: $id) {
     id
     name
     type
-    details {
-      id
-      goal
-      unit
-      currentProgress
-      sessionsPerWeek
-      completedSessions
-      completed
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
+    goal
+    unit
+    currentProgress
     createdAt
     updatedAt
-    habitDetailsId
     owner
     __typename
   }
 }
-` as GeneratedQuery<APITypes.GetHabitQueryVariables, APITypes.GetHabitQuery>;
-export const listHabits = /* GraphQL */ `query ListHabits(
-  $filter: ModelHabitFilterInput
+` as GeneratedQuery<
+    APITypes.GetProgressiveHabitQueryVariables,
+    APITypes.GetProgressiveHabitQuery
+  >;
+export const listProgressiveHabits = /* GraphQL */ `query ListProgressiveHabits(
+  $filter: ModelProgressiveHabitFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listHabits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listProgressiveHabits(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       name
       type
+      goal
+      unit
+      currentProgress
       createdAt
       updatedAt
-      habitDetailsId
       owner
       __typename
     }
@@ -55,17 +50,57 @@ export const listHabits = /* GraphQL */ `query ListHabits(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListHabitsQueryVariables,
-  APITypes.ListHabitsQuery
+  APITypes.ListProgressiveHabitsQueryVariables,
+  APITypes.ListProgressiveHabitsQuery
 >;
-export const getHabitDetails = /* GraphQL */ `query GetHabitDetails($id: ID!) {
-  getHabitDetails(id: $id) {
+export const getActivityHabit =
+  /* GraphQL */ `query GetActivityHabit($id: ID!) {
+  getActivityHabit(id: $id) {
     id
-    goal
-    unit
-    currentProgress
+    name
+    type
     sessionsPerWeek
     completedSessions
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.GetActivityHabitQueryVariables,
+    APITypes.GetActivityHabitQuery
+  >;
+export const listActivityHabits = /* GraphQL */ `query ListActivityHabits(
+  $filter: ModelActivityHabitFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listActivityHabits(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      type
+      sessionsPerWeek
+      completedSessions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListActivityHabitsQueryVariables,
+  APITypes.ListActivityHabitsQuery
+>;
+export const getGeneralHabit = /* GraphQL */ `query GetGeneralHabit($id: ID!) {
+  getGeneralHabit(id: $id) {
+    id
+    name
+    type
     completed
     createdAt
     updatedAt
@@ -74,22 +109,19 @@ export const getHabitDetails = /* GraphQL */ `query GetHabitDetails($id: ID!) {
   }
 }
 ` as GeneratedQuery<
-  APITypes.GetHabitDetailsQueryVariables,
-  APITypes.GetHabitDetailsQuery
+  APITypes.GetGeneralHabitQueryVariables,
+  APITypes.GetGeneralHabitQuery
 >;
-export const listHabitDetails = /* GraphQL */ `query ListHabitDetails(
-  $filter: ModelHabitDetailsFilterInput
+export const listGeneralHabits = /* GraphQL */ `query ListGeneralHabits(
+  $filter: ModelGeneralHabitFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listHabitDetails(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listGeneralHabits(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      goal
-      unit
-      currentProgress
-      sessionsPerWeek
-      completedSessions
+      name
+      type
       completed
       createdAt
       updatedAt
@@ -101,6 +133,6 @@ export const listHabitDetails = /* GraphQL */ `query ListHabitDetails(
   }
 }
 ` as GeneratedQuery<
-  APITypes.ListHabitDetailsQueryVariables,
-  APITypes.ListHabitDetailsQuery
+  APITypes.ListGeneralHabitsQueryVariables,
+  APITypes.ListGeneralHabitsQuery
 >;

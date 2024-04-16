@@ -2,11 +2,13 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateHabitInput = {
+export type CreateProgressiveHabitInput = {
   id?: string | null;
   name: string;
   type: HabitType;
-  habitDetailsId?: string | null;
+  goal: number;
+  unit: string;
+  currentProgress?: number | null;
 };
 
 export enum HabitType {
@@ -15,15 +17,17 @@ export enum HabitType {
   GENERAL = 'GENERAL',
 }
 
-export type ModelHabitConditionInput = {
+export type ModelProgressiveHabitConditionInput = {
   name?: ModelStringInput | null;
   type?: ModelHabitTypeInput | null;
-  and?: Array<ModelHabitConditionInput | null> | null;
-  or?: Array<ModelHabitConditionInput | null> | null;
-  not?: ModelHabitConditionInput | null;
+  goal?: ModelFloatInput | null;
+  unit?: ModelStringInput | null;
+  currentProgress?: ModelFloatInput | null;
+  and?: Array<ModelProgressiveHabitConditionInput | null> | null;
+  or?: Array<ModelProgressiveHabitConditionInput | null> | null;
+  not?: ModelProgressiveHabitConditionInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  habitDetailsId?: ModelIDInput | null;
   owner?: ModelStringInput | null;
 };
 
@@ -71,6 +75,164 @@ export type ModelHabitTypeInput = {
   ne?: HabitType | null;
 };
 
+export type ModelFloatInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export type ProgressiveHabit = {
+  __typename: 'ProgressiveHabit';
+  id: string;
+  name: string;
+  type: HabitType;
+  goal: number;
+  unit: string;
+  currentProgress?: number | null;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type UpdateProgressiveHabitInput = {
+  id: string;
+  name?: string | null;
+  type?: HabitType | null;
+  goal?: number | null;
+  unit?: string | null;
+  currentProgress?: number | null;
+};
+
+export type DeleteProgressiveHabitInput = {
+  id: string;
+};
+
+export type CreateActivityHabitInput = {
+  id?: string | null;
+  name: string;
+  type: HabitType;
+  sessionsPerWeek: number;
+  completedSessions?: number | null;
+};
+
+export type ModelActivityHabitConditionInput = {
+  name?: ModelStringInput | null;
+  type?: ModelHabitTypeInput | null;
+  sessionsPerWeek?: ModelIntInput | null;
+  completedSessions?: ModelIntInput | null;
+  and?: Array<ModelActivityHabitConditionInput | null> | null;
+  or?: Array<ModelActivityHabitConditionInput | null> | null;
+  not?: ModelActivityHabitConditionInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
+  owner?: ModelStringInput | null;
+};
+
+export type ModelIntInput = {
+  ne?: number | null;
+  eq?: number | null;
+  le?: number | null;
+  lt?: number | null;
+  ge?: number | null;
+  gt?: number | null;
+  between?: Array<number | null> | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export type ActivityHabit = {
+  __typename: 'ActivityHabit';
+  id: string;
+  name: string;
+  type: HabitType;
+  sessionsPerWeek: number;
+  completedSessions?: number | null;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type UpdateActivityHabitInput = {
+  id: string;
+  name?: string | null;
+  type?: HabitType | null;
+  sessionsPerWeek?: number | null;
+  completedSessions?: number | null;
+};
+
+export type DeleteActivityHabitInput = {
+  id: string;
+};
+
+export type CreateGeneralHabitInput = {
+  id?: string | null;
+  name: string;
+  type: HabitType;
+  completed?: boolean | null;
+};
+
+export type ModelGeneralHabitConditionInput = {
+  name?: ModelStringInput | null;
+  type?: ModelHabitTypeInput | null;
+  completed?: ModelBooleanInput | null;
+  and?: Array<ModelGeneralHabitConditionInput | null> | null;
+  or?: Array<ModelGeneralHabitConditionInput | null> | null;
+  not?: ModelGeneralHabitConditionInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
+  owner?: ModelStringInput | null;
+};
+
+export type ModelBooleanInput = {
+  ne?: boolean | null;
+  eq?: boolean | null;
+  attributeExists?: boolean | null;
+  attributeType?: ModelAttributeTypes | null;
+};
+
+export type GeneralHabit = {
+  __typename: 'GeneralHabit';
+  id: string;
+  name: string;
+  type: HabitType;
+  completed?: boolean | null;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type UpdateGeneralHabitInput = {
+  id: string;
+  name?: string | null;
+  type?: HabitType | null;
+  completed?: boolean | null;
+};
+
+export type DeleteGeneralHabitInput = {
+  id: string;
+};
+
+export type ModelProgressiveHabitFilterInput = {
+  id?: ModelIDInput | null;
+  name?: ModelStringInput | null;
+  type?: ModelHabitTypeInput | null;
+  goal?: ModelFloatInput | null;
+  unit?: ModelStringInput | null;
+  currentProgress?: ModelFloatInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
+  and?: Array<ModelProgressiveHabitFilterInput | null> | null;
+  or?: Array<ModelProgressiveHabitFilterInput | null> | null;
+  not?: ModelProgressiveHabitFilterInput | null;
+  owner?: ModelStringInput | null;
+};
+
 export type ModelIDInput = {
   ne?: string | null;
   eq?: string | null;
@@ -87,163 +249,62 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type Habit = {
-  __typename: 'Habit';
-  id: string;
-  name: string;
-  type: HabitType;
-  details?: HabitDetails | null;
-  createdAt: string;
-  updatedAt: string;
-  habitDetailsId?: string | null;
-  owner?: string | null;
+export type ModelProgressiveHabitConnection = {
+  __typename: 'ModelProgressiveHabitConnection';
+  items: Array<ProgressiveHabit | null>;
+  nextToken?: string | null;
 };
 
-export type HabitDetails = {
-  __typename: 'HabitDetails';
-  id: string;
-  goal?: number | null;
-  unit?: string | null;
-  currentProgress?: number | null;
-  sessionsPerWeek?: number | null;
-  completedSessions?: number | null;
-  completed?: boolean | null;
-  createdAt: string;
-  updatedAt: string;
-  owner?: string | null;
-};
-
-export type UpdateHabitInput = {
-  id: string;
-  name?: string | null;
-  type?: HabitType | null;
-  habitDetailsId?: string | null;
-};
-
-export type DeleteHabitInput = {
-  id: string;
-};
-
-export type CreateHabitDetailsInput = {
-  id?: string | null;
-  goal?: number | null;
-  unit?: string | null;
-  currentProgress?: number | null;
-  sessionsPerWeek?: number | null;
-  completedSessions?: number | null;
-  completed?: boolean | null;
-};
-
-export type ModelHabitDetailsConditionInput = {
-  goal?: ModelFloatInput | null;
-  unit?: ModelStringInput | null;
-  currentProgress?: ModelFloatInput | null;
-  sessionsPerWeek?: ModelIntInput | null;
-  completedSessions?: ModelIntInput | null;
-  completed?: ModelBooleanInput | null;
-  and?: Array<ModelHabitDetailsConditionInput | null> | null;
-  or?: Array<ModelHabitDetailsConditionInput | null> | null;
-  not?: ModelHabitDetailsConditionInput | null;
-  createdAt?: ModelStringInput | null;
-  updatedAt?: ModelStringInput | null;
-  owner?: ModelStringInput | null;
-};
-
-export type ModelFloatInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
-export type ModelIntInput = {
-  ne?: number | null;
-  eq?: number | null;
-  le?: number | null;
-  lt?: number | null;
-  ge?: number | null;
-  gt?: number | null;
-  between?: Array<number | null> | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
-export type ModelBooleanInput = {
-  ne?: boolean | null;
-  eq?: boolean | null;
-  attributeExists?: boolean | null;
-  attributeType?: ModelAttributeTypes | null;
-};
-
-export type UpdateHabitDetailsInput = {
-  id: string;
-  goal?: number | null;
-  unit?: string | null;
-  currentProgress?: number | null;
-  sessionsPerWeek?: number | null;
-  completedSessions?: number | null;
-  completed?: boolean | null;
-};
-
-export type DeleteHabitDetailsInput = {
-  id: string;
-};
-
-export type ModelHabitFilterInput = {
+export type ModelActivityHabitFilterInput = {
   id?: ModelIDInput | null;
   name?: ModelStringInput | null;
   type?: ModelHabitTypeInput | null;
+  sessionsPerWeek?: ModelIntInput | null;
+  completedSessions?: ModelIntInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelHabitFilterInput | null> | null;
-  or?: Array<ModelHabitFilterInput | null> | null;
-  not?: ModelHabitFilterInput | null;
-  habitDetailsId?: ModelIDInput | null;
+  and?: Array<ModelActivityHabitFilterInput | null> | null;
+  or?: Array<ModelActivityHabitFilterInput | null> | null;
+  not?: ModelActivityHabitFilterInput | null;
   owner?: ModelStringInput | null;
 };
 
-export type ModelHabitConnection = {
-  __typename: 'ModelHabitConnection';
-  items: Array<Habit | null>;
+export type ModelActivityHabitConnection = {
+  __typename: 'ModelActivityHabitConnection';
+  items: Array<ActivityHabit | null>;
   nextToken?: string | null;
 };
 
-export type ModelHabitDetailsFilterInput = {
+export type ModelGeneralHabitFilterInput = {
   id?: ModelIDInput | null;
-  goal?: ModelFloatInput | null;
-  unit?: ModelStringInput | null;
-  currentProgress?: ModelFloatInput | null;
-  sessionsPerWeek?: ModelIntInput | null;
-  completedSessions?: ModelIntInput | null;
+  name?: ModelStringInput | null;
+  type?: ModelHabitTypeInput | null;
   completed?: ModelBooleanInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  and?: Array<ModelHabitDetailsFilterInput | null> | null;
-  or?: Array<ModelHabitDetailsFilterInput | null> | null;
-  not?: ModelHabitDetailsFilterInput | null;
+  and?: Array<ModelGeneralHabitFilterInput | null> | null;
+  or?: Array<ModelGeneralHabitFilterInput | null> | null;
+  not?: ModelGeneralHabitFilterInput | null;
   owner?: ModelStringInput | null;
 };
 
-export type ModelHabitDetailsConnection = {
-  __typename: 'ModelHabitDetailsConnection';
-  items: Array<HabitDetails | null>;
+export type ModelGeneralHabitConnection = {
+  __typename: 'ModelGeneralHabitConnection';
+  items: Array<GeneralHabit | null>;
   nextToken?: string | null;
 };
 
-export type ModelSubscriptionHabitFilterInput = {
+export type ModelSubscriptionProgressiveHabitFilterInput = {
   id?: ModelSubscriptionIDInput | null;
   name?: ModelSubscriptionStringInput | null;
   type?: ModelSubscriptionStringInput | null;
+  goal?: ModelSubscriptionFloatInput | null;
+  unit?: ModelSubscriptionStringInput | null;
+  currentProgress?: ModelSubscriptionFloatInput | null;
   createdAt?: ModelSubscriptionStringInput | null;
   updatedAt?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionHabitFilterInput | null> | null;
-  or?: Array<ModelSubscriptionHabitFilterInput | null> | null;
-  habitDetailsId?: ModelSubscriptionIDInput | null;
+  and?: Array<ModelSubscriptionProgressiveHabitFilterInput | null> | null;
+  or?: Array<ModelSubscriptionProgressiveHabitFilterInput | null> | null;
   owner?: ModelStringInput | null;
 };
 
@@ -277,21 +338,6 @@ export type ModelSubscriptionStringInput = {
   notIn?: Array<string | null> | null;
 };
 
-export type ModelSubscriptionHabitDetailsFilterInput = {
-  id?: ModelSubscriptionIDInput | null;
-  goal?: ModelSubscriptionFloatInput | null;
-  unit?: ModelSubscriptionStringInput | null;
-  currentProgress?: ModelSubscriptionFloatInput | null;
-  sessionsPerWeek?: ModelSubscriptionIntInput | null;
-  completedSessions?: ModelSubscriptionIntInput | null;
-  completed?: ModelSubscriptionBooleanInput | null;
-  createdAt?: ModelSubscriptionStringInput | null;
-  updatedAt?: ModelSubscriptionStringInput | null;
-  and?: Array<ModelSubscriptionHabitDetailsFilterInput | null> | null;
-  or?: Array<ModelSubscriptionHabitDetailsFilterInput | null> | null;
-  owner?: ModelStringInput | null;
-};
-
 export type ModelSubscriptionFloatInput = {
   ne?: number | null;
   eq?: number | null;
@@ -302,6 +348,19 @@ export type ModelSubscriptionFloatInput = {
   between?: Array<number | null> | null;
   in?: Array<number | null> | null;
   notIn?: Array<number | null> | null;
+};
+
+export type ModelSubscriptionActivityHabitFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  name?: ModelSubscriptionStringInput | null;
+  type?: ModelSubscriptionStringInput | null;
+  sessionsPerWeek?: ModelSubscriptionIntInput | null;
+  completedSessions?: ModelSubscriptionIntInput | null;
+  createdAt?: ModelSubscriptionStringInput | null;
+  updatedAt?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionActivityHabitFilterInput | null> | null;
+  or?: Array<ModelSubscriptionActivityHabitFilterInput | null> | null;
+  owner?: ModelStringInput | null;
 };
 
 export type ModelSubscriptionIntInput = {
@@ -316,118 +375,151 @@ export type ModelSubscriptionIntInput = {
   notIn?: Array<number | null> | null;
 };
 
+export type ModelSubscriptionGeneralHabitFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  name?: ModelSubscriptionStringInput | null;
+  type?: ModelSubscriptionStringInput | null;
+  completed?: ModelSubscriptionBooleanInput | null;
+  createdAt?: ModelSubscriptionStringInput | null;
+  updatedAt?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionGeneralHabitFilterInput | null> | null;
+  or?: Array<ModelSubscriptionGeneralHabitFilterInput | null> | null;
+  owner?: ModelStringInput | null;
+};
+
 export type ModelSubscriptionBooleanInput = {
   ne?: boolean | null;
   eq?: boolean | null;
 };
 
-export type CreateHabitMutationVariables = {
-  input: CreateHabitInput;
-  condition?: ModelHabitConditionInput | null;
+export type CreateProgressiveHabitMutationVariables = {
+  input: CreateProgressiveHabitInput;
+  condition?: ModelProgressiveHabitConditionInput | null;
 };
 
-export type CreateHabitMutation = {
-  createHabit?: {
-    __typename: 'Habit';
+export type CreateProgressiveHabitMutation = {
+  createProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
     id: string;
     name: string;
     type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    habitDetailsId?: string | null;
-    owner?: string | null;
-  } | null;
-};
-
-export type UpdateHabitMutationVariables = {
-  input: UpdateHabitInput;
-  condition?: ModelHabitConditionInput | null;
-};
-
-export type UpdateHabitMutation = {
-  updateHabit?: {
-    __typename: 'Habit';
-    id: string;
-    name: string;
-    type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    habitDetailsId?: string | null;
-    owner?: string | null;
-  } | null;
-};
-
-export type DeleteHabitMutationVariables = {
-  input: DeleteHabitInput;
-  condition?: ModelHabitConditionInput | null;
-};
-
-export type DeleteHabitMutation = {
-  deleteHabit?: {
-    __typename: 'Habit';
-    id: string;
-    name: string;
-    type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    habitDetailsId?: string | null;
-    owner?: string | null;
-  } | null;
-};
-
-export type CreateHabitDetailsMutationVariables = {
-  input: CreateHabitDetailsInput;
-  condition?: ModelHabitDetailsConditionInput | null;
-};
-
-export type CreateHabitDetailsMutation = {
-  createHabitDetails?: {
-    __typename: 'HabitDetails';
-    id: string;
-    goal?: number | null;
-    unit?: string | null;
+    goal: number;
+    unit: string;
     currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type UpdateProgressiveHabitMutationVariables = {
+  input: UpdateProgressiveHabitInput;
+  condition?: ModelProgressiveHabitConditionInput | null;
+};
+
+export type UpdateProgressiveHabitMutation = {
+  updateProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    goal: number;
+    unit: string;
+    currentProgress?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type DeleteProgressiveHabitMutationVariables = {
+  input: DeleteProgressiveHabitInput;
+  condition?: ModelProgressiveHabitConditionInput | null;
+};
+
+export type DeleteProgressiveHabitMutation = {
+  deleteProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    goal: number;
+    unit: string;
+    currentProgress?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type CreateActivityHabitMutationVariables = {
+  input: CreateActivityHabitInput;
+  condition?: ModelActivityHabitConditionInput | null;
+};
+
+export type CreateActivityHabitMutation = {
+  createActivityHabit?: {
+    __typename: 'ActivityHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
     completedSessions?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type UpdateActivityHabitMutationVariables = {
+  input: UpdateActivityHabitInput;
+  condition?: ModelActivityHabitConditionInput | null;
+};
+
+export type UpdateActivityHabitMutation = {
+  updateActivityHabit?: {
+    __typename: 'ActivityHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
+    completedSessions?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type DeleteActivityHabitMutationVariables = {
+  input: DeleteActivityHabitInput;
+  condition?: ModelActivityHabitConditionInput | null;
+};
+
+export type DeleteActivityHabitMutation = {
+  deleteActivityHabit?: {
+    __typename: 'ActivityHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
+    completedSessions?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type CreateGeneralHabitMutationVariables = {
+  input: CreateGeneralHabitInput;
+  condition?: ModelGeneralHabitConditionInput | null;
+};
+
+export type CreateGeneralHabitMutation = {
+  createGeneralHabit?: {
+    __typename: 'GeneralHabit';
+    id: string;
+    name: string;
+    type: HabitType;
     completed?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -435,20 +527,17 @@ export type CreateHabitDetailsMutation = {
   } | null;
 };
 
-export type UpdateHabitDetailsMutationVariables = {
-  input: UpdateHabitDetailsInput;
-  condition?: ModelHabitDetailsConditionInput | null;
+export type UpdateGeneralHabitMutationVariables = {
+  input: UpdateGeneralHabitInput;
+  condition?: ModelGeneralHabitConditionInput | null;
 };
 
-export type UpdateHabitDetailsMutation = {
-  updateHabitDetails?: {
-    __typename: 'HabitDetails';
+export type UpdateGeneralHabitMutation = {
+  updateGeneralHabit?: {
+    __typename: 'GeneralHabit';
     id: string;
-    goal?: number | null;
-    unit?: string | null;
-    currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
-    completedSessions?: number | null;
+    name: string;
+    type: HabitType;
     completed?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -456,20 +545,17 @@ export type UpdateHabitDetailsMutation = {
   } | null;
 };
 
-export type DeleteHabitDetailsMutationVariables = {
-  input: DeleteHabitDetailsInput;
-  condition?: ModelHabitDetailsConditionInput | null;
+export type DeleteGeneralHabitMutationVariables = {
+  input: DeleteGeneralHabitInput;
+  condition?: ModelGeneralHabitConditionInput | null;
 };
 
-export type DeleteHabitDetailsMutation = {
-  deleteHabitDetails?: {
-    __typename: 'HabitDetails';
+export type DeleteGeneralHabitMutation = {
+  deleteGeneralHabit?: {
+    __typename: 'GeneralHabit';
     id: string;
-    goal?: number | null;
-    unit?: string | null;
-    currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
-    completedSessions?: number | null;
+    name: string;
+    type: HabitType;
     completed?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -477,96 +563,123 @@ export type DeleteHabitDetailsMutation = {
   } | null;
 };
 
-export type GetHabitQueryVariables = {
+export type GetProgressiveHabitQueryVariables = {
   id: string;
 };
 
-export type GetHabitQuery = {
-  getHabit?: {
-    __typename: 'Habit';
+export type GetProgressiveHabitQuery = {
+  getProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
     id: string;
     name: string;
     type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
+    goal: number;
+    unit: string;
+    currentProgress?: number | null;
     createdAt: string;
     updatedAt: string;
-    habitDetailsId?: string | null;
     owner?: string | null;
   } | null;
 };
 
-export type ListHabitsQueryVariables = {
-  filter?: ModelHabitFilterInput | null;
+export type ListProgressiveHabitsQueryVariables = {
+  filter?: ModelProgressiveHabitFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type ListHabitsQuery = {
-  listHabits?: {
-    __typename: 'ModelHabitConnection';
+export type ListProgressiveHabitsQuery = {
+  listProgressiveHabits?: {
+    __typename: 'ModelProgressiveHabitConnection';
     items: Array<{
-      __typename: 'Habit';
+      __typename: 'ProgressiveHabit';
       id: string;
       name: string;
       type: HabitType;
+      goal: number;
+      unit: string;
+      currentProgress?: number | null;
       createdAt: string;
       updatedAt: string;
-      habitDetailsId?: string | null;
       owner?: string | null;
     } | null>;
     nextToken?: string | null;
   } | null;
 };
 
-export type GetHabitDetailsQueryVariables = {
+export type GetActivityHabitQueryVariables = {
   id: string;
 };
 
-export type GetHabitDetailsQuery = {
-  getHabitDetails?: {
-    __typename: 'HabitDetails';
+export type GetActivityHabitQuery = {
+  getActivityHabit?: {
+    __typename: 'ActivityHabit';
     id: string;
-    goal?: number | null;
-    unit?: string | null;
-    currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
     completedSessions?: number | null;
-    completed?: boolean | null;
     createdAt: string;
     updatedAt: string;
     owner?: string | null;
   } | null;
 };
 
-export type ListHabitDetailsQueryVariables = {
-  filter?: ModelHabitDetailsFilterInput | null;
+export type ListActivityHabitsQueryVariables = {
+  filter?: ModelActivityHabitFilterInput | null;
   limit?: number | null;
   nextToken?: string | null;
 };
 
-export type ListHabitDetailsQuery = {
-  listHabitDetails?: {
-    __typename: 'ModelHabitDetailsConnection';
+export type ListActivityHabitsQuery = {
+  listActivityHabits?: {
+    __typename: 'ModelActivityHabitConnection';
     items: Array<{
-      __typename: 'HabitDetails';
+      __typename: 'ActivityHabit';
       id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
+      name: string;
+      type: HabitType;
+      sessionsPerWeek: number;
       completedSessions?: number | null;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
+};
+
+export type GetGeneralHabitQueryVariables = {
+  id: string;
+};
+
+export type GetGeneralHabitQuery = {
+  getGeneralHabit?: {
+    __typename: 'GeneralHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    completed?: boolean | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type ListGeneralHabitsQueryVariables = {
+  filter?: ModelGeneralHabitFilterInput | null;
+  limit?: number | null;
+  nextToken?: string | null;
+};
+
+export type ListGeneralHabitsQuery = {
+  listGeneralHabits?: {
+    __typename: 'ModelGeneralHabitConnection';
+    items: Array<{
+      __typename: 'GeneralHabit';
+      id: string;
+      name: string;
+      type: HabitType;
       completed?: boolean | null;
       createdAt: string;
       updatedAt: string;
@@ -576,113 +689,134 @@ export type ListHabitDetailsQuery = {
   } | null;
 };
 
-export type OnCreateHabitSubscriptionVariables = {
-  filter?: ModelSubscriptionHabitFilterInput | null;
+export type OnCreateProgressiveHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionProgressiveHabitFilterInput | null;
   owner?: string | null;
 };
 
-export type OnCreateHabitSubscription = {
-  onCreateHabit?: {
-    __typename: 'Habit';
+export type OnCreateProgressiveHabitSubscription = {
+  onCreateProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
     id: string;
     name: string;
     type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    habitDetailsId?: string | null;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnUpdateHabitSubscriptionVariables = {
-  filter?: ModelSubscriptionHabitFilterInput | null;
-  owner?: string | null;
-};
-
-export type OnUpdateHabitSubscription = {
-  onUpdateHabit?: {
-    __typename: 'Habit';
-    id: string;
-    name: string;
-    type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    habitDetailsId?: string | null;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnDeleteHabitSubscriptionVariables = {
-  filter?: ModelSubscriptionHabitFilterInput | null;
-  owner?: string | null;
-};
-
-export type OnDeleteHabitSubscription = {
-  onDeleteHabit?: {
-    __typename: 'Habit';
-    id: string;
-    name: string;
-    type: HabitType;
-    details?: {
-      __typename: 'HabitDetails';
-      id: string;
-      goal?: number | null;
-      unit?: string | null;
-      currentProgress?: number | null;
-      sessionsPerWeek?: number | null;
-      completedSessions?: number | null;
-      completed?: boolean | null;
-      createdAt: string;
-      updatedAt: string;
-      owner?: string | null;
-    } | null;
-    createdAt: string;
-    updatedAt: string;
-    habitDetailsId?: string | null;
-    owner?: string | null;
-  } | null;
-};
-
-export type OnCreateHabitDetailsSubscriptionVariables = {
-  filter?: ModelSubscriptionHabitDetailsFilterInput | null;
-  owner?: string | null;
-};
-
-export type OnCreateHabitDetailsSubscription = {
-  onCreateHabitDetails?: {
-    __typename: 'HabitDetails';
-    id: string;
-    goal?: number | null;
-    unit?: string | null;
+    goal: number;
+    unit: string;
     currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnUpdateProgressiveHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionProgressiveHabitFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnUpdateProgressiveHabitSubscription = {
+  onUpdateProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    goal: number;
+    unit: string;
+    currentProgress?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnDeleteProgressiveHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionProgressiveHabitFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnDeleteProgressiveHabitSubscription = {
+  onDeleteProgressiveHabit?: {
+    __typename: 'ProgressiveHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    goal: number;
+    unit: string;
+    currentProgress?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnCreateActivityHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionActivityHabitFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnCreateActivityHabitSubscription = {
+  onCreateActivityHabit?: {
+    __typename: 'ActivityHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
     completedSessions?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnUpdateActivityHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionActivityHabitFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnUpdateActivityHabitSubscription = {
+  onUpdateActivityHabit?: {
+    __typename: 'ActivityHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
+    completedSessions?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnDeleteActivityHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionActivityHabitFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnDeleteActivityHabitSubscription = {
+  onDeleteActivityHabit?: {
+    __typename: 'ActivityHabit';
+    id: string;
+    name: string;
+    type: HabitType;
+    sessionsPerWeek: number;
+    completedSessions?: number | null;
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnCreateGeneralHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionGeneralHabitFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnCreateGeneralHabitSubscription = {
+  onCreateGeneralHabit?: {
+    __typename: 'GeneralHabit';
+    id: string;
+    name: string;
+    type: HabitType;
     completed?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -690,20 +824,17 @@ export type OnCreateHabitDetailsSubscription = {
   } | null;
 };
 
-export type OnUpdateHabitDetailsSubscriptionVariables = {
-  filter?: ModelSubscriptionHabitDetailsFilterInput | null;
+export type OnUpdateGeneralHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionGeneralHabitFilterInput | null;
   owner?: string | null;
 };
 
-export type OnUpdateHabitDetailsSubscription = {
-  onUpdateHabitDetails?: {
-    __typename: 'HabitDetails';
+export type OnUpdateGeneralHabitSubscription = {
+  onUpdateGeneralHabit?: {
+    __typename: 'GeneralHabit';
     id: string;
-    goal?: number | null;
-    unit?: string | null;
-    currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
-    completedSessions?: number | null;
+    name: string;
+    type: HabitType;
     completed?: boolean | null;
     createdAt: string;
     updatedAt: string;
@@ -711,20 +842,17 @@ export type OnUpdateHabitDetailsSubscription = {
   } | null;
 };
 
-export type OnDeleteHabitDetailsSubscriptionVariables = {
-  filter?: ModelSubscriptionHabitDetailsFilterInput | null;
+export type OnDeleteGeneralHabitSubscriptionVariables = {
+  filter?: ModelSubscriptionGeneralHabitFilterInput | null;
   owner?: string | null;
 };
 
-export type OnDeleteHabitDetailsSubscription = {
-  onDeleteHabitDetails?: {
-    __typename: 'HabitDetails';
+export type OnDeleteGeneralHabitSubscription = {
+  onDeleteGeneralHabit?: {
+    __typename: 'GeneralHabit';
     id: string;
-    goal?: number | null;
-    unit?: string | null;
-    currentProgress?: number | null;
-    sessionsPerWeek?: number | null;
-    completedSessions?: number | null;
+    name: string;
+    type: HabitType;
     completed?: boolean | null;
     createdAt: string;
     updatedAt: string;

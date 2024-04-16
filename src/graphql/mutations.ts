@@ -8,113 +8,140 @@ type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationOutput: OutputType;
 };
 
-export const createHabit = /* GraphQL */ `mutation CreateHabit(
-  $input: CreateHabitInput!
-  $condition: ModelHabitConditionInput
+export const createProgressiveHabit =
+  /* GraphQL */ `mutation CreateProgressiveHabit(
+  $input: CreateProgressiveHabitInput!
+  $condition: ModelProgressiveHabitConditionInput
 ) {
-  createHabit(input: $input, condition: $condition) {
+  createProgressiveHabit(input: $input, condition: $condition) {
     id
     name
     type
-    details {
-      id
-      goal
-      unit
-      currentProgress
-      sessionsPerWeek
-      completedSessions
-      completed
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    createdAt
-    updatedAt
-    habitDetailsId
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.CreateHabitMutationVariables,
-  APITypes.CreateHabitMutation
->;
-export const updateHabit = /* GraphQL */ `mutation UpdateHabit(
-  $input: UpdateHabitInput!
-  $condition: ModelHabitConditionInput
-) {
-  updateHabit(input: $input, condition: $condition) {
-    id
-    name
-    type
-    details {
-      id
-      goal
-      unit
-      currentProgress
-      sessionsPerWeek
-      completedSessions
-      completed
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    createdAt
-    updatedAt
-    habitDetailsId
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.UpdateHabitMutationVariables,
-  APITypes.UpdateHabitMutation
->;
-export const deleteHabit = /* GraphQL */ `mutation DeleteHabit(
-  $input: DeleteHabitInput!
-  $condition: ModelHabitConditionInput
-) {
-  deleteHabit(input: $input, condition: $condition) {
-    id
-    name
-    type
-    details {
-      id
-      goal
-      unit
-      currentProgress
-      sessionsPerWeek
-      completedSessions
-      completed
-      createdAt
-      updatedAt
-      owner
-      __typename
-    }
-    createdAt
-    updatedAt
-    habitDetailsId
-    owner
-    __typename
-  }
-}
-` as GeneratedMutation<
-  APITypes.DeleteHabitMutationVariables,
-  APITypes.DeleteHabitMutation
->;
-export const createHabitDetails = /* GraphQL */ `mutation CreateHabitDetails(
-  $input: CreateHabitDetailsInput!
-  $condition: ModelHabitDetailsConditionInput
-) {
-  createHabitDetails(input: $input, condition: $condition) {
-    id
     goal
     unit
     currentProgress
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.CreateProgressiveHabitMutationVariables,
+    APITypes.CreateProgressiveHabitMutation
+  >;
+export const updateProgressiveHabit =
+  /* GraphQL */ `mutation UpdateProgressiveHabit(
+  $input: UpdateProgressiveHabitInput!
+  $condition: ModelProgressiveHabitConditionInput
+) {
+  updateProgressiveHabit(input: $input, condition: $condition) {
+    id
+    name
+    type
+    goal
+    unit
+    currentProgress
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.UpdateProgressiveHabitMutationVariables,
+    APITypes.UpdateProgressiveHabitMutation
+  >;
+export const deleteProgressiveHabit =
+  /* GraphQL */ `mutation DeleteProgressiveHabit(
+  $input: DeleteProgressiveHabitInput!
+  $condition: ModelProgressiveHabitConditionInput
+) {
+  deleteProgressiveHabit(input: $input, condition: $condition) {
+    id
+    name
+    type
+    goal
+    unit
+    currentProgress
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.DeleteProgressiveHabitMutationVariables,
+    APITypes.DeleteProgressiveHabitMutation
+  >;
+export const createActivityHabit = /* GraphQL */ `mutation CreateActivityHabit(
+  $input: CreateActivityHabitInput!
+  $condition: ModelActivityHabitConditionInput
+) {
+  createActivityHabit(input: $input, condition: $condition) {
+    id
+    name
+    type
     sessionsPerWeek
     completedSessions
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.CreateActivityHabitMutationVariables,
+  APITypes.CreateActivityHabitMutation
+>;
+export const updateActivityHabit = /* GraphQL */ `mutation UpdateActivityHabit(
+  $input: UpdateActivityHabitInput!
+  $condition: ModelActivityHabitConditionInput
+) {
+  updateActivityHabit(input: $input, condition: $condition) {
+    id
+    name
+    type
+    sessionsPerWeek
+    completedSessions
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.UpdateActivityHabitMutationVariables,
+  APITypes.UpdateActivityHabitMutation
+>;
+export const deleteActivityHabit = /* GraphQL */ `mutation DeleteActivityHabit(
+  $input: DeleteActivityHabitInput!
+  $condition: ModelActivityHabitConditionInput
+) {
+  deleteActivityHabit(input: $input, condition: $condition) {
+    id
+    name
+    type
+    sessionsPerWeek
+    completedSessions
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+  APITypes.DeleteActivityHabitMutationVariables,
+  APITypes.DeleteActivityHabitMutation
+>;
+export const createGeneralHabit = /* GraphQL */ `mutation CreateGeneralHabit(
+  $input: CreateGeneralHabitInput!
+  $condition: ModelGeneralHabitConditionInput
+) {
+  createGeneralHabit(input: $input, condition: $condition) {
+    id
+    name
+    type
     completed
     createdAt
     updatedAt
@@ -123,20 +150,17 @@ export const createHabitDetails = /* GraphQL */ `mutation CreateHabitDetails(
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateHabitDetailsMutationVariables,
-  APITypes.CreateHabitDetailsMutation
+  APITypes.CreateGeneralHabitMutationVariables,
+  APITypes.CreateGeneralHabitMutation
 >;
-export const updateHabitDetails = /* GraphQL */ `mutation UpdateHabitDetails(
-  $input: UpdateHabitDetailsInput!
-  $condition: ModelHabitDetailsConditionInput
+export const updateGeneralHabit = /* GraphQL */ `mutation UpdateGeneralHabit(
+  $input: UpdateGeneralHabitInput!
+  $condition: ModelGeneralHabitConditionInput
 ) {
-  updateHabitDetails(input: $input, condition: $condition) {
+  updateGeneralHabit(input: $input, condition: $condition) {
     id
-    goal
-    unit
-    currentProgress
-    sessionsPerWeek
-    completedSessions
+    name
+    type
     completed
     createdAt
     updatedAt
@@ -145,20 +169,17 @@ export const updateHabitDetails = /* GraphQL */ `mutation UpdateHabitDetails(
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateHabitDetailsMutationVariables,
-  APITypes.UpdateHabitDetailsMutation
+  APITypes.UpdateGeneralHabitMutationVariables,
+  APITypes.UpdateGeneralHabitMutation
 >;
-export const deleteHabitDetails = /* GraphQL */ `mutation DeleteHabitDetails(
-  $input: DeleteHabitDetailsInput!
-  $condition: ModelHabitDetailsConditionInput
+export const deleteGeneralHabit = /* GraphQL */ `mutation DeleteGeneralHabit(
+  $input: DeleteGeneralHabitInput!
+  $condition: ModelGeneralHabitConditionInput
 ) {
-  deleteHabitDetails(input: $input, condition: $condition) {
+  deleteGeneralHabit(input: $input, condition: $condition) {
     id
-    goal
-    unit
-    currentProgress
-    sessionsPerWeek
-    completedSessions
+    name
+    type
     completed
     createdAt
     updatedAt
@@ -167,6 +188,6 @@ export const deleteHabitDetails = /* GraphQL */ `mutation DeleteHabitDetails(
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteHabitDetailsMutationVariables,
-  APITypes.DeleteHabitDetailsMutation
+  APITypes.DeleteGeneralHabitMutationVariables,
+  APITypes.DeleteGeneralHabitMutation
 >;

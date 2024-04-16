@@ -1,53 +1,87 @@
 import { generateClient, get } from 'aws-amplify/api';
 import * as mutations from '../graphql/mutations';
 import * as queries from '../graphql/queries';
-import { CreateHabitDetailsInput, CreateHabitInput } from '@/API';
+import {
+  ActivityHabit,
+  CreateActivityHabitInput,
+  CreateGeneralHabitInput,
+  CreateProgressiveHabitInput,
+  GeneralHabit,
+  ProgressiveHabit,
+} from '@/API';
+import { Habit } from '../utils/types/habits'
 
 class HabitService {
   private client: any; // Define the type based on what generateClient returns
-
   constructor() {
     this.client = generateClient(); // Setup the client on instantiation
   }
 
   async getHabits(): Promise<any> {
     try {
-      console.log('test');
-      const newHabit = await this.client.graphql({
-        query: queries.listHabits,
-      });
-      return newHabit;
+      let habits: Habit[] = []
+      const progressiveHabits = (await this.client.graphql({
+        query: queries.listProgressiveHabits,
+      }));
+      habits = habits.concat(progressiveHabits.data.listProgressiveHabits.items);
+
+
+      const activityHabits = (await this.client.graphql({
+        query: queries.listActivityHabits,
+      }));
+      habits = habits.concat(activityHabits.data.listActivityHabits.items);
+
+      const generalHabits = (await this.client.graphql({
+        query: queries.listGeneralHabits,
+      }));
+      habits = habits.concat(generalHabits.data.listGeneralHabits.items);
+
+
+      return habits;
     } catch (error) {
       console.error('Error getting habits', error);
       throw new Error('Failed to get habits');
     }
   }
 
-  async createHabit(input: CreateHabitInput): Promise<any> {
+  async createProgressiveHabit(
+    input: CreateProgressiveHabitInput,
+  ): Promise<any> {
     try {
-      console.log('test');
       const newHabit = await this.client.graphql({
-        query: mutations.createHabit,
+        query: mutations.createProgressiveHabit,
         variables: { input },
       });
       return newHabit;
     } catch (error) {
-      console.error('Error creating habit', error);
-      throw new Error('Failed to create habit');
+      console.error('Error creating progressive habit', error);
+      throw new Error('Failed to create progressive habit');
     }
   }
 
-  async createHabitDetails(input: CreateHabitDetailsInput): Promise<any> {
+  async createActivityHabit(input: CreateActivityHabitInput): Promise<any> {
     try {
-      console.log('test');
       const newHabit = await this.client.graphql({
-        query: mutations.createHabitDetails,
+        query: mutations.createActivityHabit,
         variables: { input },
       });
       return newHabit;
     } catch (error) {
-      console.error('Error creating habit details', error);
-      throw new Error('Failed to create habit');
+      console.error('Error creating activity habit', error);
+      throw new Error('Failed to create activity habit');
+    }
+  }
+
+  async createGeneralHabit(input: CreateGeneralHabitInput): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.createGeneralHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating general habit', error);
+      throw new Error('Failed to create general habit');
     }
   }
 }

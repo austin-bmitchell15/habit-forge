@@ -4,8 +4,8 @@ import { JWT, UserAttributeKey } from '@aws-amplify/auth';
 import { Button, Dialog, DialogHeader } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import UserService from '@/services/UserService';
-import { Habit } from '@/API';
 import HabitCard from '@/components/HabitCard';
+import { Habit } from '@/utils/types/habits';
 
 export default function Habits() {
   const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
@@ -23,8 +23,7 @@ export default function Habits() {
 
       try {
         const habits = await HabitService.getHabits();
-        setHabits(habits.data.listHabits.items);
-        console.log(habits);
+        setHabits(habits);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -40,22 +39,31 @@ export default function Habits() {
   }
   if (error) {
     return <div>Error: {error}</div>;
-  }
-
-  else {
+  } else {
     return (
-      <div className='flex flex-col flex-grow space-y-4 p-4'>
-        <CreateHabitModal open={showCreateHabitModal} setOpen={setShowCreateHabitModal} />
+      <div className="flex flex-col flex-grow space-y-4 p-4">
+        <CreateHabitModal
+          open={showCreateHabitModal}
+          setOpen={setShowCreateHabitModal}
+        />
         <div className="flex flex-col w-full space-y-4 ">
           {habits.map((habit, index) => (
-            <HabitCard habit={habit} key={index} showEdit={setShowCompleteHabitModal} showDelete={setShowDeleteHabitModal} showComplete={setShowCompleteHabitModal}/>
+            <HabitCard
+              habit={habit}
+              key={index}
+              showEdit={setShowCompleteHabitModal}
+              showDelete={setShowDeleteHabitModal}
+              showComplete={setShowCompleteHabitModal}
+            />
           ))}
         </div>
-        <Button className='bg-deep-purple-200' onClick={() => setShowCreateHabitModal(true)}>
+        <Button
+          className="bg-deep-purple-200"
+          onClick={() => setShowCreateHabitModal(true)}
+        >
           Create Habit
         </Button>
       </div>
     );
   }
-  
 }

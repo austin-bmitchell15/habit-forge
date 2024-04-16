@@ -1,7 +1,10 @@
-import { CreateHabitDetailsInput, CreateHabitInput, HabitType } from '@/API';
-import { createHabit } from '@/graphql/mutations';
+import {
+  CreateActivityHabitInput,
+  CreateGeneralHabitInput,
+  CreateProgressiveHabitInput,
+  HabitType,
+} from '@/API';
 import HabitService from '@/services/HabitService';
-import { HabitTypes } from '@/utils/types/habit';
 import {
   Button,
   Dialog,
@@ -9,13 +12,10 @@ import {
   DialogFooter,
   DialogHeader,
   Input,
-  MenuItem,
   Option,
   Select,
-  Textarea,
-  Typography,
 } from '@material-tailwind/react';
-import { MouseEventHandler, useState } from 'react';
+import { useState } from 'react';
 
 interface CreateHabitModalProps {
   open: boolean;
@@ -32,38 +32,62 @@ export default function CreateHabitModal({
   const [sessionsPerWeek, setSessionsPerWeek] = useState<string>('');
   const [goal, setGoal] = useState<string>('0');
 
-  const handleSubmit = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
-  ) => {
-    event.preventDefault();
-    const details = {
-      goal: parseInt(goal),
-      unit,
-      sessionsPerWeek: parseInt(sessionsPerWeek),
-    };
-    try {
-      const newDetails = await HabitService.createHabitDetails(
-        details as CreateHabitDetailsInput,
-      );
-      const habitData: CreateHabitInput = {
-        name,
-        type: habitType,
-        habitDetailsId: newDetails.id,
-      };
-      const newHabit = await HabitService.createHabit(habitData);
-      console.log('Success:', newHabit);
-    } catch (err) {
-      console.error('Error creating habit:', err);
-    }
-    handleClose();
-  };
-
   const handleClose = () => {
     setHabitType(HabitType.GENERAL);
     setName('');
     setUnit('');
     setSessionsPerWeek('');
     setOpen(false);
+  };
+
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+
+    try {
+      let input = {};
+      let result = null;
+      switch (habitType) {
+        case HabitType.PROGRESSIVE:
+          input = {
+            name,
+            type: HabitType.PROGRESSIVE,
+            goal: parseFloat(goal), // Assuming goal is a numeric value
+            unit,
+            currentProgress: 0, // Assuming a default start value of 0
+          };
+          result = await HabitService.createProgressiveHabit(
+            input as CreateProgressiveHabitInput,
+          );
+          break;
+        case HabitType.ACTIVITY:
+          input = {
+            name,
+            type: HabitType.ACTIVITY,
+            sessionsPerWeek: parseInt(sessionsPerWeek, 10),
+            completedSessions: 0, // Assuming a default start value of 0
+          };
+          result = await HabitService.createActivityHabit(
+            input as CreateActivityHabitInput,
+          );
+          break;
+        case HabitType.GENERAL:
+          input = {
+            name,
+            type: HabitType.GENERAL,
+            completed: false, // Assuming a default start value of false
+          };
+          result = await HabitService.createGeneralHabit(
+            input as CreateGeneralHabitInput,
+          );
+          break;
+      }
+      console.log('Habit created:', result);
+      handleClose();
+    } catch (error) {
+      console.error('Error creating habit:', error);
+    }
   };
 
   return (
