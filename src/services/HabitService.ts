@@ -9,7 +9,7 @@ import {
   GeneralHabit,
   ProgressiveHabit,
 } from '@/API';
-import { Habit } from '../utils/types/habits'
+import { Habit } from '../utils/types/habits';
 
 class HabitService {
   private client: any; // Define the type based on what generateClient returns
@@ -19,23 +19,23 @@ class HabitService {
 
   async getHabits(): Promise<any> {
     try {
-      let habits: Habit[] = []
-      const progressiveHabits = (await this.client.graphql({
+      let habits: Habit[] = [];
+      const progressiveHabits = await this.client.graphql({
         query: queries.listProgressiveHabits,
-      }));
-      habits = habits.concat(progressiveHabits.data.listProgressiveHabits.items);
+      });
+      habits = habits.concat(
+        progressiveHabits.data.listProgressiveHabits.items,
+      );
 
-
-      const activityHabits = (await this.client.graphql({
+      const activityHabits = await this.client.graphql({
         query: queries.listActivityHabits,
-      }));
+      });
       habits = habits.concat(activityHabits.data.listActivityHabits.items);
 
-      const generalHabits = (await this.client.graphql({
+      const generalHabits = await this.client.graphql({
         query: queries.listGeneralHabits,
-      }));
+      });
       habits = habits.concat(generalHabits.data.listGeneralHabits.items);
-
 
       return habits;
     } catch (error) {

@@ -1,3 +1,3 @@
-import { ActivityHabit, GeneralHabit, ProgressiveHabit } from "@/API";
+import { ActivityHabit, GeneralHabit, ProgressiveHabit } from '@/API';
 
-export type Habit = ProgressiveHabit | GeneralHabit | ActivityHabit
+export type Habit = ProgressiveHabit | GeneralHabit | ActivityHabit;

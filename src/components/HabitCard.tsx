@@ -1,5 +1,10 @@
 import React from 'react';
-import { ProgressiveHabit, ActivityHabit, GeneralHabit, HabitType } from '@/API';
+import {
+  ProgressiveHabit,
+  ActivityHabit,
+  GeneralHabit,
+  HabitType,
+} from '@/API';
 import {
   Card,
   CardBody,
