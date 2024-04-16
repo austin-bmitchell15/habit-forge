@@ -1,17 +1,20 @@
-import CreateHabitModal from '@/components/CreateHabitModal';
+import CreateHabitModal from '@/components/HabitModals/CreateHabitModal';
 import HabitService from '@/services/HabitService';
 import { JWT, UserAttributeKey } from '@aws-amplify/auth';
 import { Button, Dialog, DialogHeader } from '@material-tailwind/react';
 import { useEffect, useState } from 'react';
 import UserService from '@/services/UserService';
-import HabitList from '@/components/HabitList/HabitList';
 import { Habit } from '@/API';
+import HabitCard from '@/components/HabitCard';
 
 export default function Habits() {
-  const [showHabitModal, setShowHabitModal] = useState(false);
+  const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
+  const [showEditHabitModal, setShowEditHabitModal] = useState(false);
+  const [showDeleteHabitModal, setShowDeleteHabitModal] = useState(false);
+  const [showCompleteHabitModal, setShowCompleteHabitModal] = useState(false);
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -35,17 +38,20 @@ export default function Habits() {
   if (loading) {
     return <div>Loading...</div>;
   }
-
   if (error) {
-      return <div>Error: {error}</div>;
+    return <div>Error: {error}</div>;
   }
 
   else {
     return (
       <div className='flex flex-col flex-grow space-y-4 p-4'>
-        <CreateHabitModal open={showHabitModal} setOpen={setShowHabitModal} />
-        <HabitList habits={habits} />
-        <Button variant="text" onClick={() => setShowHabitModal(true)}>
+        <CreateHabitModal open={showCreateHabitModal} setOpen={setShowCreateHabitModal} />
+        <div className="flex flex-col w-full space-y-4 ">
+          {habits.map((habit, index) => (
+            <HabitCard habit={habit} key={index} showEdit={setShowCompleteHabitModal} showDelete={setShowDeleteHabitModal} showComplete={setShowCompleteHabitModal}/>
+          ))}
+        </div>
+        <Button className='bg-deep-purple-200' onClick={() => setShowCreateHabitModal(true)}>
           Create Habit
         </Button>
       </div>

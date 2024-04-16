@@ -7,9 +7,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 interface HabitCardProps {
   habit: Habit;
+  key: number;
+  showEdit: Function;
+  showDelete: Function;
+  showComplete: Function;
 }
 
-const HabitCard = ({ habit }: HabitCardProps) => {
+const HabitCard = ({ habit, key, showEdit, showDelete, showComplete }: HabitCardProps) => {
   const renderCompleteButton = () => {
     let tooltip = "";
     switch (habit.type) {
@@ -31,7 +35,7 @@ const HabitCard = ({ habit }: HabitCardProps) => {
       <IconButton
         color="green"
         aria-label={tooltip}
-        onClick={() => console.log("complete")}
+        onClick={() => showComplete(true)}
       >
         <CheckCircleIcon />
       </IconButton>
@@ -39,21 +43,22 @@ const HabitCard = ({ habit }: HabitCardProps) => {
   };
 
   return (
-    <Card className="w-full mx-auto shadow-md hover:shadow-lg transition-shadow duration-300">
-      <CardBody className="flex flex-col items-start">
-        <div className="flex justify-between w-full">
-          <Typography variant="h5" className="flex-1 px-4">{habit.name}</Typography>
-          <div className='space-x-2'>
-            {renderCompleteButton()}
-            <IconButton color="blue" aria-label="Edit habit" onClick={() => console.log("Edit")}>
-              <EditIcon />
-            </IconButton>
-            <IconButton color="red" aria-label="Delete habit" onClick={() => console.log("Delete")}>
-              <DeleteIcon />
-            </IconButton>
-          </div>
+    <Card className="w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3" key={key}>
+      <div className="flex flex-row w-full">
+        <div className='flex-1'>
+          <Typography variant="h5">{habit.name}</Typography>
+          <Typography variant='small'>{habit.type.charAt(0).toUpperCase() + habit.type.slice(1).toLowerCase()}</Typography>
         </div>
-      </CardBody>
+        <div className='space-x-2'>
+          {renderCompleteButton()}
+          <IconButton color="blue" aria-label="Edit habit" onClick={() => showEdit(true)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton color="red" aria-label="Delete habit" onClick={() => showDelete(true)}>
+            <DeleteIcon />
+          </IconButton>
+        </div>
+      </div>
     </Card>
   );
 };
