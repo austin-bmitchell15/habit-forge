@@ -55,7 +55,7 @@ const HabitCard = ({
               className="flex-none w-12 h-12 bg-green-500"
               onClick={() => {
                 setCurrHabit(habit);
-                onComplete();
+                onComplete(inputValue);
               }}
             >
             <CheckCircleIcon />

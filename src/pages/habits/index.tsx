@@ -100,8 +100,8 @@ export default function Habits() {
           name: completedHabit.name,
           type: completedHabit.type,
           goal: completedHabit.goal,
-          unit: parseInt(value),
-          currentProgress: completedHabit.currentProgress, // Adjust as necessary
+          unit: completedHabit.unit,
+          currentProgress: completedHabit.currentProgress ? completedHabit.currentProgress + parseInt(value) : parseInt(value), // Adjust as necessary
         };
         result = await HabitService.updateProgressiveHabit(
           input as CreateProgressiveHabitInput,
