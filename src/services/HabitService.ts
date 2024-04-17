@@ -100,8 +100,8 @@ class HabitService {
       });
       return newHabit;
     } catch (error) {
-      console.error('Error creating progressive habit', error);
-      throw new Error('Failed to create progressive habit');
+      console.error('Error updating progressive habit', error);
+      throw new Error('Failed to update progressive habit');
     }
   }
 
@@ -113,8 +113,8 @@ class HabitService {
       });
       return newHabit;
     } catch (error) {
-      console.error('Error creating activity habit', error);
-      throw new Error('Failed to create activity habit');
+      console.error('Error updating activity habit', error);
+      throw new Error('Failed to update activity habit');
     }
   }
 
@@ -126,8 +126,8 @@ class HabitService {
       });
       return newHabit;
     } catch (error) {
-      console.error('Error creating general habit', error);
-      throw new Error('Failed to create general habit');
+      console.error('Error updating general habit', error);
+      throw new Error('Failed to update general habit');
     }
   }
 
@@ -177,7 +177,7 @@ class HabitService {
       .graphql({ query: subscriptions.onCreateActivityHabit })
       .subscribe({
         next: ({ data }: any) => {
-          const habit: Habit = data.onCreateGeneralHabit;
+          const habit: Habit = data.onCreateActivityHabit;
           setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
@@ -187,7 +187,7 @@ class HabitService {
       .graphql({ query: subscriptions.onCreateProgressiveHabit })
       .subscribe({
         next: ({ data }: any) => {
-          const habit: Habit = data.onCreateGeneralHabit;
+          const habit: Habit = data.onCreateProgressiveHabit;
           setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
@@ -244,13 +244,17 @@ class HabitService {
         },
         error: (error: any) => console.warn(error),
       });
-      const updateActivitySub = this.client
+    const updateActivitySub = this.client
       .graphql({ query: subscriptions.onUpdateActivityHabit })
       .subscribe({
         next: ({ data }: any) => {
           const updatedHabit: Habit = data.onUpdateActivityHabit;
           if (updatedHabit && updatedHabit.id) {
-            setHabits((prevHabits: Habit[]) => prevHabits.map(habit => habit.id === updatedHabit.id ? updatedHabit : habit));
+            setHabits((prevHabits: Habit[]) =>
+              prevHabits.map((habit) =>
+                habit.id === updatedHabit.id ? updatedHabit : habit,
+              ),
+            );
           }
         },
         error: (error: any) => console.warn(error),
@@ -262,7 +266,11 @@ class HabitService {
         next: ({ data }: any) => {
           const updatedHabit: Habit = data.onUpdateProgressiveHabit;
           if (updatedHabit && updatedHabit.id) {
-            setHabits((prevHabits: Habit[]) => prevHabits.map(habit => habit.id === updatedHabit.id ? updatedHabit : habit));
+            setHabits((prevHabits: Habit[]) =>
+              prevHabits.map((habit) =>
+                habit.id === updatedHabit.id ? updatedHabit : habit,
+              ),
+            );
           }
         },
         error: (error: any) => console.warn(error),
@@ -274,7 +282,11 @@ class HabitService {
         next: ({ data }: any) => {
           const updatedHabit: Habit = data.onUpdateGeneralHabit;
           if (updatedHabit && updatedHabit.id) {
-            setHabits((prevHabits: Habit[]) => prevHabits.map(habit => habit.id === updatedHabit.id ? updatedHabit : habit));
+            setHabits((prevHabits: Habit[]) =>
+              prevHabits.map((habit) =>
+                habit.id === updatedHabit.id ? updatedHabit : habit,
+              ),
+            );
           }
         },
         error: (error: any) => console.warn(error),

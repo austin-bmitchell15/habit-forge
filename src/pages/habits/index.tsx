@@ -9,10 +9,15 @@ import { Habit } from '@/utils/types/habits';
 import * as subscriptions from '../../graphql/subscriptions';
 import EditHabitModal from '@/components/HabitModals/EditHabitModal';
 import {
+  ActivityHabit,
+  CreateGeneralHabitInput,
+  CreateProgressiveHabitInput,
   DeleteActivityHabitInput,
   DeleteGeneralHabitInput,
   DeleteProgressiveHabitInput,
+  GeneralHabit,
   HabitType,
+  ProgressiveHabit,
 } from '@/API';
 import { generateClient } from 'aws-amplify/api';
 
@@ -22,7 +27,6 @@ export default function Habits() {
   const [error, setError] = useState<string | null>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [showEditHabitModal, setShowEditHabitModal] = useState(false);
-  const [showCompleteHabitModal, setShowCompleteHabitModal] = useState(false);
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -84,6 +88,54 @@ export default function Habits() {
     }
   }
 
+  const onComplete = async(value: string) => {
+    let input = {};
+    let completedHabit : Habit;
+    let result = null;
+    switch (currHabit.type) {
+      case HabitType.PROGRESSIVE:
+        completedHabit = currHabit as ProgressiveHabit
+        input = {
+          id: completedHabit.id,
+          name: completedHabit.name,
+          type: completedHabit.type,
+          goal: completedHabit.goal,
+          unit: parseInt(value),
+          currentProgress: completedHabit.currentProgress, // Adjust as necessary
+        };
+        result = await HabitService.updateProgressiveHabit(
+          input as CreateProgressiveHabitInput,
+        );
+        break;
+      case HabitType.ACTIVITY:
+        completedHabit = currHabit as ActivityHabit
+        input = {
+          id: completedHabit.id,
+          name: completedHabit.name,
+          type: completedHabit.type,
+          sessionsPerWeek: completedHabit.sessionsPerWeek,
+          completedSessions: completedHabit.completedSessions ? completedHabit.completedSessions + 1 : 1,
+        };
+        result = await HabitService.updateProgressiveHabit(
+          input as CreateProgressiveHabitInput,
+        );
+        break;
+      case HabitType.GENERAL:
+        completedHabit = currHabit as GeneralHabit
+        input = {
+          id: completedHabit.id,
+          name: completedHabit.name,
+          type: completedHabit.type,
+          completed: !completedHabit.completed, // Adjust as necessary
+        };
+        result = await HabitService.updateGeneralHabit(
+          input as CreateGeneralHabitInput,
+        );
+        break;
+    }
+    console.log('Habit updated:', result);
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -109,7 +161,7 @@ export default function Habits() {
               setCurrHabit={setCurrHabit}
               showEdit={setShowEditHabitModal}
               onDelete={onDelete}
-              showComplete={setShowCompleteHabitModal}
+              onComplete={onComplete}
             />
           ))}
         </div>

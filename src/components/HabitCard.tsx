@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ProgressiveHabit,
   ActivityHabit,
@@ -10,6 +10,7 @@ import {
   CardBody,
   Typography,
   IconButton,
+  Input,
 } from '@material-tailwind/react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -21,7 +22,7 @@ interface HabitCardProps {
   setCurrHabit: Function;
   showEdit: Function;
   onDelete: Function;
-  showComplete: Function;
+  onComplete: Function;
 }
 
 const HabitCard = ({
@@ -30,56 +31,37 @@ const HabitCard = ({
   setCurrHabit,
   showEdit,
   onDelete,
-  showComplete,
+  onComplete,
 }: HabitCardProps) => {
-  const renderCompleteButton = () => {
-    let tooltip = '';
-    switch (habit.type) {
-      case HabitType.PROGRESSIVE:
-        tooltip = 'Update Progress';
-        break;
-      case HabitType.ACTIVITY:
-        tooltip = 'Mark Activity Complete';
-        break;
-      case HabitType.GENERAL:
-        tooltip = 'Mark as Done';
-        break;
-      default:
-        tooltip = 'Complete';
-        break;
-    }
-
-    return (
-      <IconButton
-        color="green"
-        aria-label={tooltip}
-        onClick={() => {
-          setCurrHabit(habit);
-          showComplete(true);
-        }}
-      >
-        <CheckCircleIcon />
-      </IconButton>
-    );
-  };
-
+  const [inputValue, setInputValue] = useState<string>('');
   return (
     <Card
       className="w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3"
       key={key}
     >
-      <div className="flex flex-row w-full">
-        <div className="flex-1">
+      <div className="flex flex-row justify-between w-full">
+        <div>
           <Typography variant="h5">{habit.name}</Typography>
           <Typography variant="small">
             {habit.type.charAt(0).toUpperCase() +
               habit.type.slice(1).toLowerCase()}
           </Typography>
         </div>
-        <div className="space-x-2">
-          {renderCompleteButton()}
+        <div className="flex space-x-2">
+          {habit.type === HabitType.PROGRESSIVE && (
+            <Input type='number' label='Enter Progress' placeholder='Enter Progress' onChange={(e) => setInputValue(e.target.value)}/>
+          )}
           <IconButton
-            color="blue"
+              className="flex-none w-12 h-12 bg-green-500"
+              onClick={() => {
+                setCurrHabit(habit);
+                onComplete();
+              }}
+            >
+            <CheckCircleIcon />
+          </IconButton>
+          <IconButton
+            className="flex-none w-12 h-12 bg-blue-500"
             aria-label="Edit habit"
             onClick={() => {
               setCurrHabit(habit);
@@ -89,7 +71,7 @@ const HabitCard = ({
             <EditIcon />
           </IconButton>
           <IconButton
-            color="red"
+            className="flex-none w-12 h-12 bg-red-500"
             aria-label="Delete habit"
             onClick={() => {
               onDelete(habit.id, habit.type);
