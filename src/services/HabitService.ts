@@ -126,6 +126,46 @@ class HabitService {
     }
   }
 
+  async deleteProgressiveHabit(
+    input: DeleteProgressiveHabitInput,
+  ): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.deleteProgressiveHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating progressive habit', error);
+      throw new Error('Failed to create progressive habit');
+    }
+  }
+
+  async deleteActivityHabit(input: DeleteActivityHabitInput): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.deleteActivityHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating activity habit', error);
+      throw new Error('Failed to create activity habit');
+    }
+  }
+
+  async deleteGeneralHabit(input: DeleteGeneralHabitInput): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.deleteGeneralHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating general habit', error);
+      throw new Error('Failed to create general habit');
+    }
+  }
 }
 
 export default new HabitService();

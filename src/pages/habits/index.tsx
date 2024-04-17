@@ -35,6 +35,23 @@ export default function Habits() {
     fetchHabits();
   }, []);
 
+  const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);
+
+  function onDelete(id: string, habitType: HabitType) {
+    const input = { id }
+    switch (habitType) {
+      case HabitType.PROGRESSIVE:
+        HabitService.deleteProgressiveHabit(input as DeleteProgressiveHabitInput)
+        break;
+      case HabitType.GENERAL:
+        HabitService.deleteGeneralHabit(input as DeleteGeneralHabitInput);
+        break;
+      case HabitType.ACTIVITY:
+        HabitService.deleteActivityHabit(input as DeleteActivityHabitInput);
+        break;
+    }
+  }
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -59,7 +76,7 @@ export default function Habits() {
               key={index}
               setCurrHabit={setCurrHabit}
               showEdit={setShowEditHabitModal}
-              showDelete={setShowDeleteHabitModal}
+              onDelete={onDelete}
               showComplete={setShowCompleteHabitModal}
             />
           ))}

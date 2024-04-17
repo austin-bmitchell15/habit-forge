@@ -20,7 +20,7 @@ interface HabitCardProps {
   key: number;
   setCurrHabit: Function;
   showEdit: Function;
-  showDelete: Function;
+  onDelete: Function;
   showComplete: Function;
 }
 
@@ -29,7 +29,7 @@ const HabitCard = ({
   key,
   setCurrHabit,
   showEdit,
-  showDelete,
+  onDelete,
   showComplete,
 }: HabitCardProps) => {
   const renderCompleteButton = () => {
@@ -92,8 +92,7 @@ const HabitCard = ({
             color="red"
             aria-label="Delete habit"
             onClick={() => {
-              setCurrHabit(habit);
-              showDelete(true);
+              onDelete(habit.id, habit.type);
             }}
           >
             <DeleteIcon />
