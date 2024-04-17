@@ -172,13 +172,12 @@ class HabitService {
     }
   }
 
-  habitChangeListener(habits: Habit[], setHabits: Function) {
+  habitChangeListener(setHabits: Function) {
     const createActivitySub = this.client
       .graphql({ query: subscriptions.onCreateActivityHabit })
       .subscribe({
         next: ({ data }: any) => {
           const habit: Habit = data.onCreateGeneralHabit;
-          console.log(habits.concat([habit]));
           setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
@@ -199,7 +198,6 @@ class HabitService {
       .subscribe({
         next: ({ data }: any) => {
           const habit: Habit = data.onCreateGeneralHabit;
-          console.log(habits.concat([habit]));
           setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
