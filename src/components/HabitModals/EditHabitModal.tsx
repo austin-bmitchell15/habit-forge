@@ -37,79 +37,77 @@ export default function EditHabitModal({
   setOpen,
   habitData,
 }: EditHabitModalProps) {
-  if (habitData) {
     const [habitType, setHabitType] = useState<string>(habitData.type);
     const [name, setName] = useState<string>(habitData.name);
     const [unit, setUnit] = useState<string>(habitData.unit || '');
     const [sessionsPerWeek, setSessionsPerWeek] = useState<string>(
-      habitData.sessionsPerWeek?.toString() || '',
+        habitData.sessionsPerWeek?.toString() || '',
     );
     const [goal, setGoal] = useState<string>(habitData.goal?.toString() || '');
 
     useEffect(() => {
-      setHabitType(habitData.type);
-      setName(habitData.name);
-      setUnit(habitData.unit || '');
-      setSessionsPerWeek(habitData.sessionsPerWeek?.toString() || '');
-      setGoal(habitData.goal?.toString() || '');
+        setHabitType(habitData.type);
+        setName(habitData.name);
+        setUnit(habitData.unit || '');
+        setSessionsPerWeek(habitData.sessionsPerWeek?.toString() || '');
+        setGoal(habitData.goal?.toString() || '');
     }, [habitData]);
 
     const handleClose = () => {
-      setOpen(false);
+        setOpen(false);
     };
 
     const handleSubmit = async (
-      event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+        event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     ) => {
-      event.preventDefault();
+        event.preventDefault();
 
-      try {
+        try {
         let input = {};
         let result = null;
         switch (habitType) {
-          case HabitType.PROGRESSIVE:
+            case HabitType.PROGRESSIVE:
             input = {
-              id: habitData.id,
-              name,
-              type: HabitType.PROGRESSIVE,
-              goal: parseFloat(goal),
-              unit,
-              currentProgress: 0, // Adjust as necessary
+                id: habitData.id,
+                name,
+                type: HabitType.PROGRESSIVE,
+                goal: parseFloat(goal),
+                unit,
+                currentProgress: 0, // Adjust as necessary
             };
             result = await HabitService.updateProgressiveHabit(
-              input as CreateProgressiveHabitInput,
+                input as CreateProgressiveHabitInput,
             );
             break;
-          case HabitType.ACTIVITY:
+            case HabitType.ACTIVITY:
             input = {
-              id: habitData.id,
-              name,
-              type: HabitType.ACTIVITY,
-              sessionsPerWeek: parseInt(sessionsPerWeek, 10),
-              completedSessions: 0, // Adjust as necessary
+                id: habitData.id,
+                name,
+                type: HabitType.ACTIVITY,
+                sessionsPerWeek: parseInt(sessionsPerWeek, 10),
+                completedSessions: 0, // Adjust as necessary
             };
             result = await HabitService.updateActivityHabit(
-              input as CreateActivityHabitInput,
+                input as CreateActivityHabitInput,
             );
             break;
-          case HabitType.GENERAL:
+            case HabitType.GENERAL:
             input = {
-              id: habitData.id,
-              name,
-              type: HabitType.GENERAL,
-              completed: false, // Adjust as necessary
+                id: habitData.id,
+                name,
+                type: HabitType.GENERAL,
+                completed: false, // Adjust as necessary
             };
             result = await HabitService.updateGeneralHabit(
-              input as CreateGeneralHabitInput,
+                input as CreateGeneralHabitInput,
             );
             break;
         }
         console.log('Habit updated:', result);
         handleClose();
-      } catch (error) {
+        } catch (error) {
         console.error('Error updating habit:', error);
-      }
-    };
+        }
 
     return (
       <Dialog open={open} handler={handleClose}>
