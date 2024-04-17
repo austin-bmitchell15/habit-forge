@@ -18,6 +18,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 interface HabitCardProps {
   habit: ProgressiveHabit | ActivityHabit | GeneralHabit;
   key: number;
+  setCurrHabit: Function;
   showEdit: Function;
   showDelete: Function;
   showComplete: Function;
@@ -26,6 +27,7 @@ interface HabitCardProps {
 const HabitCard = ({
   habit,
   key,
+  setCurrHabit,
   showEdit,
   showDelete,
   showComplete,
@@ -51,7 +53,10 @@ const HabitCard = ({
       <IconButton
         color="green"
         aria-label={tooltip}
-        onClick={() => showComplete(true)}
+        onClick={() => {
+          setCurrHabit(habit);
+          showComplete(true);
+        }}
       >
         <CheckCircleIcon />
       </IconButton>
@@ -76,14 +81,20 @@ const HabitCard = ({
           <IconButton
             color="blue"
             aria-label="Edit habit"
-            onClick={() => showEdit(true)}
+            onClick={() => {
+              setCurrHabit(habit);
+              showEdit(true);
+            }}
           >
             <EditIcon />
           </IconButton>
           <IconButton
             color="red"
             aria-label="Delete habit"
-            onClick={() => showDelete(true)}
+            onClick={() => {
+              setCurrHabit(habit);
+              showDelete(true);
+            }}
           >
             <DeleteIcon />
           </IconButton>

@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import UserService from '@/services/UserService';
 import HabitCard from '@/components/HabitCard';
 import { Habit } from '@/utils/types/habits';
+import EditHabitModal from '@/components/HabitModals/EditHabitModal';
 
 export default function Habits() {
   const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
@@ -46,12 +47,18 @@ export default function Habits() {
           open={showCreateHabitModal}
           setOpen={setShowCreateHabitModal}
         />
+        <EditHabitModal
+          habitData={{ ...currHabit }}
+          open={showEditHabitModal}
+          setOpen={setShowEditHabitModal}
+        />
         <div className="flex flex-col w-full space-y-4 ">
           {habits.map((habit, index) => (
             <HabitCard
               habit={habit}
               key={index}
-              showEdit={setShowCompleteHabitModal}
+              setCurrHabit={setCurrHabit}
+              showEdit={setShowEditHabitModal}
               showDelete={setShowDeleteHabitModal}
               showComplete={setShowCompleteHabitModal}
             />

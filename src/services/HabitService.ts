@@ -84,6 +84,48 @@ class HabitService {
       throw new Error('Failed to create general habit');
     }
   }
+
+  async updateProgressiveHabit(
+    input: CreateProgressiveHabitInput,
+  ): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.updateProgressiveHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating progressive habit', error);
+      throw new Error('Failed to create progressive habit');
+    }
+  }
+
+  async updateActivityHabit(input: CreateActivityHabitInput): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.updateActivityHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating activity habit', error);
+      throw new Error('Failed to create activity habit');
+    }
+  }
+
+  async updateGeneralHabit(input: CreateGeneralHabitInput): Promise<any> {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.updateGeneralHabit,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error creating general habit', error);
+      throw new Error('Failed to create general habit');
+    }
+  }
+
 }
 
 export default new HabitService();
