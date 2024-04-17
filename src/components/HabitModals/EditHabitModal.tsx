@@ -108,6 +108,7 @@ export default function EditHabitModal({
         } catch (error) {
         console.error('Error updating habit:', error);
         }
+    }
 
     return (
       <Dialog open={open} handler={handleClose}>
@@ -160,5 +161,4 @@ export default function EditHabitModal({
         </DialogFooter>
       </Dialog>
     );
-  }
 }
