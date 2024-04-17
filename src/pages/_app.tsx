@@ -8,6 +8,7 @@ import {
 } from '@aws-amplify/ui-react';
 import awsConfig from '../aws-exports';
 import '@aws-amplify/ui-react/styles.css';
+import UserService from '@/services/UserService';
 
 Amplify.configure(awsConfig);
 

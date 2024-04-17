@@ -12,6 +12,8 @@ import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import { useRouter } from 'next/router';
 import { AuthUser } from '@aws-amplify/auth';
 import { AuthEventData } from '@aws-amplify/ui';
+import UserService from '@/services/UserService';
+import { useEffect, useState } from 'react';
 
 interface CustomNavbarProps {
   user: AuthUser | undefined;
@@ -19,6 +21,19 @@ interface CustomNavbarProps {
 }
 
 export default function CustomNavbar({ user, signOut }: CustomNavbarProps) {
+  const [givenName, setGivenName] = useState<string | undefined>('')
+  useEffect(() => {
+    const fetchGivenName = async () => {
+      try {
+        const name = await UserService.getUserName();
+        setGivenName(name);
+      } catch (err: any) {
+        console.log(err.message)
+      }
+    }
+    fetchGivenName()
+  }, []);
+
   const router = useRouter();
   const navItems = [
     {
@@ -38,7 +53,7 @@ export default function CustomNavbar({ user, signOut }: CustomNavbarProps) {
     <Card className="flex h-[calc(100vh)] w-full max-w-xs pl-4 pt-4 shadow-xl shadow-blue-gray-900/5">
       <div className="mb-6">
         <Typography variant="h5" color="blue-gray" className="font-bold">
-          Austin&apos;s Forge
+          {givenName + "'s Forge"}
         </Typography>
       </div>
       <List>
