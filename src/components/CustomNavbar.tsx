@@ -21,17 +21,17 @@ interface CustomNavbarProps {
 }
 
 export default function CustomNavbar({ user, signOut }: CustomNavbarProps) {
-  const [givenName, setGivenName] = useState<string | undefined>('')
+  const [givenName, setGivenName] = useState<string | undefined>('');
   useEffect(() => {
     const fetchGivenName = async () => {
       try {
         const name = await UserService.getUserName();
         setGivenName(name);
       } catch (err: any) {
-        console.log(err.message)
+        console.log(err.message);
       }
-    }
-    fetchGivenName()
+    };
+    fetchGivenName();
   }, []);
 
   const router = useRouter();

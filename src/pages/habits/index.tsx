@@ -7,7 +7,12 @@ import UserService from '@/services/UserService';
 import HabitCard from '@/components/HabitCard';
 import { Habit } from '@/utils/types/habits';
 import EditHabitModal from '@/components/HabitModals/EditHabitModal';
-import { DeleteActivityHabitInput, DeleteGeneralHabitInput, DeleteProgressiveHabitInput, HabitType } from '@/API';
+import {
+  DeleteActivityHabitInput,
+  DeleteGeneralHabitInput,
+  DeleteProgressiveHabitInput,
+  HabitType,
+} from '@/API';
 
 export default function Habits() {
   const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
@@ -40,10 +45,12 @@ export default function Habits() {
   const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);
 
   function onDelete(id: string, habitType: HabitType) {
-    const input = { id }
+    const input = { id };
     switch (habitType) {
       case HabitType.PROGRESSIVE:
-        HabitService.deleteProgressiveHabit(input as DeleteProgressiveHabitInput)
+        HabitService.deleteProgressiveHabit(
+          input as DeleteProgressiveHabitInput,
+        );
         break;
       case HabitType.GENERAL:
         HabitService.deleteGeneralHabit(input as DeleteGeneralHabitInput);
