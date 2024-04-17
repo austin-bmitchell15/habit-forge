@@ -47,6 +47,9 @@ export default function Habits() {
       deleteActivitySub,
       deleteGeneralSub,
       deleteProgressiveSub,
+      updateActivitySub,
+      updateProgressiveSub,
+      updateGeneralSub,
     } = HabitService.habitChangeListener(setHabits);
 
     return () => {
@@ -56,6 +59,9 @@ export default function Habits() {
       deleteActivitySub.unsubscribe();
       deleteGeneralSub.unsubscribe();
       deleteProgressiveSub.unsubscribe();
+      updateActivitySub.unsubscribe();
+      updateProgressiveSub.unsubscribe();
+      updateGeneralSub.unsubscribe();
     };
   }, []);
 

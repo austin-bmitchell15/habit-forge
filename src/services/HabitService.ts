@@ -244,6 +244,42 @@ class HabitService {
         },
         error: (error: any) => console.warn(error),
       });
+      const updateActivitySub = this.client
+      .graphql({ query: subscriptions.onUpdateActivityHabit })
+      .subscribe({
+        next: ({ data }: any) => {
+          const updatedHabit: Habit = data.onUpdateActivityHabit;
+          if (updatedHabit && updatedHabit.id) {
+            setHabits((prevHabits: Habit[]) => prevHabits.map(habit => habit.id === updatedHabit.id ? updatedHabit : habit));
+          }
+        },
+        error: (error: any) => console.warn(error),
+      });
+
+    const updateProgressiveSub = this.client
+      .graphql({ query: subscriptions.onUpdateProgressiveHabit })
+      .subscribe({
+        next: ({ data }: any) => {
+          const updatedHabit: Habit = data.onUpdateProgressiveHabit;
+          if (updatedHabit && updatedHabit.id) {
+            setHabits((prevHabits: Habit[]) => prevHabits.map(habit => habit.id === updatedHabit.id ? updatedHabit : habit));
+          }
+        },
+        error: (error: any) => console.warn(error),
+      });
+
+    const updateGeneralSub = this.client
+      .graphql({ query: subscriptions.onUpdateGeneralHabit })
+      .subscribe({
+        next: ({ data }: any) => {
+          const updatedHabit: Habit = data.onUpdateGeneralHabit;
+          if (updatedHabit && updatedHabit.id) {
+            setHabits((prevHabits: Habit[]) => prevHabits.map(habit => habit.id === updatedHabit.id ? updatedHabit : habit));
+          }
+        },
+        error: (error: any) => console.warn(error),
+      });
+
     return {
       createGeneralSub,
       createActivitySub,
@@ -251,6 +287,9 @@ class HabitService {
       deleteActivitySub,
       deleteGeneralSub,
       deleteProgressiveSub,
+      updateActivitySub,
+      updateProgressiveSub,
+      updateGeneralSub,
     };
   }
 }
