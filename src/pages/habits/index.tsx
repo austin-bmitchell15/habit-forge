@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import UserService from '@/services/UserService';
 import HabitCard from '@/components/HabitCard';
 import { Habit } from '@/utils/types/habits';
+import * as subscriptions from '../../graphql/subscriptions';
 import EditHabitModal from '@/components/HabitModals/EditHabitModal';
 import {
   DeleteActivityHabitInput,
@@ -13,6 +14,7 @@ import {
   DeleteProgressiveHabitInput,
   HabitType,
 } from '@/API';
+import { generateClient } from 'aws-amplify/api';
 
 export default function Habits() {
   const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
@@ -38,8 +40,23 @@ export default function Habits() {
     };
 
     fetchHabits();
-
-    HabitService.habitChangeListener(habits, setHabits);
+    const {
+      createGeneralSub,
+      createActivitySub,
+      createProgressiveSub,
+      deleteActivitySub,
+      deleteGeneralSub,
+      deleteProgressiveSub,
+    } = HabitService.habitChangeListener(habits, setHabits);
+    
+    return () => {
+      createGeneralSub.unsubscribe();
+      createActivitySub.unsubscribe();
+      createProgressiveSub.unsubscribe();
+      deleteActivitySub.unsubscribe();
+      deleteGeneralSub.unsubscribe();
+      deleteProgressiveSub.unsubscribe();
+    };
   }, []);
 
   const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);

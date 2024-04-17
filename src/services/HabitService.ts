@@ -178,7 +178,8 @@ class HabitService {
       .subscribe({
         next: ({ data }: any) => {
           const habit: Habit = data.onCreateGeneralHabit;
-          setHabits(habits.concat([habit]));
+          console.log(habits.concat([habit]));
+          setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
       });
@@ -188,7 +189,7 @@ class HabitService {
       .subscribe({
         next: ({ data }: any) => {
           const habit: Habit = data.onCreateGeneralHabit;
-          setHabits(habits.concat([habit]));
+          setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
       });
@@ -198,7 +199,8 @@ class HabitService {
       .subscribe({
         next: ({ data }: any) => {
           const habit: Habit = data.onCreateGeneralHabit;
-          setHabits(habits.concat([habit]));
+          console.log(habits.concat([habit]));
+          setHabits((prevHabits: Habit[]) => [...prevHabits, habit]);
         },
         error: (error: any) => console.warn(error),
       });
@@ -209,7 +211,9 @@ class HabitService {
         next: ({ data }: any) => {
           const habit: Habit = data.onDeleteActivityHabit;
           if (habit && habit.id) {
-            setHabits(habits.filter((h) => h.id !== habit.id));
+            setHabits((prevHabits: Habit[]) =>
+              prevHabits.filter((h) => h.id !== habit.id),
+            );
           }
         },
         error: (error: any) => console.warn(error),
@@ -221,7 +225,9 @@ class HabitService {
         next: ({ data }: any) => {
           const habit: Habit = data.onDeleteProgressiveHabit;
           if (habit && habit.id) {
-            setHabits(habits.filter((h) => h.id !== habit.id));
+            setHabits((prevHabits: Habit[]) =>
+              prevHabits.filter((h) => h.id !== habit.id),
+            );
           }
         },
         error: (error: any) => console.warn(error),
@@ -233,11 +239,21 @@ class HabitService {
         next: ({ data }: any) => {
           const habit: Habit = data.onDeleteGeneralHabit;
           if (habit && habit.id) {
-            setHabits(habits.filter((h) => h.id !== habit.id));
+            setHabits((prevHabits: Habit[]) =>
+              prevHabits.filter((h) => h.id !== habit.id),
+            );
           }
         },
         error: (error: any) => console.warn(error),
       });
+    return {
+      createGeneralSub,
+      createActivitySub,
+      createProgressiveSub,
+      deleteActivitySub,
+      deleteGeneralSub,
+      deleteProgressiveSub,
+    };
   }
 }
 
