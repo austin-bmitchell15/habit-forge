@@ -1,15 +1,20 @@
 import { generateClient, get } from 'aws-amplify/api';
 import * as mutations from '../graphql/mutations';
 import * as queries from '../graphql/queries';
+import * as subscriptions from '../graphql/subscriptions';
 import {
   ActivityHabit,
   CreateActivityHabitInput,
   CreateGeneralHabitInput,
   CreateProgressiveHabitInput,
+  DeleteActivityHabitInput,
+  DeleteGeneralHabitInput,
+  DeleteProgressiveHabitInput,
   GeneralHabit,
   ProgressiveHabit,
 } from '@/API';
 import { Habit } from '../utils/types/habits';
+import { Dispatch, SetStateAction } from 'react';
 
 class HabitService {
   private client: any; // Define the type based on what generateClient returns
@@ -162,9 +167,71 @@ class HabitService {
       });
       return newHabit;
     } catch (error) {
-      console.error('Error creating general habit', error);
-      throw new Error('Failed to create general habit');
+      console.error('Error deleting general habit', error);
+      throw new Error('Failed to delete general habit');
     }
+  }
+
+  habitChangeListener(habits: Habit[], setHabits : Function) {
+    const createActivitySub = this.client.graphql({query: subscriptions.onCreateActivityHabit})
+      .subscribe({
+        next: ({ data } : any) => {
+          const habit : Habit = data.onCreateGeneralHabit;
+          setHabits(habits.concat([habit]));
+        },
+        error: (error : any) => console.warn(error)
+    });
+
+    const createProgressiveSub = this.client.graphql({query: subscriptions.onCreateProgressiveHabit})
+      .subscribe({
+        next: ({ data } : any) => {
+          const habit : Habit = data.onCreateGeneralHabit;
+          setHabits(habits.concat([habit]));
+        },
+        error: (error : any) => console.warn(error)
+    });
+
+    const createGeneralSub = this.client.graphql({query: subscriptions.onCreateGeneralHabit})
+      .subscribe({
+        next: ({ data } : any) => {
+          const habit : Habit = data.onCreateGeneralHabit;
+          setHabits(habits.concat([habit]));
+        },
+        error: (error : any) => console.warn(error)
+    });
+
+    const deleteActivitySub = this.client.graphql({query: subscriptions.onDeleteActivityHabit})
+      .subscribe({
+        next: ({ data } : any) => {
+          const habit : Habit = data.onDeleteActivityHabit;
+          if (habit && habit.id) {
+            setHabits(habits.filter(h => h.id !== habit.id));
+          }
+        },
+        error: (error : any) => console.warn(error)
+    });
+
+    const deleteProgressiveSub = this.client.graphql({query: subscriptions.onDeleteProgressiveHabit})
+      .subscribe({
+        next: ({ data } : any) => {
+          const habit : Habit = data.onDeleteProgressiveHabit;
+          if (habit && habit.id) {
+            setHabits(habits.filter(h => h.id !== habit.id));
+          }
+        },
+        error: (error : any) => console.warn(error)
+    });
+
+    const deleteGeneralSub = this.client.graphql({query: subscriptions.onDeleteGeneralHabit})
+      .subscribe({
+        next: ({ data } : any) => {
+          const habit : Habit = data.onDeleteGeneralHabit;
+          if (habit && habit.id) {
+            setHabits(habits.filter(h => h.id !== habit.id));
+          }
+        },
+        error: (error : any) => console.warn(error)
+    });
   }
 }
 

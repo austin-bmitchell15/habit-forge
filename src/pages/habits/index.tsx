@@ -7,6 +7,7 @@ import UserService from '@/services/UserService';
 import HabitCard from '@/components/HabitCard';
 import { Habit } from '@/utils/types/habits';
 import EditHabitModal from '@/components/HabitModals/EditHabitModal';
+import { DeleteActivityHabitInput, DeleteGeneralHabitInput, DeleteProgressiveHabitInput, HabitType } from '@/API';
 
 export default function Habits() {
   const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
@@ -14,7 +15,6 @@ export default function Habits() {
   const [error, setError] = useState<string | null>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [showEditHabitModal, setShowEditHabitModal] = useState(false);
-  const [showDeleteHabitModal, setShowDeleteHabitModal] = useState(false);
   const [showCompleteHabitModal, setShowCompleteHabitModal] = useState(false);
 
   useEffect(() => {
@@ -33,6 +33,8 @@ export default function Habits() {
     };
 
     fetchHabits();
+
+    HabitService.habitChangeListener(habits, setHabits);
   }, []);
 
   const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);
