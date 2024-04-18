@@ -88,13 +88,13 @@ export default function Habits() {
     }
   }
 
-  const onComplete = async(value: string) => {
+  const onComplete = async(habit:Habit, value: string) => {
     let input = {};
     let completedHabit : Habit;
     let result = null;
-    switch (currHabit.type) {
+    switch (habit.type) {
       case HabitType.PROGRESSIVE:
-        completedHabit = currHabit as ProgressiveHabit
+        completedHabit = habit as ProgressiveHabit
         input = {
           id: completedHabit.id,
           name: completedHabit.name,
@@ -108,7 +108,7 @@ export default function Habits() {
         );
         break;
       case HabitType.ACTIVITY:
-        completedHabit = currHabit as ActivityHabit
+        completedHabit = habit as ActivityHabit
         input = {
           id: completedHabit.id,
           name: completedHabit.name,
@@ -121,7 +121,7 @@ export default function Habits() {
         );
         break;
       case HabitType.GENERAL:
-        completedHabit = currHabit as GeneralHabit
+        completedHabit = habit as GeneralHabit
         input = {
           id: completedHabit.id,
           name: completedHabit.name,

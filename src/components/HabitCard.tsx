@@ -11,6 +11,7 @@ import {
   Typography,
   IconButton,
   Input,
+  Progress,
 } from '@material-tailwind/react';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -39,7 +40,7 @@ const HabitCard = ({
       className="w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3"
       key={key}
     >
-      <div className="flex flex-row justify-between w-full">
+      <div className="flex flex-row justify-between w-full space-x-4">
         <div>
           <Typography variant="h5">{habit.name}</Typography>
           <Typography variant="small">
@@ -47,15 +48,28 @@ const HabitCard = ({
               habit.type.slice(1).toLowerCase()}
           </Typography>
         </div>
+        <div className="flex flex-grow flex-col items-center">
+          {habit.type === HabitType.PROGRESSIVE && (habit as ProgressiveHabit).goal !=0 && (
+            <>
+              <Typography variant="small">{'Goal: ' + (habit as ProgressiveHabit).goal + ' ' + (habit as ProgressiveHabit).unit}</Typography>
+              <Progress value={Math.round((((habit as ProgressiveHabit).currentProgress ?? 0)/((habit as ProgressiveHabit).goal ?? 0)) * 100)} color="purple" label='completed' size='lg'/>
+            </>
+          )}
+          {habit.type === HabitType.PROGRESSIVE && (habit as ProgressiveHabit).goal == 0 && (
+            <Typography variant="small">Please define a goal for this habit</Typography>
+          )}
+        </div>
         <div className="flex space-x-2">
           {habit.type === HabitType.PROGRESSIVE && (
-            <Input type='number' label='Enter Progress' placeholder='Enter Progress' onChange={(e) => setInputValue(e.target.value)}/>
+            <Input type='number' label='Enter Progress' placeholder='Enter Progress' onChange={(e) => setInputValue(e.target.value)} value={inputValue}/>
           )}
           <IconButton
               className="flex-none w-12 h-12 bg-green-500"
               onClick={() => {
-                setCurrHabit(habit);
-                onComplete(inputValue);
+                onComplete(habit, inputValue);
+                if (habit.type === HabitType.PROGRESSIVE) {
+                  setInputValue('');
+                }
               }}
             >
             <CheckCircleIcon />
