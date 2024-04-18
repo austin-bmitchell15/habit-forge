@@ -10,6 +10,8 @@ type ProgressiveHabit @model @auth(rules: [{ allow: owner }]) {
   goal: Float!
   unit: String!
   currentProgress: Float
+  lastCompleted: AWSDate
+  streak: Int
 }
 
 # Model for Activity habits
@@ -19,6 +21,8 @@ type ActivityHabit @model @auth(rules: [{ allow: owner }]) {
   type: HabitType!
   sessionsPerWeek: Int!
   completedSessions: Int
+  lastCompleted: AWSDate
+  streak: Int
 }
 
 # Model for General habits
@@ -27,6 +31,8 @@ type GeneralHabit @model @auth(rules: [{ allow: owner }]) {
   name: String!
   type: HabitType!
   completed: Boolean
+  lastCompleted: AWSDate
+  streak: Int
 }
 
 enum HabitType {

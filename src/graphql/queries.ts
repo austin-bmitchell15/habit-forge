@@ -2,14 +2,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from '../API';
+import * as APITypes from "../API";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
 };
 
-export const getProgressiveHabit =
-  /* GraphQL */ `query GetProgressiveHabit($id: ID!) {
+export const getProgressiveHabit = /* GraphQL */ `query GetProgressiveHabit($id: ID!) {
   getProgressiveHabit(id: $id) {
     id
     name
@@ -17,6 +16,8 @@ export const getProgressiveHabit =
     goal
     unit
     currentProgress
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -24,9 +25,9 @@ export const getProgressiveHabit =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetProgressiveHabitQueryVariables,
-    APITypes.GetProgressiveHabitQuery
-  >;
+  APITypes.GetProgressiveHabitQueryVariables,
+  APITypes.GetProgressiveHabitQuery
+>;
 export const listProgressiveHabits = /* GraphQL */ `query ListProgressiveHabits(
   $filter: ModelProgressiveHabitFilterInput
   $limit: Int
@@ -40,6 +41,8 @@ export const listProgressiveHabits = /* GraphQL */ `query ListProgressiveHabits(
       goal
       unit
       currentProgress
+      lastCompleted
+      streak
       createdAt
       updatedAt
       owner
@@ -53,14 +56,15 @@ export const listProgressiveHabits = /* GraphQL */ `query ListProgressiveHabits(
   APITypes.ListProgressiveHabitsQueryVariables,
   APITypes.ListProgressiveHabitsQuery
 >;
-export const getActivityHabit =
-  /* GraphQL */ `query GetActivityHabit($id: ID!) {
+export const getActivityHabit = /* GraphQL */ `query GetActivityHabit($id: ID!) {
   getActivityHabit(id: $id) {
     id
     name
     type
     sessionsPerWeek
     completedSessions
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -68,9 +72,9 @@ export const getActivityHabit =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetActivityHabitQueryVariables,
-    APITypes.GetActivityHabitQuery
-  >;
+  APITypes.GetActivityHabitQueryVariables,
+  APITypes.GetActivityHabitQuery
+>;
 export const listActivityHabits = /* GraphQL */ `query ListActivityHabits(
   $filter: ModelActivityHabitFilterInput
   $limit: Int
@@ -83,6 +87,8 @@ export const listActivityHabits = /* GraphQL */ `query ListActivityHabits(
       type
       sessionsPerWeek
       completedSessions
+      lastCompleted
+      streak
       createdAt
       updatedAt
       owner
@@ -102,6 +108,8 @@ export const getGeneralHabit = /* GraphQL */ `query GetGeneralHabit($id: ID!) {
     name
     type
     completed
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -123,6 +131,8 @@ export const listGeneralHabits = /* GraphQL */ `query ListGeneralHabits(
       name
       type
       completed
+      lastCompleted
+      streak
       createdAt
       updatedAt
       owner

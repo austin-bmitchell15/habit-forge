@@ -4,70 +4,57 @@
  * Any changes to this file will be overwritten when running amplify pull. *
  **************************************************************************/
 
-import * as React from 'react';
-import {
-  GridProps,
-  SelectFieldProps,
-  TextFieldProps,
-} from '@aws-amplify/ui-react';
+import * as React from "react";
+import { GridProps, SelectFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
-  [elementHierarchy: string]: Record<string, unknown>;
+    [elementHierarchy: string]: Record<string, unknown>;
 } | null;
 export declare type VariantValues = {
-  [key: string]: string;
+    [key: string]: string;
 };
 export declare type Variant = {
-  variantValues: VariantValues;
-  overrides: EscapeHatchProps;
+    variantValues: VariantValues;
+    overrides: EscapeHatchProps;
 };
 export declare type ValidationResponse = {
-  hasError: boolean;
-  errorMessage?: string;
+    hasError: boolean;
+    errorMessage?: string;
 };
-export declare type ValidationFunction<T> = (
-  value: T,
-  validationResponse: ValidationResponse,
-) => ValidationResponse | Promise<ValidationResponse>;
+export declare type ValidationFunction<T> = (value: T, validationResponse: ValidationResponse) => ValidationResponse | Promise<ValidationResponse>;
 export declare type ActivityHabitCreateFormInputValues = {
-  name?: string;
-  type?: string;
-  sessionsPerWeek?: number;
-  completedSessions?: number;
+    name?: string;
+    type?: string;
+    sessionsPerWeek?: number;
+    completedSessions?: number;
+    lastCompleted?: string;
+    streak?: number;
 };
 export declare type ActivityHabitCreateFormValidationValues = {
-  name?: ValidationFunction<string>;
-  type?: ValidationFunction<string>;
-  sessionsPerWeek?: ValidationFunction<number>;
-  completedSessions?: ValidationFunction<number>;
+    name?: ValidationFunction<string>;
+    type?: ValidationFunction<string>;
+    sessionsPerWeek?: ValidationFunction<number>;
+    completedSessions?: ValidationFunction<number>;
+    lastCompleted?: ValidationFunction<string>;
+    streak?: ValidationFunction<number>;
 };
-export declare type PrimitiveOverrideProps<T> = Partial<T> &
-  React.DOMAttributes<HTMLDivElement>;
+export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type ActivityHabitCreateFormOverridesProps = {
-  ActivityHabitCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
-  name?: PrimitiveOverrideProps<TextFieldProps>;
-  type?: PrimitiveOverrideProps<SelectFieldProps>;
-  sessionsPerWeek?: PrimitiveOverrideProps<TextFieldProps>;
-  completedSessions?: PrimitiveOverrideProps<TextFieldProps>;
+    ActivityHabitCreateFormGrid?: PrimitiveOverrideProps<GridProps>;
+    name?: PrimitiveOverrideProps<TextFieldProps>;
+    type?: PrimitiveOverrideProps<SelectFieldProps>;
+    sessionsPerWeek?: PrimitiveOverrideProps<TextFieldProps>;
+    completedSessions?: PrimitiveOverrideProps<TextFieldProps>;
+    lastCompleted?: PrimitiveOverrideProps<TextFieldProps>;
+    streak?: PrimitiveOverrideProps<TextFieldProps>;
 } & EscapeHatchProps;
-export declare type ActivityHabitCreateFormProps = React.PropsWithChildren<
-  {
+export declare type ActivityHabitCreateFormProps = React.PropsWithChildren<{
     overrides?: ActivityHabitCreateFormOverridesProps | undefined | null;
-  } & {
+} & {
     clearOnSuccess?: boolean;
-    onSubmit?: (
-      fields: ActivityHabitCreateFormInputValues,
-    ) => ActivityHabitCreateFormInputValues;
+    onSubmit?: (fields: ActivityHabitCreateFormInputValues) => ActivityHabitCreateFormInputValues;
     onSuccess?: (fields: ActivityHabitCreateFormInputValues) => void;
-    onError?: (
-      fields: ActivityHabitCreateFormInputValues,
-      errorMessage: string,
-    ) => void;
-    onChange?: (
-      fields: ActivityHabitCreateFormInputValues,
-    ) => ActivityHabitCreateFormInputValues;
+    onError?: (fields: ActivityHabitCreateFormInputValues, errorMessage: string) => void;
+    onChange?: (fields: ActivityHabitCreateFormInputValues) => ActivityHabitCreateFormInputValues;
     onValidate?: ActivityHabitCreateFormValidationValues;
-  } & React.CSSProperties
->;
-export default function ActivityHabitCreateForm(
-  props: ActivityHabitCreateFormProps,
-): React.ReactElement;
+} & React.CSSProperties>;
+export default function ActivityHabitCreateForm(props: ActivityHabitCreateFormProps): React.ReactElement;

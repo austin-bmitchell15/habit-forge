@@ -10,6 +10,7 @@ import * as subscriptions from '../../graphql/subscriptions';
 import EditHabitModal from '@/components/HabitModals/EditHabitModal';
 import {
   ActivityHabit,
+  CreateActivityHabitInput,
   CreateGeneralHabitInput,
   CreateProgressiveHabitInput,
   DeleteActivityHabitInput,
@@ -71,6 +72,22 @@ export default function Habits() {
 
   const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);
 
+  function isConsecutiveDay(currentDateString: string, lastDateString: string): boolean {
+    const dayInMs = 1000 * 60 * 60 * 24;
+    const currentDate = new Date(currentDateString);
+    const lastDate = new Date(lastDateString);
+    currentDate.setHours(0, 0, 0, 0);
+    lastDate.setHours(0, 0, 0, 0);
+    const difference = currentDate.getTime() - lastDate.getTime();
+    return difference === dayInMs;
+  }
+
+  function getNextWeekStartDate(date: Date): Date {
+    const nextWeek = new Date(date);
+    nextWeek.setDate(date.getDate() - date.getDay() + 7);  // Assuming Sunday as the start of the next week
+    return nextWeek;
+  }
+
   function onDelete(id: string, habitType: HabitType) {
     const input = { id };
     switch (habitType) {
@@ -92,16 +109,30 @@ export default function Habits() {
     let input = {};
     let completedHabit : Habit;
     let result = null;
+    let streak = 0;
+    const today = (new Date()).toISOString().split('T')[0]
     switch (habit.type) {
       case HabitType.PROGRESSIVE:
         completedHabit = habit as ProgressiveHabit
+        const currentProgress = completedHabit.currentProgress ? completedHabit.currentProgress + parseInt(value) : parseInt(value)
+        const completed = currentProgress > completedHabit.goal
+        streak = habit.streak ?? 0;
+        if (completed) {
+          if (habit.lastCompleted && isConsecutiveDay(today, habit.lastCompleted)) {
+            streak += 1;
+          } else {
+            streak = 1; // Reset streak if not consecutive
+          }
+        }
         input = {
           id: completedHabit.id,
           name: completedHabit.name,
           type: completedHabit.type,
           goal: completedHabit.goal,
           unit: completedHabit.unit,
-          currentProgress: completedHabit.currentProgress ? completedHabit.currentProgress + parseInt(value) : parseInt(value), // Adjust as necessary
+          currentProgress: currentProgress, // Adjust as necessary
+          lastCompleted: completed ? today : completedHabit.lastCompleted,
+          streak: completed ? (completedHabit.streak ? completedHabit.streak + 1 : 1) : completedHabit.streak
         };
         result = await HabitService.updateProgressiveHabit(
           input as CreateProgressiveHabitInput,
@@ -109,19 +140,29 @@ export default function Habits() {
         break;
       case HabitType.ACTIVITY:
         completedHabit = habit as ActivityHabit
+        const isNewWeek = !completedHabit.lastCompleted || new Date(today) >= getNextWeekStartDate(new Date(completedHabit.lastCompleted));
+        const completedSessions = isNewWeek ? 1 : (completedHabit.completedSessions ? completedHabit.completedSessions + 1 : 1);
+        streak = (isNewWeek && completedSessions < completedHabit.sessionsPerWeek) ? 0 : (completedSessions === completedHabit.sessionsPerWeek ? (completedHabit.streak ?? 0) + 1 : completedHabit.streak ?? 0);
         input = {
           id: completedHabit.id,
           name: completedHabit.name,
           type: completedHabit.type,
           sessionsPerWeek: completedHabit.sessionsPerWeek,
-          completedSessions: completedHabit.completedSessions ? completedHabit.completedSessions + 1 : 1,
+          completedSessions,
+          lastCompleted: today,
+          streak: streak,
         };
-        result = await HabitService.updateProgressiveHabit(
-          input as CreateProgressiveHabitInput,
+        result = await HabitService.updateActivityHabit(
+          input as CreateActivityHabitInput,
         );
         break;
       case HabitType.GENERAL:
         completedHabit = habit as GeneralHabit
+        if (habit.lastCompleted && isConsecutiveDay(today, habit.lastCompleted)) {
+          streak += 1;
+        } else {
+          streak = 1; // Reset streak if not consecutive
+        }
         input = {
           id: completedHabit.id,
           name: completedHabit.name,

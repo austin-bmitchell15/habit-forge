@@ -5,18 +5,18 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from 'react';
+import * as React from "react";
 import {
   Button,
   Flex,
   Grid,
   SelectField,
   TextField,
-} from '@aws-amplify/ui-react';
-import { fetchByPath, getOverrideProps, validateField } from './utils';
-import { generateClient } from 'aws-amplify/api';
-import { getActivityHabit } from '../graphql/queries';
-import { updateActivityHabit } from '../graphql/mutations';
+} from "@aws-amplify/ui-react";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { getActivityHabit } from "../graphql/queries";
+import { updateActivityHabit } from "../graphql/mutations";
 const client = generateClient();
 export default function ActivityHabitUpdateForm(props) {
   const {
@@ -31,19 +31,25 @@ export default function ActivityHabitUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: '',
-    type: '',
-    sessionsPerWeek: '',
-    completedSessions: '',
+    name: "",
+    type: "",
+    sessionsPerWeek: "",
+    completedSessions: "",
+    lastCompleted: "",
+    streak: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [type, setType] = React.useState(initialValues.type);
   const [sessionsPerWeek, setSessionsPerWeek] = React.useState(
-    initialValues.sessionsPerWeek,
+    initialValues.sessionsPerWeek
   );
   const [completedSessions, setCompletedSessions] = React.useState(
-    initialValues.completedSessions,
+    initialValues.completedSessions
   );
+  const [lastCompleted, setLastCompleted] = React.useState(
+    initialValues.lastCompleted
+  );
+  const [streak, setStreak] = React.useState(initialValues.streak);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = activityHabitRecord
@@ -53,17 +59,19 @@ export default function ActivityHabitUpdateForm(props) {
     setType(cleanValues.type);
     setSessionsPerWeek(cleanValues.sessionsPerWeek);
     setCompletedSessions(cleanValues.completedSessions);
+    setLastCompleted(cleanValues.lastCompleted);
+    setStreak(cleanValues.streak);
     setErrors({});
   };
   const [activityHabitRecord, setActivityHabitRecord] = React.useState(
-    activityHabitModelProp,
+    activityHabitModelProp
   );
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await client.graphql({
-              query: getActivityHabit.replaceAll('__typename', ''),
+              query: getActivityHabit.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getActivityHabit
@@ -74,15 +82,17 @@ export default function ActivityHabitUpdateForm(props) {
   }, [idProp, activityHabitModelProp]);
   React.useEffect(resetStateValues, [activityHabitRecord]);
   const validations = {
-    name: [{ type: 'Required' }],
-    type: [{ type: 'Required' }],
-    sessionsPerWeek: [{ type: 'Required' }],
+    name: [{ type: "Required" }],
+    type: [{ type: "Required" }],
+    sessionsPerWeek: [{ type: "Required" }],
     completedSessions: [],
+    lastCompleted: [],
+    streak: [],
   };
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue,
+    getDisplayValue
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -109,22 +119,24 @@ export default function ActivityHabitUpdateForm(props) {
           type,
           sessionsPerWeek,
           completedSessions: completedSessions ?? null,
+          lastCompleted: lastCompleted ?? null,
+          streak: streak ?? null,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item),
-                ),
+                  runValidationTasks(fieldName, item)
+                )
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName]),
+              runValidationTasks(fieldName, modelFields[fieldName])
             );
             return promises;
-          }, []),
+          }, [])
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -134,12 +146,12 @@ export default function ActivityHabitUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === 'string' && value === '') {
+            if (typeof value === "string" && value === "") {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: updateActivityHabit.replaceAll('__typename', ''),
+            query: updateActivityHabit.replaceAll("__typename", ""),
             variables: {
               input: {
                 id: activityHabitRecord.id,
@@ -152,12 +164,12 @@ export default function ActivityHabitUpdateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join('\n');
+            const messages = err.errors.map((e) => e.message).join("\n");
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, 'ActivityHabitUpdateForm')}
+      {...getOverrideProps(overrides, "ActivityHabitUpdateForm")}
       {...rest}
     >
       <TextField
@@ -173,19 +185,21 @@ export default function ActivityHabitUpdateForm(props) {
               type,
               sessionsPerWeek,
               completedSessions,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
           }
           if (errors.name?.hasError) {
-            runValidationTasks('name', value);
+            runValidationTasks("name", value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks('name', name)}
+        onBlur={() => runValidationTasks("name", name)}
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, 'name')}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <SelectField
         label="Type"
@@ -200,34 +214,36 @@ export default function ActivityHabitUpdateForm(props) {
               type: value,
               sessionsPerWeek,
               completedSessions,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.type ?? value;
           }
           if (errors.type?.hasError) {
-            runValidationTasks('type', value);
+            runValidationTasks("type", value);
           }
           setType(value);
         }}
-        onBlur={() => runValidationTasks('type', type)}
+        onBlur={() => runValidationTasks("type", type)}
         errorMessage={errors.type?.errorMessage}
         hasError={errors.type?.hasError}
-        {...getOverrideProps(overrides, 'type')}
+        {...getOverrideProps(overrides, "type")}
       >
         <option
           children="Progressive"
           value="PROGRESSIVE"
-          {...getOverrideProps(overrides, 'typeoption0')}
+          {...getOverrideProps(overrides, "typeoption0")}
         ></option>
         <option
           children="Activity"
           value="ACTIVITY"
-          {...getOverrideProps(overrides, 'typeoption1')}
+          {...getOverrideProps(overrides, "typeoption1")}
         ></option>
         <option
           children="General"
           value="GENERAL"
-          {...getOverrideProps(overrides, 'typeoption2')}
+          {...getOverrideProps(overrides, "typeoption2")}
         ></option>
       </SelectField>
       <TextField
@@ -247,19 +263,21 @@ export default function ActivityHabitUpdateForm(props) {
               type,
               sessionsPerWeek: value,
               completedSessions,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.sessionsPerWeek ?? value;
           }
           if (errors.sessionsPerWeek?.hasError) {
-            runValidationTasks('sessionsPerWeek', value);
+            runValidationTasks("sessionsPerWeek", value);
           }
           setSessionsPerWeek(value);
         }}
-        onBlur={() => runValidationTasks('sessionsPerWeek', sessionsPerWeek)}
+        onBlur={() => runValidationTasks("sessionsPerWeek", sessionsPerWeek)}
         errorMessage={errors.sessionsPerWeek?.errorMessage}
         hasError={errors.sessionsPerWeek?.hasError}
-        {...getOverrideProps(overrides, 'sessionsPerWeek')}
+        {...getOverrideProps(overrides, "sessionsPerWeek")}
       ></TextField>
       <TextField
         label="Completed sessions"
@@ -278,25 +296,90 @@ export default function ActivityHabitUpdateForm(props) {
               type,
               sessionsPerWeek,
               completedSessions: value,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.completedSessions ?? value;
           }
           if (errors.completedSessions?.hasError) {
-            runValidationTasks('completedSessions', value);
+            runValidationTasks("completedSessions", value);
           }
           setCompletedSessions(value);
         }}
         onBlur={() =>
-          runValidationTasks('completedSessions', completedSessions)
+          runValidationTasks("completedSessions", completedSessions)
         }
         errorMessage={errors.completedSessions?.errorMessage}
         hasError={errors.completedSessions?.hasError}
-        {...getOverrideProps(overrides, 'completedSessions')}
+        {...getOverrideProps(overrides, "completedSessions")}
+      ></TextField>
+      <TextField
+        label="Last completed"
+        isRequired={false}
+        isReadOnly={false}
+        type="date"
+        value={lastCompleted}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              type,
+              sessionsPerWeek,
+              completedSessions,
+              lastCompleted: value,
+              streak,
+            };
+            const result = onChange(modelFields);
+            value = result?.lastCompleted ?? value;
+          }
+          if (errors.lastCompleted?.hasError) {
+            runValidationTasks("lastCompleted", value);
+          }
+          setLastCompleted(value);
+        }}
+        onBlur={() => runValidationTasks("lastCompleted", lastCompleted)}
+        errorMessage={errors.lastCompleted?.errorMessage}
+        hasError={errors.lastCompleted?.hasError}
+        {...getOverrideProps(overrides, "lastCompleted")}
+      ></TextField>
+      <TextField
+        label="Streak"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={streak}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              type,
+              sessionsPerWeek,
+              completedSessions,
+              lastCompleted,
+              streak: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.streak ?? value;
+          }
+          if (errors.streak?.hasError) {
+            runValidationTasks("streak", value);
+          }
+          setStreak(value);
+        }}
+        onBlur={() => runValidationTasks("streak", streak)}
+        errorMessage={errors.streak?.errorMessage}
+        hasError={errors.streak?.hasError}
+        {...getOverrideProps(overrides, "streak")}
       ></TextField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, 'CTAFlex')}
+        {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
           children="Reset"
@@ -306,11 +389,11 @@ export default function ActivityHabitUpdateForm(props) {
             resetStateValues();
           }}
           isDisabled={!(idProp || activityHabitModelProp)}
-          {...getOverrideProps(overrides, 'ResetButton')}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
+          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
             children="Submit"
@@ -320,7 +403,7 @@ export default function ActivityHabitUpdateForm(props) {
               !(idProp || activityHabitModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
-            {...getOverrideProps(overrides, 'SubmitButton')}
+            {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>
       </Flex>

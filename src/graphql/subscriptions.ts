@@ -2,14 +2,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from '../API';
+import * as APITypes from "../API";
 type GeneratedSubscription<InputType, OutputType> = string & {
   __generatedSubscriptionInput: InputType;
   __generatedSubscriptionOutput: OutputType;
 };
 
-export const onCreateProgressiveHabit =
-  /* GraphQL */ `subscription OnCreateProgressiveHabit(
+export const onCreateProgressiveHabit = /* GraphQL */ `subscription OnCreateProgressiveHabit(
   $filter: ModelSubscriptionProgressiveHabitFilterInput
   $owner: String
 ) {
@@ -20,6 +19,8 @@ export const onCreateProgressiveHabit =
     goal
     unit
     currentProgress
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -27,11 +28,10 @@ export const onCreateProgressiveHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateProgressiveHabitSubscriptionVariables,
-    APITypes.OnCreateProgressiveHabitSubscription
-  >;
-export const onUpdateProgressiveHabit =
-  /* GraphQL */ `subscription OnUpdateProgressiveHabit(
+  APITypes.OnCreateProgressiveHabitSubscriptionVariables,
+  APITypes.OnCreateProgressiveHabitSubscription
+>;
+export const onUpdateProgressiveHabit = /* GraphQL */ `subscription OnUpdateProgressiveHabit(
   $filter: ModelSubscriptionProgressiveHabitFilterInput
   $owner: String
 ) {
@@ -42,6 +42,8 @@ export const onUpdateProgressiveHabit =
     goal
     unit
     currentProgress
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -49,11 +51,10 @@ export const onUpdateProgressiveHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateProgressiveHabitSubscriptionVariables,
-    APITypes.OnUpdateProgressiveHabitSubscription
-  >;
-export const onDeleteProgressiveHabit =
-  /* GraphQL */ `subscription OnDeleteProgressiveHabit(
+  APITypes.OnUpdateProgressiveHabitSubscriptionVariables,
+  APITypes.OnUpdateProgressiveHabitSubscription
+>;
+export const onDeleteProgressiveHabit = /* GraphQL */ `subscription OnDeleteProgressiveHabit(
   $filter: ModelSubscriptionProgressiveHabitFilterInput
   $owner: String
 ) {
@@ -64,6 +65,8 @@ export const onDeleteProgressiveHabit =
     goal
     unit
     currentProgress
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -71,11 +74,10 @@ export const onDeleteProgressiveHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteProgressiveHabitSubscriptionVariables,
-    APITypes.OnDeleteProgressiveHabitSubscription
-  >;
-export const onCreateActivityHabit =
-  /* GraphQL */ `subscription OnCreateActivityHabit(
+  APITypes.OnDeleteProgressiveHabitSubscriptionVariables,
+  APITypes.OnDeleteProgressiveHabitSubscription
+>;
+export const onCreateActivityHabit = /* GraphQL */ `subscription OnCreateActivityHabit(
   $filter: ModelSubscriptionActivityHabitFilterInput
   $owner: String
 ) {
@@ -85,6 +87,8 @@ export const onCreateActivityHabit =
     type
     sessionsPerWeek
     completedSessions
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -92,11 +96,10 @@ export const onCreateActivityHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateActivityHabitSubscriptionVariables,
-    APITypes.OnCreateActivityHabitSubscription
-  >;
-export const onUpdateActivityHabit =
-  /* GraphQL */ `subscription OnUpdateActivityHabit(
+  APITypes.OnCreateActivityHabitSubscriptionVariables,
+  APITypes.OnCreateActivityHabitSubscription
+>;
+export const onUpdateActivityHabit = /* GraphQL */ `subscription OnUpdateActivityHabit(
   $filter: ModelSubscriptionActivityHabitFilterInput
   $owner: String
 ) {
@@ -106,6 +109,8 @@ export const onUpdateActivityHabit =
     type
     sessionsPerWeek
     completedSessions
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -113,11 +118,10 @@ export const onUpdateActivityHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateActivityHabitSubscriptionVariables,
-    APITypes.OnUpdateActivityHabitSubscription
-  >;
-export const onDeleteActivityHabit =
-  /* GraphQL */ `subscription OnDeleteActivityHabit(
+  APITypes.OnUpdateActivityHabitSubscriptionVariables,
+  APITypes.OnUpdateActivityHabitSubscription
+>;
+export const onDeleteActivityHabit = /* GraphQL */ `subscription OnDeleteActivityHabit(
   $filter: ModelSubscriptionActivityHabitFilterInput
   $owner: String
 ) {
@@ -127,6 +131,8 @@ export const onDeleteActivityHabit =
     type
     sessionsPerWeek
     completedSessions
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -134,11 +140,10 @@ export const onDeleteActivityHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteActivityHabitSubscriptionVariables,
-    APITypes.OnDeleteActivityHabitSubscription
-  >;
-export const onCreateGeneralHabit =
-  /* GraphQL */ `subscription OnCreateGeneralHabit(
+  APITypes.OnDeleteActivityHabitSubscriptionVariables,
+  APITypes.OnDeleteActivityHabitSubscription
+>;
+export const onCreateGeneralHabit = /* GraphQL */ `subscription OnCreateGeneralHabit(
   $filter: ModelSubscriptionGeneralHabitFilterInput
   $owner: String
 ) {
@@ -147,6 +152,8 @@ export const onCreateGeneralHabit =
     name
     type
     completed
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -154,11 +161,10 @@ export const onCreateGeneralHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateGeneralHabitSubscriptionVariables,
-    APITypes.OnCreateGeneralHabitSubscription
-  >;
-export const onUpdateGeneralHabit =
-  /* GraphQL */ `subscription OnUpdateGeneralHabit(
+  APITypes.OnCreateGeneralHabitSubscriptionVariables,
+  APITypes.OnCreateGeneralHabitSubscription
+>;
+export const onUpdateGeneralHabit = /* GraphQL */ `subscription OnUpdateGeneralHabit(
   $filter: ModelSubscriptionGeneralHabitFilterInput
   $owner: String
 ) {
@@ -167,6 +173,8 @@ export const onUpdateGeneralHabit =
     name
     type
     completed
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -174,11 +182,10 @@ export const onUpdateGeneralHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateGeneralHabitSubscriptionVariables,
-    APITypes.OnUpdateGeneralHabitSubscription
-  >;
-export const onDeleteGeneralHabit =
-  /* GraphQL */ `subscription OnDeleteGeneralHabit(
+  APITypes.OnUpdateGeneralHabitSubscriptionVariables,
+  APITypes.OnUpdateGeneralHabitSubscription
+>;
+export const onDeleteGeneralHabit = /* GraphQL */ `subscription OnDeleteGeneralHabit(
   $filter: ModelSubscriptionGeneralHabitFilterInput
   $owner: String
 ) {
@@ -187,6 +194,8 @@ export const onDeleteGeneralHabit =
     name
     type
     completed
+    lastCompleted
+    streak
     createdAt
     updatedAt
     owner
@@ -194,6 +203,6 @@ export const onDeleteGeneralHabit =
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteGeneralHabitSubscriptionVariables,
-    APITypes.OnDeleteGeneralHabitSubscription
-  >;
+  APITypes.OnDeleteGeneralHabitSubscriptionVariables,
+  APITypes.OnDeleteGeneralHabitSubscription
+>;

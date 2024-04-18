@@ -16,6 +16,7 @@ import {
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
 
 interface HabitCardProps {
   habit: ProgressiveHabit | ActivityHabit | GeneralHabit;
@@ -35,6 +36,8 @@ const HabitCard = ({
   onComplete,
 }: HabitCardProps) => {
   const [inputValue, setInputValue] = useState<string>('');
+  const streakColor = (habit.streak ?? 0) > 0 ? 'red' : 'inherit'; 
+  console.log(streakColor)
   return (
     <Card
       className="w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3"
@@ -58,6 +61,21 @@ const HabitCard = ({
           {habit.type === HabitType.PROGRESSIVE && (habit as ProgressiveHabit).goal == 0 && (
             <Typography variant="small">Please define a goal for this habit</Typography>
           )}
+          {habit.type === HabitType.ACTIVITY && (habit as ActivityHabit).sessionsPerWeek !=0 && (
+            <>
+              <Typography variant="small">{((habit as ActivityHabit).completedSessions ?? 0) + ' out of ' + (habit as ActivityHabit).sessionsPerWeek + ' completed'}</Typography>
+              <Progress value={Math.round((((habit as ActivityHabit).completedSessions ?? 0)/((habit as ActivityHabit).sessionsPerWeek ?? 0)) * 100)} color="purple" size='lg'/>
+            </>
+          )}
+          {habit.type === HabitType.ACTIVITY && (habit as ActivityHabit).sessionsPerWeek == 0 && (
+            <Typography variant="small">Please define a goal for this habit</Typography>
+          )}
+        </div>
+        <div className="flex items-center">
+          <WhatshotIcon style={{color: streakColor}}/>
+          <Typography>
+            {(habit.streak ?? 0)}
+          </Typography>
         </div>
         <div className="flex space-x-2">
           {habit.type === HabitType.PROGRESSIVE && (

@@ -5,17 +5,17 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from 'react';
+import * as React from "react";
 import {
   Button,
   Flex,
   Grid,
   SelectField,
   TextField,
-} from '@aws-amplify/ui-react';
-import { fetchByPath, getOverrideProps, validateField } from './utils';
-import { generateClient } from 'aws-amplify/api';
-import { createProgressiveHabit } from '../graphql/mutations';
+} from "@aws-amplify/ui-react";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { createProgressiveHabit } from "../graphql/mutations";
 const client = generateClient();
 export default function ProgressiveHabitCreateForm(props) {
   const {
@@ -29,19 +29,25 @@ export default function ProgressiveHabitCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: '',
-    type: '',
-    goal: '',
-    unit: '',
-    currentProgress: '',
+    name: "",
+    type: "",
+    goal: "",
+    unit: "",
+    currentProgress: "",
+    lastCompleted: "",
+    streak: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [type, setType] = React.useState(initialValues.type);
   const [goal, setGoal] = React.useState(initialValues.goal);
   const [unit, setUnit] = React.useState(initialValues.unit);
   const [currentProgress, setCurrentProgress] = React.useState(
-    initialValues.currentProgress,
+    initialValues.currentProgress
   );
+  const [lastCompleted, setLastCompleted] = React.useState(
+    initialValues.lastCompleted
+  );
+  const [streak, setStreak] = React.useState(initialValues.streak);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
@@ -49,19 +55,23 @@ export default function ProgressiveHabitCreateForm(props) {
     setGoal(initialValues.goal);
     setUnit(initialValues.unit);
     setCurrentProgress(initialValues.currentProgress);
+    setLastCompleted(initialValues.lastCompleted);
+    setStreak(initialValues.streak);
     setErrors({});
   };
   const validations = {
-    name: [{ type: 'Required' }],
-    type: [{ type: 'Required' }],
-    goal: [{ type: 'Required' }],
-    unit: [{ type: 'Required' }],
+    name: [{ type: "Required" }],
+    type: [{ type: "Required" }],
+    goal: [{ type: "Required" }],
+    unit: [{ type: "Required" }],
     currentProgress: [],
+    lastCompleted: [],
+    streak: [],
   };
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue,
+    getDisplayValue
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -89,22 +99,24 @@ export default function ProgressiveHabitCreateForm(props) {
           goal,
           unit,
           currentProgress,
+          lastCompleted,
+          streak,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item),
-                ),
+                  runValidationTasks(fieldName, item)
+                )
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName]),
+              runValidationTasks(fieldName, modelFields[fieldName])
             );
             return promises;
-          }, []),
+          }, [])
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -114,12 +126,12 @@ export default function ProgressiveHabitCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === 'string' && value === '') {
+            if (typeof value === "string" && value === "") {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: createProgressiveHabit.replaceAll('__typename', ''),
+            query: createProgressiveHabit.replaceAll("__typename", ""),
             variables: {
               input: {
                 ...modelFields,
@@ -134,12 +146,12 @@ export default function ProgressiveHabitCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join('\n');
+            const messages = err.errors.map((e) => e.message).join("\n");
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, 'ProgressiveHabitCreateForm')}
+      {...getOverrideProps(overrides, "ProgressiveHabitCreateForm")}
       {...rest}
     >
       <TextField
@@ -156,19 +168,21 @@ export default function ProgressiveHabitCreateForm(props) {
               goal,
               unit,
               currentProgress,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
           }
           if (errors.name?.hasError) {
-            runValidationTasks('name', value);
+            runValidationTasks("name", value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks('name', name)}
+        onBlur={() => runValidationTasks("name", name)}
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, 'name')}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <SelectField
         label="Type"
@@ -184,34 +198,36 @@ export default function ProgressiveHabitCreateForm(props) {
               goal,
               unit,
               currentProgress,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.type ?? value;
           }
           if (errors.type?.hasError) {
-            runValidationTasks('type', value);
+            runValidationTasks("type", value);
           }
           setType(value);
         }}
-        onBlur={() => runValidationTasks('type', type)}
+        onBlur={() => runValidationTasks("type", type)}
         errorMessage={errors.type?.errorMessage}
         hasError={errors.type?.hasError}
-        {...getOverrideProps(overrides, 'type')}
+        {...getOverrideProps(overrides, "type")}
       >
         <option
           children="Progressive"
           value="PROGRESSIVE"
-          {...getOverrideProps(overrides, 'typeoption0')}
+          {...getOverrideProps(overrides, "typeoption0")}
         ></option>
         <option
           children="Activity"
           value="ACTIVITY"
-          {...getOverrideProps(overrides, 'typeoption1')}
+          {...getOverrideProps(overrides, "typeoption1")}
         ></option>
         <option
           children="General"
           value="GENERAL"
-          {...getOverrideProps(overrides, 'typeoption2')}
+          {...getOverrideProps(overrides, "typeoption2")}
         ></option>
       </SelectField>
       <TextField
@@ -232,19 +248,21 @@ export default function ProgressiveHabitCreateForm(props) {
               goal: value,
               unit,
               currentProgress,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.goal ?? value;
           }
           if (errors.goal?.hasError) {
-            runValidationTasks('goal', value);
+            runValidationTasks("goal", value);
           }
           setGoal(value);
         }}
-        onBlur={() => runValidationTasks('goal', goal)}
+        onBlur={() => runValidationTasks("goal", goal)}
         errorMessage={errors.goal?.errorMessage}
         hasError={errors.goal?.hasError}
-        {...getOverrideProps(overrides, 'goal')}
+        {...getOverrideProps(overrides, "goal")}
       ></TextField>
       <TextField
         label="Unit"
@@ -260,19 +278,21 @@ export default function ProgressiveHabitCreateForm(props) {
               goal,
               unit: value,
               currentProgress,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.unit ?? value;
           }
           if (errors.unit?.hasError) {
-            runValidationTasks('unit', value);
+            runValidationTasks("unit", value);
           }
           setUnit(value);
         }}
-        onBlur={() => runValidationTasks('unit', unit)}
+        onBlur={() => runValidationTasks("unit", unit)}
         errorMessage={errors.unit?.errorMessage}
         hasError={errors.unit?.hasError}
-        {...getOverrideProps(overrides, 'unit')}
+        {...getOverrideProps(overrides, "unit")}
       ></TextField>
       <TextField
         label="Current progress"
@@ -292,23 +312,90 @@ export default function ProgressiveHabitCreateForm(props) {
               goal,
               unit,
               currentProgress: value,
+              lastCompleted,
+              streak,
             };
             const result = onChange(modelFields);
             value = result?.currentProgress ?? value;
           }
           if (errors.currentProgress?.hasError) {
-            runValidationTasks('currentProgress', value);
+            runValidationTasks("currentProgress", value);
           }
           setCurrentProgress(value);
         }}
-        onBlur={() => runValidationTasks('currentProgress', currentProgress)}
+        onBlur={() => runValidationTasks("currentProgress", currentProgress)}
         errorMessage={errors.currentProgress?.errorMessage}
         hasError={errors.currentProgress?.hasError}
-        {...getOverrideProps(overrides, 'currentProgress')}
+        {...getOverrideProps(overrides, "currentProgress")}
+      ></TextField>
+      <TextField
+        label="Last completed"
+        isRequired={false}
+        isReadOnly={false}
+        type="date"
+        value={lastCompleted}
+        onChange={(e) => {
+          let { value } = e.target;
+          if (onChange) {
+            const modelFields = {
+              name,
+              type,
+              goal,
+              unit,
+              currentProgress,
+              lastCompleted: value,
+              streak,
+            };
+            const result = onChange(modelFields);
+            value = result?.lastCompleted ?? value;
+          }
+          if (errors.lastCompleted?.hasError) {
+            runValidationTasks("lastCompleted", value);
+          }
+          setLastCompleted(value);
+        }}
+        onBlur={() => runValidationTasks("lastCompleted", lastCompleted)}
+        errorMessage={errors.lastCompleted?.errorMessage}
+        hasError={errors.lastCompleted?.hasError}
+        {...getOverrideProps(overrides, "lastCompleted")}
+      ></TextField>
+      <TextField
+        label="Streak"
+        isRequired={false}
+        isReadOnly={false}
+        type="number"
+        step="any"
+        value={streak}
+        onChange={(e) => {
+          let value = isNaN(parseInt(e.target.value))
+            ? e.target.value
+            : parseInt(e.target.value);
+          if (onChange) {
+            const modelFields = {
+              name,
+              type,
+              goal,
+              unit,
+              currentProgress,
+              lastCompleted,
+              streak: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.streak ?? value;
+          }
+          if (errors.streak?.hasError) {
+            runValidationTasks("streak", value);
+          }
+          setStreak(value);
+        }}
+        onBlur={() => runValidationTasks("streak", streak)}
+        errorMessage={errors.streak?.errorMessage}
+        hasError={errors.streak?.hasError}
+        {...getOverrideProps(overrides, "streak")}
       ></TextField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, 'CTAFlex')}
+        {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
           children="Clear"
@@ -317,18 +404,18 @@ export default function ProgressiveHabitCreateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, 'ClearButton')}
+          {...getOverrideProps(overrides, "ClearButton")}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
+          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
             children="Submit"
             type="submit"
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
-            {...getOverrideProps(overrides, 'SubmitButton')}
+            {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>
       </Flex>

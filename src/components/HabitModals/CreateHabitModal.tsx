@@ -56,6 +56,7 @@ export default function CreateHabitModal({
             goal: parseFloat(goal), // Assuming goal is a numeric value
             unit,
             currentProgress: 0, // Assuming a default start value of 0
+            streak: 0,
           };
           result = await HabitService.createProgressiveHabit(
             input as CreateProgressiveHabitInput,
@@ -67,6 +68,7 @@ export default function CreateHabitModal({
             type: HabitType.ACTIVITY,
             sessionsPerWeek: parseInt(sessionsPerWeek, 10),
             completedSessions: 0, // Assuming a default start value of 0
+            streak: 0,
           };
           result = await HabitService.createActivityHabit(
             input as CreateActivityHabitInput,
@@ -77,6 +79,7 @@ export default function CreateHabitModal({
             name,
             type: HabitType.GENERAL,
             completed: false, // Assuming a default start value of false
+            streak: 0,
           };
           result = await HabitService.createGeneralHabit(
             input as CreateGeneralHabitInput,
