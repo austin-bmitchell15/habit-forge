@@ -36,11 +36,11 @@ const HabitCard = ({
   onComplete,
 }: HabitCardProps) => {
   const [inputValue, setInputValue] = useState<string>('');
-  const streakColor = (habit.streak ?? 0) > 0 ? 'red' : 'inherit'; 
-  console.log(streakColor)
+  const streakColor = (habit.streak ?? 0) > 0 ? 'red' : 'inherit';
+  const today = (new Date).toISOString().split('T')[0]
   return (
     <Card
-      className="w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3"
+      className={`w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3 ${habit.lastCompleted === today ? 'border-4 border-green-300' : ''}`}
       key={key}
     >
       <div className="flex flex-row justify-between w-full space-x-4">

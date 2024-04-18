@@ -28,6 +28,7 @@ export default function Habits() {
   const [error, setError] = useState<string | null>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [showEditHabitModal, setShowEditHabitModal] = useState(false);
+  const today = (new Date).toISOString().split('T')[0]
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -114,8 +115,9 @@ export default function Habits() {
     switch (habit.type) {
       case HabitType.PROGRESSIVE:
         completedHabit = habit as ProgressiveHabit
-        const currentProgress = completedHabit.currentProgress ? completedHabit.currentProgress + parseInt(value) : parseInt(value)
-        const completed = currentProgress > completedHabit.goal
+        const newProgress = parseInt(value) < 0 ? 0 : parseInt(value)
+        const currentProgress = completedHabit.currentProgress ? completedHabit.currentProgress + newProgress : newProgress
+        const completed = currentProgress >= completedHabit.goal
         streak = habit.streak ?? 0;
         if (completed) {
           if (habit.lastCompleted && isConsecutiveDay(today, habit.lastCompleted)) {
@@ -130,9 +132,9 @@ export default function Habits() {
           type: completedHabit.type,
           goal: completedHabit.goal,
           unit: completedHabit.unit,
-          currentProgress: currentProgress, // Adjust as necessary
+          currentProgress: currentProgress < 0 ? 0 : currentProgress, // Adjust as necessary
           lastCompleted: completed ? today : completedHabit.lastCompleted,
-          streak: completed ? (completedHabit.streak ? completedHabit.streak + 1 : 1) : completedHabit.streak
+          streak,
         };
         result = await HabitService.updateProgressiveHabit(
           input as CreateProgressiveHabitInput,
@@ -168,6 +170,8 @@ export default function Habits() {
           name: completedHabit.name,
           type: completedHabit.type,
           completed: !completedHabit.completed, // Adjust as necessary
+          lastCompleted: today,
+          streak,
         };
         result = await HabitService.updateGeneralHabit(
           input as CreateGeneralHabitInput,
@@ -195,7 +199,14 @@ export default function Habits() {
           setOpen={setShowEditHabitModal}
         />
         <div className="flex flex-col w-full space-y-4 ">
-          {habits.map((habit, index) => (
+          {habits.sort((a, b) => {
+            if (a.lastCompleted === today && b.lastCompleted !== today) {
+              return 1;
+            } else if (a.lastCompleted !== today && b.lastCompleted === today){
+              return -1;
+            }
+            return 0;
+          }).map((habit, index) => (
             <HabitCard
               habit={habit}
               key={index}
