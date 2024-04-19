@@ -123,6 +123,7 @@ const HabitCard = ({
           )}
           <IconButton
             className="flex-none w-12 h-12 bg-green-500"
+            disabled={habit.lastCompleted === today}
             onClick={() => {
               onComplete(habit, inputValue);
               if (habit.type === HabitType.PROGRESSIVE) {
