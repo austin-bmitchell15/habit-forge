@@ -2,13 +2,14 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from "../API";
+import * as APITypes from '../API';
 type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationInput: InputType;
   __generatedMutationOutput: OutputType;
 };
 
-export const createProgressiveHabit = /* GraphQL */ `mutation CreateProgressiveHabit(
+export const createProgressiveHabit =
+  /* GraphQL */ `mutation CreateProgressiveHabit(
   $input: CreateProgressiveHabitInput!
   $condition: ModelProgressiveHabitConditionInput
 ) {
@@ -28,10 +29,11 @@ export const createProgressiveHabit = /* GraphQL */ `mutation CreateProgressiveH
   }
 }
 ` as GeneratedMutation<
-  APITypes.CreateProgressiveHabitMutationVariables,
-  APITypes.CreateProgressiveHabitMutation
->;
-export const updateProgressiveHabit = /* GraphQL */ `mutation UpdateProgressiveHabit(
+    APITypes.CreateProgressiveHabitMutationVariables,
+    APITypes.CreateProgressiveHabitMutation
+  >;
+export const updateProgressiveHabit =
+  /* GraphQL */ `mutation UpdateProgressiveHabit(
   $input: UpdateProgressiveHabitInput!
   $condition: ModelProgressiveHabitConditionInput
 ) {
@@ -51,10 +53,11 @@ export const updateProgressiveHabit = /* GraphQL */ `mutation UpdateProgressiveH
   }
 }
 ` as GeneratedMutation<
-  APITypes.UpdateProgressiveHabitMutationVariables,
-  APITypes.UpdateProgressiveHabitMutation
->;
-export const deleteProgressiveHabit = /* GraphQL */ `mutation DeleteProgressiveHabit(
+    APITypes.UpdateProgressiveHabitMutationVariables,
+    APITypes.UpdateProgressiveHabitMutation
+  >;
+export const deleteProgressiveHabit =
+  /* GraphQL */ `mutation DeleteProgressiveHabit(
   $input: DeleteProgressiveHabitInput!
   $condition: ModelProgressiveHabitConditionInput
 ) {
@@ -74,9 +77,9 @@ export const deleteProgressiveHabit = /* GraphQL */ `mutation DeleteProgressiveH
   }
 }
 ` as GeneratedMutation<
-  APITypes.DeleteProgressiveHabitMutationVariables,
-  APITypes.DeleteProgressiveHabitMutation
->;
+    APITypes.DeleteProgressiveHabitMutationVariables,
+    APITypes.DeleteProgressiveHabitMutation
+  >;
 export const createActivityHabit = /* GraphQL */ `mutation CreateActivityHabit(
   $input: CreateActivityHabitInput!
   $condition: ModelActivityHabitConditionInput

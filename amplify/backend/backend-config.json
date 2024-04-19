@@ -15,11 +15,14 @@
           "additionalAuthenticationProviders": [
             {
               "apiKeyConfig": {
-                "apiKeyExpirationDate": "2025-04-14T21:26:19.745Z",
+                "apiKeyExpirationDate": "2025-04-18T19:12:45.162Z",
                 "apiKeyExpirationDays": 365,
                 "description": "habit-forge-api-key"
               },
               "authenticationType": "API_KEY"
+            },
+            {
+              "authenticationType": "AWS_IAM"
             }
           ],
           "defaultAuthentication": {
@@ -65,6 +68,54 @@
     }
   },
   "function": {
+    "habitforge02281f5b": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "habitforge"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "habitforge545b7266": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "habitforge"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "habitforged058b5f2": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "habitforge"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "habitforgef60a951c": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -72,6 +123,54 @@
     }
   },
   "parameters": {
+    "AMPLIFY_function_habitforge02281f5b_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforge02281f5b"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforge02281f5b_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforge02281f5b"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforge545b7266_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforge545b7266"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforge545b7266_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforge545b7266"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforged058b5f2_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforged058b5f2"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforged058b5f2_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforged058b5f2"
+        }
+      ]
+    },
     "AMPLIFY_function_habitforgef60a951c_deploymentBucketName": {
       "usedBy": [
         {

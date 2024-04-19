@@ -5,18 +5,18 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from "react";
+import * as React from 'react';
 import {
   Button,
   Flex,
   Grid,
   SelectField,
   TextField,
-} from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { generateClient } from "aws-amplify/api";
-import { getProgressiveHabit } from "../graphql/queries";
-import { updateProgressiveHabit } from "../graphql/mutations";
+} from '@aws-amplify/ui-react';
+import { fetchByPath, getOverrideProps, validateField } from './utils';
+import { generateClient } from 'aws-amplify/api';
+import { getProgressiveHabit } from '../graphql/queries';
+import { updateProgressiveHabit } from '../graphql/mutations';
 const client = generateClient();
 export default function ProgressiveHabitUpdateForm(props) {
   const {
@@ -31,23 +31,23 @@ export default function ProgressiveHabitUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
-    type: "",
-    goal: "",
-    unit: "",
-    currentProgress: "",
-    lastCompleted: "",
-    streak: "",
+    name: '',
+    type: '',
+    goal: '',
+    unit: '',
+    currentProgress: '',
+    lastCompleted: '',
+    streak: '',
   };
   const [name, setName] = React.useState(initialValues.name);
   const [type, setType] = React.useState(initialValues.type);
   const [goal, setGoal] = React.useState(initialValues.goal);
   const [unit, setUnit] = React.useState(initialValues.unit);
   const [currentProgress, setCurrentProgress] = React.useState(
-    initialValues.currentProgress
+    initialValues.currentProgress,
   );
   const [lastCompleted, setLastCompleted] = React.useState(
-    initialValues.lastCompleted
+    initialValues.lastCompleted,
   );
   const [streak, setStreak] = React.useState(initialValues.streak);
   const [errors, setErrors] = React.useState({});
@@ -65,14 +65,14 @@ export default function ProgressiveHabitUpdateForm(props) {
     setErrors({});
   };
   const [progressiveHabitRecord, setProgressiveHabitRecord] = React.useState(
-    progressiveHabitModelProp
+    progressiveHabitModelProp,
   );
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await client.graphql({
-              query: getProgressiveHabit.replaceAll("__typename", ""),
+              query: getProgressiveHabit.replaceAll('__typename', ''),
               variables: { id: idProp },
             })
           )?.data?.getProgressiveHabit
@@ -83,10 +83,10 @@ export default function ProgressiveHabitUpdateForm(props) {
   }, [idProp, progressiveHabitModelProp]);
   React.useEffect(resetStateValues, [progressiveHabitRecord]);
   const validations = {
-    name: [{ type: "Required" }],
-    type: [{ type: "Required" }],
-    goal: [{ type: "Required" }],
-    unit: [{ type: "Required" }],
+    name: [{ type: 'Required' }],
+    type: [{ type: 'Required' }],
+    goal: [{ type: 'Required' }],
+    unit: [{ type: 'Required' }],
     currentProgress: [],
     lastCompleted: [],
     streak: [],
@@ -94,7 +94,7 @@ export default function ProgressiveHabitUpdateForm(props) {
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue
+    getDisplayValue,
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -130,16 +130,16 @@ export default function ProgressiveHabitUpdateForm(props) {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item)
-                )
+                  runValidationTasks(fieldName, item),
+                ),
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName])
+              runValidationTasks(fieldName, modelFields[fieldName]),
             );
             return promises;
-          }, [])
+          }, []),
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -149,12 +149,12 @@ export default function ProgressiveHabitUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
+            if (typeof value === 'string' && value === '') {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: updateProgressiveHabit.replaceAll("__typename", ""),
+            query: updateProgressiveHabit.replaceAll('__typename', ''),
             variables: {
               input: {
                 id: progressiveHabitRecord.id,
@@ -167,12 +167,12 @@ export default function ProgressiveHabitUpdateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
+            const messages = err.errors.map((e) => e.message).join('\n');
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, "ProgressiveHabitUpdateForm")}
+      {...getOverrideProps(overrides, 'ProgressiveHabitUpdateForm')}
       {...rest}
     >
       <TextField
@@ -196,14 +196,14 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.name ?? value;
           }
           if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+            runValidationTasks('name', value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
+        onBlur={() => runValidationTasks('name', name)}
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        {...getOverrideProps(overrides, 'name')}
       ></TextField>
       <SelectField
         label="Type"
@@ -226,29 +226,29 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.type ?? value;
           }
           if (errors.type?.hasError) {
-            runValidationTasks("type", value);
+            runValidationTasks('type', value);
           }
           setType(value);
         }}
-        onBlur={() => runValidationTasks("type", type)}
+        onBlur={() => runValidationTasks('type', type)}
         errorMessage={errors.type?.errorMessage}
         hasError={errors.type?.hasError}
-        {...getOverrideProps(overrides, "type")}
+        {...getOverrideProps(overrides, 'type')}
       >
         <option
           children="Progressive"
           value="PROGRESSIVE"
-          {...getOverrideProps(overrides, "typeoption0")}
+          {...getOverrideProps(overrides, 'typeoption0')}
         ></option>
         <option
           children="Activity"
           value="ACTIVITY"
-          {...getOverrideProps(overrides, "typeoption1")}
+          {...getOverrideProps(overrides, 'typeoption1')}
         ></option>
         <option
           children="General"
           value="GENERAL"
-          {...getOverrideProps(overrides, "typeoption2")}
+          {...getOverrideProps(overrides, 'typeoption2')}
         ></option>
       </SelectField>
       <TextField
@@ -276,14 +276,14 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.goal ?? value;
           }
           if (errors.goal?.hasError) {
-            runValidationTasks("goal", value);
+            runValidationTasks('goal', value);
           }
           setGoal(value);
         }}
-        onBlur={() => runValidationTasks("goal", goal)}
+        onBlur={() => runValidationTasks('goal', goal)}
         errorMessage={errors.goal?.errorMessage}
         hasError={errors.goal?.hasError}
-        {...getOverrideProps(overrides, "goal")}
+        {...getOverrideProps(overrides, 'goal')}
       ></TextField>
       <TextField
         label="Unit"
@@ -306,14 +306,14 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.unit ?? value;
           }
           if (errors.unit?.hasError) {
-            runValidationTasks("unit", value);
+            runValidationTasks('unit', value);
           }
           setUnit(value);
         }}
-        onBlur={() => runValidationTasks("unit", unit)}
+        onBlur={() => runValidationTasks('unit', unit)}
         errorMessage={errors.unit?.errorMessage}
         hasError={errors.unit?.hasError}
-        {...getOverrideProps(overrides, "unit")}
+        {...getOverrideProps(overrides, 'unit')}
       ></TextField>
       <TextField
         label="Current progress"
@@ -340,14 +340,14 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.currentProgress ?? value;
           }
           if (errors.currentProgress?.hasError) {
-            runValidationTasks("currentProgress", value);
+            runValidationTasks('currentProgress', value);
           }
           setCurrentProgress(value);
         }}
-        onBlur={() => runValidationTasks("currentProgress", currentProgress)}
+        onBlur={() => runValidationTasks('currentProgress', currentProgress)}
         errorMessage={errors.currentProgress?.errorMessage}
         hasError={errors.currentProgress?.hasError}
-        {...getOverrideProps(overrides, "currentProgress")}
+        {...getOverrideProps(overrides, 'currentProgress')}
       ></TextField>
       <TextField
         label="Last completed"
@@ -371,14 +371,14 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.lastCompleted ?? value;
           }
           if (errors.lastCompleted?.hasError) {
-            runValidationTasks("lastCompleted", value);
+            runValidationTasks('lastCompleted', value);
           }
           setLastCompleted(value);
         }}
-        onBlur={() => runValidationTasks("lastCompleted", lastCompleted)}
+        onBlur={() => runValidationTasks('lastCompleted', lastCompleted)}
         errorMessage={errors.lastCompleted?.errorMessage}
         hasError={errors.lastCompleted?.hasError}
-        {...getOverrideProps(overrides, "lastCompleted")}
+        {...getOverrideProps(overrides, 'lastCompleted')}
       ></TextField>
       <TextField
         label="Streak"
@@ -405,18 +405,18 @@ export default function ProgressiveHabitUpdateForm(props) {
             value = result?.streak ?? value;
           }
           if (errors.streak?.hasError) {
-            runValidationTasks("streak", value);
+            runValidationTasks('streak', value);
           }
           setStreak(value);
         }}
-        onBlur={() => runValidationTasks("streak", streak)}
+        onBlur={() => runValidationTasks('streak', streak)}
         errorMessage={errors.streak?.errorMessage}
         hasError={errors.streak?.hasError}
-        {...getOverrideProps(overrides, "streak")}
+        {...getOverrideProps(overrides, 'streak')}
       ></TextField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, "CTAFlex")}
+        {...getOverrideProps(overrides, 'CTAFlex')}
       >
         <Button
           children="Reset"
@@ -426,11 +426,11 @@ export default function ProgressiveHabitUpdateForm(props) {
             resetStateValues();
           }}
           isDisabled={!(idProp || progressiveHabitModelProp)}
-          {...getOverrideProps(overrides, "ResetButton")}
+          {...getOverrideProps(overrides, 'ResetButton')}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
         >
           <Button
             children="Submit"
@@ -440,7 +440,7 @@ export default function ProgressiveHabitUpdateForm(props) {
               !(idProp || progressiveHabitModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
-            {...getOverrideProps(overrides, "SubmitButton")}
+            {...getOverrideProps(overrides, 'SubmitButton')}
           ></Button>
         </Flex>
       </Flex>

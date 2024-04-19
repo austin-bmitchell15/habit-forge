@@ -28,7 +28,7 @@ export default function Habits() {
   const [error, setError] = useState<string | null>(null);
   const [habits, setHabits] = useState<Habit[]>([]);
   const [showEditHabitModal, setShowEditHabitModal] = useState(false);
-  const today = (new Date).toISOString().split('T')[0]
+  const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
     const fetchHabits = async () => {
@@ -73,7 +73,10 @@ export default function Habits() {
 
   const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);
 
-  function isConsecutiveDay(currentDateString: string, lastDateString: string): boolean {
+  function isConsecutiveDay(
+    currentDateString: string,
+    lastDateString: string,
+  ): boolean {
     const dayInMs = 1000 * 60 * 60 * 24;
     const currentDate = new Date(currentDateString);
     const lastDate = new Date(lastDateString);
@@ -85,7 +88,7 @@ export default function Habits() {
 
   function getNextWeekStartDate(date: Date): Date {
     const nextWeek = new Date(date);
-    nextWeek.setDate(date.getDate() - date.getDay() + 7);  // Assuming Sunday as the start of the next week
+    nextWeek.setDate(date.getDate() - date.getDay() + 7); // Assuming Sunday as the start of the next week
     return nextWeek;
   }
 
@@ -106,21 +109,26 @@ export default function Habits() {
     }
   }
 
-  const onComplete = async(habit:Habit, value: string) => {
+  const onComplete = async (habit: Habit, value: string) => {
     let input = {};
-    let completedHabit : Habit;
+    let completedHabit: Habit;
     let result = null;
     let streak = 0;
-    const today = (new Date()).toISOString().split('T')[0]
+    const today = new Date().toISOString().split('T')[0];
     switch (habit.type) {
       case HabitType.PROGRESSIVE:
-        completedHabit = habit as ProgressiveHabit
-        const newProgress = parseInt(value) < 0 ? 0 : parseInt(value)
-        const currentProgress = completedHabit.currentProgress ? completedHabit.currentProgress + newProgress : newProgress
-        const completed = currentProgress >= completedHabit.goal
+        completedHabit = habit as ProgressiveHabit;
+        const newProgress = parseInt(value) < 0 ? 0 : parseInt(value);
+        const currentProgress = completedHabit.currentProgress
+          ? completedHabit.currentProgress + newProgress
+          : newProgress;
+        const completed = currentProgress >= completedHabit.goal;
         streak = habit.streak ?? 0;
         if (completed) {
-          if (habit.lastCompleted && isConsecutiveDay(today, habit.lastCompleted)) {
+          if (
+            habit.lastCompleted &&
+            isConsecutiveDay(today, habit.lastCompleted)
+          ) {
             streak += 1;
           } else {
             streak = 1; // Reset streak if not consecutive
@@ -141,10 +149,23 @@ export default function Habits() {
         );
         break;
       case HabitType.ACTIVITY:
-        completedHabit = habit as ActivityHabit
-        const isNewWeek = !completedHabit.lastCompleted || new Date(today) >= getNextWeekStartDate(new Date(completedHabit.lastCompleted));
-        const completedSessions = isNewWeek ? 1 : (completedHabit.completedSessions ? completedHabit.completedSessions + 1 : 1);
-        streak = (isNewWeek && completedSessions < completedHabit.sessionsPerWeek) ? 0 : (completedSessions === completedHabit.sessionsPerWeek ? (completedHabit.streak ?? 0) + 1 : completedHabit.streak ?? 0);
+        completedHabit = habit as ActivityHabit;
+        const isNewWeek =
+          !completedHabit.lastCompleted ||
+          new Date(today) >=
+            getNextWeekStartDate(new Date(completedHabit.lastCompleted));
+        console.log(isNewWeek);
+        const completedSessions = isNewWeek
+          ? 1
+          : completedHabit.completedSessions
+            ? completedHabit.completedSessions + 1
+            : 1;
+        streak =
+          isNewWeek && completedSessions < completedHabit.sessionsPerWeek
+            ? 0
+            : completedSessions === completedHabit.sessionsPerWeek
+              ? (completedHabit.streak ?? 0) + 1
+              : completedHabit.streak ?? 1;
         input = {
           id: completedHabit.id,
           name: completedHabit.name,
@@ -159,8 +180,11 @@ export default function Habits() {
         );
         break;
       case HabitType.GENERAL:
-        completedHabit = habit as GeneralHabit
-        if (habit.lastCompleted && isConsecutiveDay(today, habit.lastCompleted)) {
+        completedHabit = habit as GeneralHabit;
+        if (
+          habit.lastCompleted &&
+          isConsecutiveDay(today, habit.lastCompleted)
+        ) {
           streak += 1;
         } else {
           streak = 1; // Reset streak if not consecutive
@@ -179,7 +203,8 @@ export default function Habits() {
         break;
     }
     console.log('Habit updated:', result);
-  }
+  };
+  console.log(habits);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -199,23 +224,28 @@ export default function Habits() {
           setOpen={setShowEditHabitModal}
         />
         <div className="flex flex-col w-full space-y-4 ">
-          {habits.sort((a, b) => {
-            if (a.lastCompleted === today && b.lastCompleted !== today) {
-              return 1;
-            } else if (a.lastCompleted !== today && b.lastCompleted === today){
-              return -1;
-            }
-            return 0;
-          }).map((habit, index) => (
-            <HabitCard
-              habit={habit}
-              key={index}
-              setCurrHabit={setCurrHabit}
-              showEdit={setShowEditHabitModal}
-              onDelete={onDelete}
-              onComplete={onComplete}
-            />
-          ))}
+          {habits
+            .sort((a, b) => {
+              if (a.lastCompleted === today && b.lastCompleted !== today) {
+                return 1;
+              } else if (
+                a.lastCompleted !== today &&
+                b.lastCompleted === today
+              ) {
+                return -1;
+              }
+              return 0;
+            })
+            .map((habit, index) => (
+              <HabitCard
+                habit={habit}
+                key={index}
+                setCurrHabit={setCurrHabit}
+                showEdit={setShowEditHabitModal}
+                onDelete={onDelete}
+                onComplete={onComplete}
+              />
+            ))}
         </div>
         <Button
           className="bg-deep-purple-200"

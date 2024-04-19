@@ -11,9 +11,13 @@
       {
         "mode": "API_KEY",
         "expirationTime": 365,
-        "apiKeyExpirationDate": "2025-04-14T21:26:19.745Z",
+        "apiKeyExpirationDate": "2025-04-18T19:12:45.162Z",
         "keyDescription": "habit-forge-api-key"
+      },
+      {
+        "mode": "AWS_IAM"
       }
-    ]
+    ],
+    "conflictResolution": {}
   }
 }

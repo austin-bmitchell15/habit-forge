@@ -37,7 +37,8 @@ const HabitCard = ({
 }: HabitCardProps) => {
   const [inputValue, setInputValue] = useState<string>('');
   const streakColor = (habit.streak ?? 0) > 0 ? 'red' : 'inherit';
-  const today = (new Date).toISOString().split('T')[0]
+  const today = new Date().toISOString().split('T')[0];
+
   return (
     <Card
       className={`w-full shadow-md hover:shadow-lg transition-shadow duration-300 px-6 py-3 ${habit.lastCompleted === today ? 'border-4 border-green-300' : ''}`}
@@ -52,44 +53,83 @@ const HabitCard = ({
           </Typography>
         </div>
         <div className="flex flex-grow flex-col items-center">
-          {habit.type === HabitType.PROGRESSIVE && (habit as ProgressiveHabit).goal !=0 && (
-            <>
-              <Typography variant="small">{'Goal: ' + (habit as ProgressiveHabit).goal + ' ' + (habit as ProgressiveHabit).unit}</Typography>
-              <Progress value={Math.round((((habit as ProgressiveHabit).currentProgress ?? 0)/((habit as ProgressiveHabit).goal ?? 0)) * 100)} color="purple" label='completed' size='lg'/>
-            </>
-          )}
-          {habit.type === HabitType.PROGRESSIVE && (habit as ProgressiveHabit).goal == 0 && (
-            <Typography variant="small">Please define a goal for this habit</Typography>
-          )}
-          {habit.type === HabitType.ACTIVITY && (habit as ActivityHabit).sessionsPerWeek !=0 && (
-            <>
-              <Typography variant="small">{((habit as ActivityHabit).completedSessions ?? 0) + ' out of ' + (habit as ActivityHabit).sessionsPerWeek + ' completed'}</Typography>
-              <Progress value={Math.round((((habit as ActivityHabit).completedSessions ?? 0)/((habit as ActivityHabit).sessionsPerWeek ?? 0)) * 100)} color="purple" size='lg'/>
-            </>
-          )}
-          {habit.type === HabitType.ACTIVITY && (habit as ActivityHabit).sessionsPerWeek == 0 && (
-            <Typography variant="small">Please define a goal for this habit</Typography>
-          )}
+          {habit.type === HabitType.PROGRESSIVE &&
+            (habit as ProgressiveHabit).goal != 0 && (
+              <>
+                <Typography variant="small">
+                  {'Goal: ' +
+                    (habit as ProgressiveHabit).goal +
+                    ' ' +
+                    (habit as ProgressiveHabit).unit}
+                </Typography>
+                <Progress
+                  value={Math.round(
+                    (((habit as ProgressiveHabit).currentProgress ?? 0) /
+                      ((habit as ProgressiveHabit).goal ?? 0)) *
+                      100,
+                  )}
+                  color="purple"
+                  label="completed"
+                  size="lg"
+                />
+              </>
+            )}
+          {habit.type === HabitType.PROGRESSIVE &&
+            (habit as ProgressiveHabit).goal == 0 && (
+              <Typography variant="small">
+                Please define a goal for this habit
+              </Typography>
+            )}
+          {habit.type === HabitType.ACTIVITY &&
+            (habit as ActivityHabit).sessionsPerWeek != 0 && (
+              <>
+                <Typography variant="small">
+                  {((habit as ActivityHabit).completedSessions ?? 0) +
+                    ' out of ' +
+                    (habit as ActivityHabit).sessionsPerWeek +
+                    ' completed'}
+                </Typography>
+                <Progress
+                  value={Math.round(
+                    (((habit as ActivityHabit).completedSessions ?? 0) /
+                      ((habit as ActivityHabit).sessionsPerWeek ?? 0)) *
+                      100,
+                  )}
+                  color="purple"
+                  size="lg"
+                />
+              </>
+            )}
+          {habit.type === HabitType.ACTIVITY &&
+            (habit as ActivityHabit).sessionsPerWeek == 0 && (
+              <Typography variant="small">
+                Please define a goal for this habit
+              </Typography>
+            )}
         </div>
         <div className="flex items-center">
-          <WhatshotIcon style={{color: streakColor}}/>
-          <Typography>
-            {(habit.streak ?? 0)}
-          </Typography>
+          <WhatshotIcon style={{ color: streakColor }} />
+          <Typography>{habit.streak ?? 0}</Typography>
         </div>
         <div className="flex space-x-2">
           {habit.type === HabitType.PROGRESSIVE && (
-            <Input type='number' label='Enter Progress' placeholder='Enter Progress' onChange={(e) => setInputValue(e.target.value)} value={inputValue}/>
+            <Input
+              type="number"
+              label="Enter Progress"
+              placeholder="Enter Progress"
+              onChange={(e) => setInputValue(e.target.value)}
+              value={inputValue}
+            />
           )}
           <IconButton
-              className="flex-none w-12 h-12 bg-green-500"
-              onClick={() => {
-                onComplete(habit, inputValue);
-                if (habit.type === HabitType.PROGRESSIVE) {
-                  setInputValue('');
-                }
-              }}
-            >
+            className="flex-none w-12 h-12 bg-green-500"
+            onClick={() => {
+              onComplete(habit, inputValue);
+              if (habit.type === HabitType.PROGRESSIVE) {
+                setInputValue('');
+              }
+            }}
+          >
             <CheckCircleIcon />
           </IconButton>
           <IconButton

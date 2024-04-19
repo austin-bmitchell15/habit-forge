@@ -1,0 +1,11 @@
+{
+  "lambdaLayers": [],
+  "permissions": {
+    "api": {
+      "habitforge": [
+        "Query",
+        "Mutation"
+      ]
+    }
+  }
+}
