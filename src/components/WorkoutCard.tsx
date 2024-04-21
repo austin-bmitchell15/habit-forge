@@ -34,6 +34,7 @@ export default function WorkoutCard({
   }
 
   function onDelete() {
+    console.log(workout)
     setCurrWorkout(workout);
     deleteWorkout()
   }

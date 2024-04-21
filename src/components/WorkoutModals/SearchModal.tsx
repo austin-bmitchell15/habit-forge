@@ -11,6 +11,7 @@ import {
   Option,
   Button,
   Typography,
+  Checkbox,
 } from '@material-tailwind/react';
 import CheckIcon from '@mui/icons-material/Check'; // Check icon for selected items
 import {
@@ -24,6 +25,7 @@ import { handler } from '@material-tailwind/react/types/components/dialog';
 import PaginationComponent from './PaginationComponent';
 import { value } from '@material-tailwind/react/types/components/chip';
 import WorkoutService from '@/services/WorkoutService';
+import ExerciseDisplay from './ExerciseDisplay';
 
 // Define the categories and their respective parts
 const BODY_PART_CATEGORIES: { [key: string]: string[] } = {
@@ -39,12 +41,14 @@ interface SearchModalProps {
   isOpen: boolean;
   onClose: handler;
   setWorkouts: Function;
+  onSelectedExercise: (exercise: Exercise) => void
 }
 
 export default function SearchModal({
   isOpen,
   onClose,
   setWorkouts,
+  onSelectedExercise,
 }: SearchModalProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -116,7 +120,7 @@ export default function SearchModal({
             exercise.primaryTarget,
           )),
     );
-    const itemsPerPage = 10;
+    const itemsPerPage = 5;
     const startIndex = (currentPage - 1) * itemsPerPage;
     setPaginatedExercises(
       filteredExercises.slice(startIndex, startIndex + itemsPerPage),
@@ -137,7 +141,8 @@ export default function SearchModal({
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <Dialog open={isOpen} handler={onClose}>
+    <>
+      <Dialog open={isOpen} handler={onClose}>
       <DialogHeader className="flex justify-between">
         Create New Exercises ({selectedIds.size} selected)
         {selectedIds.size > 0 && !showNamingForm && (
@@ -184,17 +189,18 @@ export default function SearchModal({
                 <Card
                   key={exercise.id}
                   className="p-2 cursor-pointer"
-                  onClick={() => toggleSelection(exercise.id)}
                 >
                   <CardBody className="p-2">
                     <div className="flex flex-row items-center justify-between">
-                      <div className="flex flex-col">
+                      <div className="flex flex-col" onClick={() => {
+                        onSelectedExercise(exercise)
+                        }}>
                         <Typography variant="h6">{exercise.name}</Typography>
                         <Typography variant="small">
                           {exercise.primaryTarget}
                         </Typography>
                       </div>
-                      {selectedIds.has(exercise.id) && <CheckIcon />}
+                      <Checkbox onClick={() => toggleSelection(exercise.id)}/>
                     </div>
                   </CardBody>
                 </Card>
@@ -220,12 +226,13 @@ export default function SearchModal({
                     exercise.primaryTarget,
                   )),
             )}
-            itemsPerPage={10}
+            itemsPerPage={5}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
           />
         )}
       </DialogFooter>
     </Dialog>
+    </>
   );
 }

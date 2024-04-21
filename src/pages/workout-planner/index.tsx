@@ -18,6 +18,7 @@ import {
   DeleteProgressiveHabitInput,
   DeleteWorkoutTemplateExerciseInput,
   DeleteWorkoutTemplateInput,
+  Exercise,
   GeneralHabit,
   HabitType,
   ProgressiveHabit,
@@ -29,6 +30,7 @@ import WorkoutService from '@/services/WorkoutService';
 import WorkoutCard from '@/components/WorkoutCard';
 import { MyWorkoutTemplate } from '@/utils/types/exercises';
 import CompleteWorkoutModal from '@/components/WorkoutModals/CompleteWorkoutModal';
+import ExerciseDisplay from '@/components/WorkoutModals/ExerciseDisplay';
 
 export default function WorkoutPlanner() {
   const [showWorkoutCreationTemplate, setShowCreateWorkoutTemplate] =
@@ -39,6 +41,14 @@ export default function WorkoutPlanner() {
   const [showCompleteWorkout, setShowCompleteWorkout] =
     useState<boolean>(false);
   const today = new Date().toISOString().split('T')[0];
+  const [currWorkout, setCurrWorkout] = useState<MyWorkoutTemplate | undefined>(undefined);
+  const [isExerciseInfoModalOpen, setIsExerciseInfoModalOpen] = useState<boolean>(false);
+  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+
+  const handleExerciseSelect = (exercise : Exercise) => {
+      setSelectedExercise(exercise);
+      setIsExerciseInfoModalOpen(true);
+  };
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -48,6 +58,11 @@ export default function WorkoutPlanner() {
       try {
         const workouts = await WorkoutService.getWorkouts();
         setWorkouts(workouts);
+        if (workouts.length > 0) {
+            setCurrWorkout(workouts[0] as MyWorkoutTemplate);
+          } else {
+            setCurrWorkout(undefined);
+        }
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -58,13 +73,10 @@ export default function WorkoutPlanner() {
     fetchWorkouts();
   }, []);
 
-  const [currWorkout, setCurrWorkout] = useState<MyWorkoutTemplate>(
-    workouts[0] as MyWorkoutTemplate,
-  );
-
   function deleteWorkout() {
+    const id = currWorkout?.id
     const input = {
-        id: currWorkout.id
+        id
     }
     WorkoutService.deleteWorkoutTemplate(input as DeleteWorkoutTemplateInput)
   }
@@ -76,11 +88,21 @@ export default function WorkoutPlanner() {
 
   return (
     <div className="flex flex-col flex-grow space-y-4 p-4">
-      <SearchModal
-        isOpen={showWorkoutCreationTemplate}
-        onClose={setShowCreateWorkoutTemplate}
-        setWorkouts={setWorkouts}
-      />
+      {showWorkoutCreationTemplate && (
+        <SearchModal
+          isOpen={showWorkoutCreationTemplate}
+          onClose={setShowCreateWorkoutTemplate}
+          onSelectedExercise={handleExerciseSelect}
+          setWorkouts={setWorkouts}
+        />
+      )}
+      {isExerciseInfoModalOpen && selectedExercise && 
+        (<ExerciseDisplay
+          exercise={selectedExercise}
+          isOpen={isExerciseInfoModalOpen}
+          onClose={setIsExerciseInfoModalOpen}
+        />)
+      } 
       <CompleteWorkoutModal
         workout={currWorkout}
         isOpen={showCompleteWorkout}
