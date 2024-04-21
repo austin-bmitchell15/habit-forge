@@ -38,7 +38,7 @@ type GeneralHabit @model @auth(rules: [{ allow: owner }]) {
 type WorkoutTemplate @model @auth(rules: [{ allow: owner }]) {
   id: ID!
   name: String!
-  exercises: [Exercise] @hasMany
+  exercises: [Exercise]! @manyToMany(relationName: "WorkoutTemplateExercise")
 }
 
 type Exercise @model @auth(rules: [{ allow: private }]){
@@ -48,6 +48,7 @@ type Exercise @model @auth(rules: [{ allow: private }]){
   equipment: String!
   gifUrl: String!
   instructions: [String]!
+  templates: [WorkoutTemplate] @manyToMany(relationName: "WorkoutTemplateExercise") @auth(rules: [{ allow: owner }])
 }
 
 enum HabitType {

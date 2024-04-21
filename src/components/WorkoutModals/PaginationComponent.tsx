@@ -5,7 +5,7 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Exercise } from '@/API';
 
 interface PaginationProps {
-  items: Exercise[];
+  items: any[];
   itemsPerPage: number;
   currentPage: number;
   setCurrentPage: (page: number) => void;

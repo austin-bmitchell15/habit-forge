@@ -197,9 +197,13 @@ export const getExercise = /* GraphQL */ `query GetExercise($id: ID!) {
     equipment
     gifUrl
     instructions
+    templates {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
@@ -222,7 +226,7 @@ export const listExercises = /* GraphQL */ `query ListExercises(
       instructions
       createdAt
       updatedAt
-      workoutTemplateExercisesId
+      owner
       __typename
     }
     nextToken
@@ -233,3 +237,131 @@ export const listExercises = /* GraphQL */ `query ListExercises(
   APITypes.ListExercisesQueryVariables,
   APITypes.ListExercisesQuery
 >;
+export const getWorkoutTemplateExercise =
+  /* GraphQL */ `query GetWorkoutTemplateExercise($id: ID!) {
+  getWorkoutTemplateExercise(id: $id) {
+    id
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.GetWorkoutTemplateExerciseQueryVariables,
+    APITypes.GetWorkoutTemplateExerciseQuery
+  >;
+export const listWorkoutTemplateExercises =
+  /* GraphQL */ `query ListWorkoutTemplateExercises(
+  $filter: ModelWorkoutTemplateExerciseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listWorkoutTemplateExercises(
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      workoutTemplateId
+      exerciseId
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.ListWorkoutTemplateExercisesQueryVariables,
+    APITypes.ListWorkoutTemplateExercisesQuery
+  >;
+export const workoutTemplateExercisesByWorkoutTemplateId =
+  /* GraphQL */ `query WorkoutTemplateExercisesByWorkoutTemplateId(
+  $workoutTemplateId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelWorkoutTemplateExerciseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  workoutTemplateExercisesByWorkoutTemplateId(
+    workoutTemplateId: $workoutTemplateId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      workoutTemplateId
+      exerciseId
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.WorkoutTemplateExercisesByWorkoutTemplateIdQueryVariables,
+    APITypes.WorkoutTemplateExercisesByWorkoutTemplateIdQuery
+  >;
+export const workoutTemplateExercisesByExerciseId =
+  /* GraphQL */ `query WorkoutTemplateExercisesByExerciseId(
+  $exerciseId: ID!
+  $sortDirection: ModelSortDirection
+  $filter: ModelWorkoutTemplateExerciseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  workoutTemplateExercisesByExerciseId(
+    exerciseId: $exerciseId
+    sortDirection: $sortDirection
+    filter: $filter
+    limit: $limit
+    nextToken: $nextToken
+  ) {
+    items {
+      id
+      workoutTemplateId
+      exerciseId
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.WorkoutTemplateExercisesByExerciseIdQueryVariables,
+    APITypes.WorkoutTemplateExercisesByExerciseIdQuery
+  >;

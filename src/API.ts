@@ -261,16 +261,28 @@ export type WorkoutTemplate = {
   __typename: 'WorkoutTemplate';
   id: string;
   name: string;
-  exercises?: ModelExerciseConnection | null;
+  exercises?: ModelWorkoutTemplateExerciseConnection | null;
   createdAt: string;
   updatedAt: string;
   owner?: string | null;
 };
 
-export type ModelExerciseConnection = {
-  __typename: 'ModelExerciseConnection';
-  items: Array<Exercise | null>;
+export type ModelWorkoutTemplateExerciseConnection = {
+  __typename: 'ModelWorkoutTemplateExerciseConnection';
+  items: Array<WorkoutTemplateExercise | null>;
   nextToken?: string | null;
+};
+
+export type WorkoutTemplateExercise = {
+  __typename: 'WorkoutTemplateExercise';
+  id: string;
+  workoutTemplateId: string;
+  exerciseId: string;
+  workoutTemplate: WorkoutTemplate;
+  exercise: Exercise;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
 };
 
 export type Exercise = {
@@ -281,9 +293,9 @@ export type Exercise = {
   equipment: string;
   gifUrl: string;
   instructions: Array<string | null>;
+  templates?: ModelWorkoutTemplateExerciseConnection | null;
   createdAt: string;
   updatedAt: string;
-  workoutTemplateExercisesId?: string | null;
 };
 
 export type UpdateWorkoutTemplateInput = {
@@ -302,7 +314,6 @@ export type CreateExerciseInput = {
   equipment: string;
   gifUrl: string;
   instructions: Array<string | null>;
-  workoutTemplateExercisesId?: string | null;
 };
 
 export type ModelExerciseConditionInput = {
@@ -316,7 +327,36 @@ export type ModelExerciseConditionInput = {
   not?: ModelExerciseConditionInput | null;
   createdAt?: ModelStringInput | null;
   updatedAt?: ModelStringInput | null;
-  workoutTemplateExercisesId?: ModelIDInput | null;
+};
+
+export type UpdateExerciseInput = {
+  id: string;
+  name?: string | null;
+  primaryTarget?: string | null;
+  equipment?: string | null;
+  gifUrl?: string | null;
+  instructions?: Array<string | null> | null;
+};
+
+export type DeleteExerciseInput = {
+  id: string;
+};
+
+export type CreateWorkoutTemplateExerciseInput = {
+  id?: string | null;
+  workoutTemplateId: string;
+  exerciseId: string;
+};
+
+export type ModelWorkoutTemplateExerciseConditionInput = {
+  workoutTemplateId?: ModelIDInput | null;
+  exerciseId?: ModelIDInput | null;
+  and?: Array<ModelWorkoutTemplateExerciseConditionInput | null> | null;
+  or?: Array<ModelWorkoutTemplateExerciseConditionInput | null> | null;
+  not?: ModelWorkoutTemplateExerciseConditionInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
+  owner?: ModelStringInput | null;
 };
 
 export type ModelIDInput = {
@@ -335,17 +375,13 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null;
 };
 
-export type UpdateExerciseInput = {
+export type UpdateWorkoutTemplateExerciseInput = {
   id: string;
-  name?: string | null;
-  primaryTarget?: string | null;
-  equipment?: string | null;
-  gifUrl?: string | null;
-  instructions?: Array<string | null> | null;
-  workoutTemplateExercisesId?: string | null;
+  workoutTemplateId?: string | null;
+  exerciseId?: string | null;
 };
 
-export type DeleteExerciseInput = {
+export type DeleteWorkoutTemplateExerciseInput = {
   id: string;
 };
 
@@ -444,8 +480,30 @@ export type ModelExerciseFilterInput = {
   and?: Array<ModelExerciseFilterInput | null> | null;
   or?: Array<ModelExerciseFilterInput | null> | null;
   not?: ModelExerciseFilterInput | null;
-  workoutTemplateExercisesId?: ModelIDInput | null;
 };
+
+export type ModelExerciseConnection = {
+  __typename: 'ModelExerciseConnection';
+  items: Array<Exercise | null>;
+  nextToken?: string | null;
+};
+
+export type ModelWorkoutTemplateExerciseFilterInput = {
+  id?: ModelIDInput | null;
+  workoutTemplateId?: ModelIDInput | null;
+  exerciseId?: ModelIDInput | null;
+  createdAt?: ModelStringInput | null;
+  updatedAt?: ModelStringInput | null;
+  and?: Array<ModelWorkoutTemplateExerciseFilterInput | null> | null;
+  or?: Array<ModelWorkoutTemplateExerciseFilterInput | null> | null;
+  not?: ModelWorkoutTemplateExerciseFilterInput | null;
+  owner?: ModelStringInput | null;
+};
+
+export enum ModelSortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}
 
 export type ModelSubscriptionProgressiveHabitFilterInput = {
   id?: ModelSubscriptionIDInput | null;
@@ -558,7 +616,6 @@ export type ModelSubscriptionWorkoutTemplateFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionWorkoutTemplateFilterInput | null> | null;
   or?: Array<ModelSubscriptionWorkoutTemplateFilterInput | null> | null;
-  workoutTemplateExercisesId?: ModelSubscriptionIDInput | null;
   owner?: ModelStringInput | null;
 };
 
@@ -573,6 +630,17 @@ export type ModelSubscriptionExerciseFilterInput = {
   updatedAt?: ModelSubscriptionStringInput | null;
   and?: Array<ModelSubscriptionExerciseFilterInput | null> | null;
   or?: Array<ModelSubscriptionExerciseFilterInput | null> | null;
+};
+
+export type ModelSubscriptionWorkoutTemplateExerciseFilterInput = {
+  id?: ModelSubscriptionIDInput | null;
+  workoutTemplateId?: ModelSubscriptionIDInput | null;
+  exerciseId?: ModelSubscriptionIDInput | null;
+  createdAt?: ModelSubscriptionStringInput | null;
+  updatedAt?: ModelSubscriptionStringInput | null;
+  and?: Array<ModelSubscriptionWorkoutTemplateExerciseFilterInput | null> | null;
+  or?: Array<ModelSubscriptionWorkoutTemplateExerciseFilterInput | null> | null;
+  owner?: ModelStringInput | null;
 };
 
 export type CreateProgressiveHabitMutationVariables = {
@@ -775,7 +843,7 @@ export type CreateWorkoutTemplateMutation = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -795,7 +863,7 @@ export type UpdateWorkoutTemplateMutation = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -815,7 +883,7 @@ export type DeleteWorkoutTemplateMutation = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -838,9 +906,12 @@ export type CreateExerciseMutation = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
   } | null;
 };
 
@@ -858,9 +929,12 @@ export type UpdateExerciseMutation = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
   } | null;
 };
 
@@ -878,9 +952,120 @@ export type DeleteExerciseMutation = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
+  } | null;
+};
+
+export type CreateWorkoutTemplateExerciseMutationVariables = {
+  input: CreateWorkoutTemplateExerciseInput;
+  condition?: ModelWorkoutTemplateExerciseConditionInput | null;
+};
+
+export type CreateWorkoutTemplateExerciseMutation = {
+  createWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type UpdateWorkoutTemplateExerciseMutationVariables = {
+  input: UpdateWorkoutTemplateExerciseInput;
+  condition?: ModelWorkoutTemplateExerciseConditionInput | null;
+};
+
+export type UpdateWorkoutTemplateExerciseMutation = {
+  updateWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type DeleteWorkoutTemplateExerciseMutationVariables = {
+  input: DeleteWorkoutTemplateExerciseInput;
+  condition?: ModelWorkoutTemplateExerciseConditionInput | null;
+};
+
+export type DeleteWorkoutTemplateExerciseMutation = {
+  deleteWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
   } | null;
 };
 
@@ -1032,7 +1217,7 @@ export type GetWorkoutTemplateQuery = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -1075,9 +1260,12 @@ export type GetExerciseQuery = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
   } | null;
 };
 
@@ -1100,7 +1288,111 @@ export type ListExercisesQuery = {
       instructions: Array<string | null>;
       createdAt: string;
       updatedAt: string;
-      workoutTemplateExercisesId?: string | null;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
+};
+
+export type GetWorkoutTemplateExerciseQueryVariables = {
+  id: string;
+};
+
+export type GetWorkoutTemplateExerciseQuery = {
+  getWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type ListWorkoutTemplateExercisesQueryVariables = {
+  filter?: ModelWorkoutTemplateExerciseFilterInput | null;
+  limit?: number | null;
+  nextToken?: string | null;
+};
+
+export type ListWorkoutTemplateExercisesQuery = {
+  listWorkoutTemplateExercises?: {
+    __typename: 'ModelWorkoutTemplateExerciseConnection';
+    items: Array<{
+      __typename: 'WorkoutTemplateExercise';
+      id: string;
+      workoutTemplateId: string;
+      exerciseId: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
+};
+
+export type WorkoutTemplateExercisesByWorkoutTemplateIdQueryVariables = {
+  workoutTemplateId: string;
+  sortDirection?: ModelSortDirection | null;
+  filter?: ModelWorkoutTemplateExerciseFilterInput | null;
+  limit?: number | null;
+  nextToken?: string | null;
+};
+
+export type WorkoutTemplateExercisesByWorkoutTemplateIdQuery = {
+  workoutTemplateExercisesByWorkoutTemplateId?: {
+    __typename: 'ModelWorkoutTemplateExerciseConnection';
+    items: Array<{
+      __typename: 'WorkoutTemplateExercise';
+      id: string;
+      workoutTemplateId: string;
+      exerciseId: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    } | null>;
+    nextToken?: string | null;
+  } | null;
+};
+
+export type WorkoutTemplateExercisesByExerciseIdQueryVariables = {
+  exerciseId: string;
+  sortDirection?: ModelSortDirection | null;
+  filter?: ModelWorkoutTemplateExerciseFilterInput | null;
+  limit?: number | null;
+  nextToken?: string | null;
+};
+
+export type WorkoutTemplateExercisesByExerciseIdQuery = {
+  workoutTemplateExercisesByExerciseId?: {
+    __typename: 'ModelWorkoutTemplateExerciseConnection';
+    items: Array<{
+      __typename: 'WorkoutTemplateExercise';
+      id: string;
+      workoutTemplateId: string;
+      exerciseId: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
     } | null>;
     nextToken?: string | null;
   } | null;
@@ -1306,7 +1598,7 @@ export type OnCreateWorkoutTemplateSubscription = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -1326,7 +1618,7 @@ export type OnUpdateWorkoutTemplateSubscription = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -1346,7 +1638,7 @@ export type OnDeleteWorkoutTemplateSubscription = {
     id: string;
     name: string;
     exercises?: {
-      __typename: 'ModelExerciseConnection';
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
       nextToken?: string | null;
     } | null;
     createdAt: string;
@@ -1368,9 +1660,12 @@ export type OnCreateExerciseSubscription = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
   } | null;
 };
 
@@ -1387,9 +1682,12 @@ export type OnUpdateExerciseSubscription = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
   } | null;
 };
 
@@ -1406,8 +1704,119 @@ export type OnDeleteExerciseSubscription = {
     equipment: string;
     gifUrl: string;
     instructions: Array<string | null>;
+    templates?: {
+      __typename: 'ModelWorkoutTemplateExerciseConnection';
+      nextToken?: string | null;
+    } | null;
     createdAt: string;
     updatedAt: string;
-    workoutTemplateExercisesId?: string | null;
+  } | null;
+};
+
+export type OnCreateWorkoutTemplateExerciseSubscriptionVariables = {
+  filter?: ModelSubscriptionWorkoutTemplateExerciseFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnCreateWorkoutTemplateExerciseSubscription = {
+  onCreateWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnUpdateWorkoutTemplateExerciseSubscriptionVariables = {
+  filter?: ModelSubscriptionWorkoutTemplateExerciseFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnUpdateWorkoutTemplateExerciseSubscription = {
+  onUpdateWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
+  } | null;
+};
+
+export type OnDeleteWorkoutTemplateExerciseSubscriptionVariables = {
+  filter?: ModelSubscriptionWorkoutTemplateExerciseFilterInput | null;
+  owner?: string | null;
+};
+
+export type OnDeleteWorkoutTemplateExerciseSubscription = {
+  onDeleteWorkoutTemplateExercise?: {
+    __typename: 'WorkoutTemplateExercise';
+    id: string;
+    workoutTemplateId: string;
+    exerciseId: string;
+    workoutTemplate: {
+      __typename: 'WorkoutTemplate';
+      id: string;
+      name: string;
+      createdAt: string;
+      updatedAt: string;
+      owner?: string | null;
+    };
+    exercise: {
+      __typename: 'Exercise';
+      id: string;
+      name: string;
+      primaryTarget: string;
+      equipment: string;
+      gifUrl: string;
+      instructions: Array<string | null>;
+      createdAt: string;
+      updatedAt: string;
+    };
+    createdAt: string;
+    updatedAt: string;
+    owner?: string | null;
   } | null;
 };

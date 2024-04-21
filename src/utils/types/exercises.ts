@@ -1,3 +1,5 @@
+import { Exercise } from '@/API';
+
 export const BODY_PART_CATEGORY_MAPPING = {
   Cardio: ['Cardiovascular System'],
   Back: ['Lats', 'Upper Back'],
@@ -15,3 +17,21 @@ export const BODY_PART_CATEGORIES = [
   'Arms',
   'Abs',
 ];
+
+export type MyWorkoutTemplate = {
+  __typename: 'WorkoutTemplate';
+  id: string;
+  name: string;
+  exercises?: ExerciseList;
+  createdAt: string;
+  updatedAt: string;
+  owner?: string | null;
+};
+
+export type ExerciseList = {
+  items: [MyExercise];
+};
+
+export type MyExercise = {
+  exercise: Exercise;
+};

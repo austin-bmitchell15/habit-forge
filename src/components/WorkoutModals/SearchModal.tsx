@@ -13,11 +13,17 @@ import {
   Typography,
 } from '@material-tailwind/react';
 import CheckIcon from '@mui/icons-material/Check'; // Check icon for selected items
-import { Exercise } from '@/API'; // Adjust if the path is different
+import {
+  CreateWorkoutTemplateExerciseInput,
+  CreateWorkoutTemplateInput,
+  Exercise,
+  WorkoutTemplate,
+} from '@/API'; // Adjust if the path is different
 import ExerciseService from '@/services/ExerciseService';
 import { handler } from '@material-tailwind/react/types/components/dialog';
 import PaginationComponent from './PaginationComponent';
 import { value } from '@material-tailwind/react/types/components/chip';
+import WorkoutService from '@/services/WorkoutService';
 
 // Define the categories and their respective parts
 const BODY_PART_CATEGORIES: { [key: string]: string[] } = {
@@ -29,14 +35,17 @@ const BODY_PART_CATEGORIES: { [key: string]: string[] } = {
   Abs: ['Abs', 'Spine'],
 };
 
-const categoryKeys = Object.keys(BODY_PART_CATEGORIES); // Keys for the select options
-
 interface SearchModalProps {
   isOpen: boolean;
   onClose: handler;
+  setWorkouts: Function;
 }
 
-export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
+export default function SearchModal({
+  isOpen,
+  onClose,
+  setWorkouts,
+}: SearchModalProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [searchTerm, setSearchTerm] = useState('');
@@ -46,7 +55,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [selectedCategory, setSelectedCategory] = useState<string>('');
   const [showNamingForm, setShowNamingForm] = useState<boolean>(false);
-  const [workoutName, setWorkoutName] = useState('');
+  const [workoutName, setWorkoutName] = useState<string>('');
 
   useEffect(() => {
     const fetchExercises = async () => {
@@ -68,6 +77,35 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
     setCurrentPage(1);
     updatePagination();
   }, [searchTerm, selectedCategory, exercises]);
+
+  const handleSubmit = async (
+    event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
+  ) => {
+    event.preventDefault();
+
+    try {
+      const workoutInput: CreateWorkoutTemplateInput = {
+        name: workoutName,
+      };
+      const workout = await WorkoutService.createWorkout(workoutInput);
+      const arrayIds = Array.from(selectedIds);
+      for (const selectedId of arrayIds) {
+        const workoutExerciseInput: CreateWorkoutTemplateExerciseInput = {
+          workoutTemplateId: workout.data.createWorkoutTemplate.id,
+          exerciseId: selectedId,
+        };
+        const workoutExercise =
+          await WorkoutService.createWorkoutExercise(workoutExerciseInput);
+      }
+      setWorkouts((prevWorkouts: [WorkoutTemplate]) => [
+        ...prevWorkouts,
+        workout,
+      ]);
+      onClose(false);
+    } catch (error) {
+      console.error('Error creating habit:', error);
+    }
+  };
 
   const updatePagination = () => {
     const filteredExercises = exercises.filter(
@@ -167,10 +205,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       </DialogBody>
       <DialogFooter>
         {showNamingForm ? (
-          <Button
-            color="green"
-            onClick={() => console.log(`Workout Named: ${workoutName}`)}
-          >
+          <Button color="green" onClick={handleSubmit}>
             Save Workout
           </Button>
         ) : (

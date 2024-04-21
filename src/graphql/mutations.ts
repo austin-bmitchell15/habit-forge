@@ -286,9 +286,13 @@ export const createExercise = /* GraphQL */ `mutation CreateExercise(
     equipment
     gifUrl
     instructions
+    templates {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
@@ -307,9 +311,13 @@ export const updateExercise = /* GraphQL */ `mutation UpdateExercise(
     equipment
     gifUrl
     instructions
+    templates {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
@@ -328,9 +336,13 @@ export const deleteExercise = /* GraphQL */ `mutation DeleteExercise(
     equipment
     gifUrl
     instructions
+    templates {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
@@ -338,3 +350,120 @@ export const deleteExercise = /* GraphQL */ `mutation DeleteExercise(
   APITypes.DeleteExerciseMutationVariables,
   APITypes.DeleteExerciseMutation
 >;
+export const createWorkoutTemplateExercise =
+  /* GraphQL */ `mutation CreateWorkoutTemplateExercise(
+  $input: CreateWorkoutTemplateExerciseInput!
+  $condition: ModelWorkoutTemplateExerciseConditionInput
+) {
+  createWorkoutTemplateExercise(input: $input, condition: $condition) {
+    id
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.CreateWorkoutTemplateExerciseMutationVariables,
+    APITypes.CreateWorkoutTemplateExerciseMutation
+  >;
+export const updateWorkoutTemplateExercise =
+  /* GraphQL */ `mutation UpdateWorkoutTemplateExercise(
+  $input: UpdateWorkoutTemplateExerciseInput!
+  $condition: ModelWorkoutTemplateExerciseConditionInput
+) {
+  updateWorkoutTemplateExercise(input: $input, condition: $condition) {
+    id
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.UpdateWorkoutTemplateExerciseMutationVariables,
+    APITypes.UpdateWorkoutTemplateExerciseMutation
+  >;
+export const deleteWorkoutTemplateExercise =
+  /* GraphQL */ `mutation DeleteWorkoutTemplateExercise(
+  $input: DeleteWorkoutTemplateExerciseInput!
+  $condition: ModelWorkoutTemplateExerciseConditionInput
+) {
+  deleteWorkoutTemplateExercise(input: $input, condition: $condition) {
+    id
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedMutation<
+    APITypes.DeleteWorkoutTemplateExerciseMutationVariables,
+    APITypes.DeleteWorkoutTemplateExerciseMutation
+  >;

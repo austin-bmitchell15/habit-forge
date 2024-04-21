@@ -281,60 +281,195 @@ export const onDeleteWorkoutTemplate =
     APITypes.OnDeleteWorkoutTemplateSubscriptionVariables,
     APITypes.OnDeleteWorkoutTemplateSubscription
   >;
-export const onCreateExercise =
-  /* GraphQL */ `subscription OnCreateExercise($filter: ModelSubscriptionExerciseFilterInput) {
-  onCreateExercise(filter: $filter) {
+export const onCreateExercise = /* GraphQL */ `subscription OnCreateExercise(
+  $filter: ModelSubscriptionExerciseFilterInput
+  $owner: String
+) {
+  onCreateExercise(filter: $filter, owner: $owner) {
     id
     name
     primaryTarget
     equipment
     gifUrl
     instructions
+    templates {
+      nextToken
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnCreateExerciseSubscriptionVariables,
-    APITypes.OnCreateExerciseSubscription
+  APITypes.OnCreateExerciseSubscriptionVariables,
+  APITypes.OnCreateExerciseSubscription
+>;
+export const onUpdateExercise = /* GraphQL */ `subscription OnUpdateExercise(
+  $filter: ModelSubscriptionExerciseFilterInput
+  $owner: String
+) {
+  onUpdateExercise(filter: $filter, owner: $owner) {
+    id
+    name
+    primaryTarget
+    equipment
+    gifUrl
+    instructions
+    templates {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnUpdateExerciseSubscriptionVariables,
+  APITypes.OnUpdateExerciseSubscription
+>;
+export const onDeleteExercise = /* GraphQL */ `subscription OnDeleteExercise(
+  $filter: ModelSubscriptionExerciseFilterInput
+  $owner: String
+) {
+  onDeleteExercise(filter: $filter, owner: $owner) {
+    id
+    name
+    primaryTarget
+    equipment
+    gifUrl
+    instructions
+    templates {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+  APITypes.OnDeleteExerciseSubscriptionVariables,
+  APITypes.OnDeleteExerciseSubscription
+>;
+export const onCreateWorkoutTemplateExercise =
+  /* GraphQL */ `subscription OnCreateWorkoutTemplateExercise(
+  $filter: ModelSubscriptionWorkoutTemplateExerciseFilterInput
+  $owner: String
+) {
+  onCreateWorkoutTemplateExercise(filter: $filter, owner: $owner) {
+    id
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedSubscription<
+    APITypes.OnCreateWorkoutTemplateExerciseSubscriptionVariables,
+    APITypes.OnCreateWorkoutTemplateExerciseSubscription
   >;
-export const onUpdateExercise =
-  /* GraphQL */ `subscription OnUpdateExercise($filter: ModelSubscriptionExerciseFilterInput) {
-  onUpdateExercise(filter: $filter) {
+export const onUpdateWorkoutTemplateExercise =
+  /* GraphQL */ `subscription OnUpdateWorkoutTemplateExercise(
+  $filter: ModelSubscriptionWorkoutTemplateExerciseFilterInput
+  $owner: String
+) {
+  onUpdateWorkoutTemplateExercise(filter: $filter, owner: $owner) {
     id
-    name
-    primaryTarget
-    equipment
-    gifUrl
-    instructions
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnUpdateExerciseSubscriptionVariables,
-    APITypes.OnUpdateExerciseSubscription
+    APITypes.OnUpdateWorkoutTemplateExerciseSubscriptionVariables,
+    APITypes.OnUpdateWorkoutTemplateExerciseSubscription
   >;
-export const onDeleteExercise =
-  /* GraphQL */ `subscription OnDeleteExercise($filter: ModelSubscriptionExerciseFilterInput) {
-  onDeleteExercise(filter: $filter) {
+export const onDeleteWorkoutTemplateExercise =
+  /* GraphQL */ `subscription OnDeleteWorkoutTemplateExercise(
+  $filter: ModelSubscriptionWorkoutTemplateExerciseFilterInput
+  $owner: String
+) {
+  onDeleteWorkoutTemplateExercise(filter: $filter, owner: $owner) {
     id
-    name
-    primaryTarget
-    equipment
-    gifUrl
-    instructions
+    workoutTemplateId
+    exerciseId
+    workoutTemplate {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    exercise {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
     createdAt
     updatedAt
-    workoutTemplateExercisesId
+    owner
     __typename
   }
 }
 ` as GeneratedSubscription<
-    APITypes.OnDeleteExerciseSubscriptionVariables,
-    APITypes.OnDeleteExerciseSubscription
+    APITypes.OnDeleteWorkoutTemplateExerciseSubscriptionVariables,
+    APITypes.OnDeleteWorkoutTemplateExerciseSubscription
   >;

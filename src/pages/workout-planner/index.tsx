@@ -19,26 +19,33 @@ import {
   GeneralHabit,
   HabitType,
   ProgressiveHabit,
+  WorkoutTemplate,
 } from '@/API';
 import { generateClient } from 'aws-amplify/api';
 import SearchModal from '@/components/WorkoutModals/SearchModal';
+import WorkoutService from '@/services/WorkoutService';
+import WorkoutCard from '@/components/WorkoutCard';
+import { MyWorkoutTemplate } from '@/utils/types/exercises';
+import CompleteWorkoutModal from '@/components/WorkoutModals/CompleteWorkoutModal';
 
 export default function WorkoutPlanner() {
-  const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
+  const [showWorkoutCreationTemplate, setShowCreateWorkoutTemplate] =
+    useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [habits, setHabits] = useState<Habit[]>([]);
-  const [showEditHabitModal, setShowEditHabitModal] = useState(false);
+  const [workouts, setWorkouts] = useState<WorkoutTemplate[]>([]);
+  const [showCompleteWorkout, setShowCompleteWorkout] =
+    useState<boolean>(false);
   const today = new Date().toISOString().split('T')[0];
 
   useEffect(() => {
-    const fetchHabits = async () => {
+    const fetchWorkouts = async () => {
       setLoading(true);
       setError(null);
 
       try {
-        const habits = await HabitService.getHabits();
-        setHabits(habits);
+        const workouts = await WorkoutService.getWorkouts();
+        setWorkouts(workouts);
       } catch (err: any) {
         setError(err.message);
       } finally {
@@ -46,166 +53,45 @@ export default function WorkoutPlanner() {
       }
     };
 
-    fetchHabits();
-    const {
-      createGeneralSub,
-      createActivitySub,
-      createProgressiveSub,
-      deleteActivitySub,
-      deleteGeneralSub,
-      deleteProgressiveSub,
-      updateActivitySub,
-      updateProgressiveSub,
-      updateGeneralSub,
-    } = HabitService.habitChangeListener(setHabits);
-
-    return () => {
-      createGeneralSub.unsubscribe();
-      createActivitySub.unsubscribe();
-      createProgressiveSub.unsubscribe();
-      deleteActivitySub.unsubscribe();
-      deleteGeneralSub.unsubscribe();
-      deleteProgressiveSub.unsubscribe();
-      updateActivitySub.unsubscribe();
-      updateProgressiveSub.unsubscribe();
-      updateGeneralSub.unsubscribe();
-    };
+    fetchWorkouts();
   }, []);
 
-  const [currHabit, setCurrHabit] = useState<Habit>(habits[0]);
+  const [currWorkout, setCurrWorkout] = useState<MyWorkoutTemplate>(
+    workouts[0] as MyWorkoutTemplate,
+  );
 
-  function isConsecutiveDay(
-    currentDateString: string,
-    lastDateString: string,
-  ): boolean {
-    const dayInMs = 1000 * 60 * 60 * 24;
-    const currentDate = new Date(currentDateString);
-    const lastDate = new Date(lastDateString);
-    currentDate.setHours(0, 0, 0, 0);
-    lastDate.setHours(0, 0, 0, 0);
-    const difference = currentDate.getTime() - lastDate.getTime();
-    return difference === dayInMs;
-  }
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error}</div>;
 
-  function getNextWeekStartDate(date: Date): Date {
-    const nextWeek = new Date(date);
-    nextWeek.setDate(date.getDate() - date.getDay() + 7); // Assuming Sunday as the start of the next week
-    return nextWeek;
-  }
+  console.log(showCompleteWorkout);
 
-  function onDelete(id: string, habitType: HabitType) {
-    const input = { id };
-    switch (habitType) {
-      case HabitType.PROGRESSIVE:
-        HabitService.deleteProgressiveHabit(
-          input as DeleteProgressiveHabitInput,
-        );
-        break;
-      case HabitType.GENERAL:
-        HabitService.deleteGeneralHabit(input as DeleteGeneralHabitInput);
-        break;
-      case HabitType.ACTIVITY:
-        HabitService.deleteActivityHabit(input as DeleteActivityHabitInput);
-        break;
-    }
-  }
-
-  const onComplete = async (habit: Habit, value: string) => {
-    let input = {};
-    let completedHabit: Habit;
-    let result = null;
-    let streak = 0;
-    const today = new Date().toISOString().split('T')[0];
-    switch (habit.type) {
-      case HabitType.PROGRESSIVE:
-        completedHabit = habit as ProgressiveHabit;
-        const newProgress = parseInt(value) < 0 ? 0 : parseInt(value);
-        const currentProgress = completedHabit.currentProgress
-          ? completedHabit.currentProgress + newProgress
-          : newProgress;
-        const completed = currentProgress >= completedHabit.goal;
-        streak = habit.streak ?? 0;
-        if (completed) {
-          if (
-            habit.lastCompleted &&
-            isConsecutiveDay(today, habit.lastCompleted)
-          ) {
-            streak += 1;
-          } else {
-            streak = 1; // Reset streak if not consecutive
-          }
-        }
-        input = {
-          id: completedHabit.id,
-          name: completedHabit.name,
-          type: completedHabit.type,
-          goal: completedHabit.goal,
-          unit: completedHabit.unit,
-          currentProgress: currentProgress < 0 ? 0 : currentProgress, // Adjust as necessary
-          lastCompleted: completed ? today : completedHabit.lastCompleted,
-          streak,
-        };
-        result = await HabitService.updateProgressiveHabit(
-          input as CreateProgressiveHabitInput,
-        );
-        break;
-      case HabitType.ACTIVITY:
-        completedHabit = habit as ActivityHabit;
-        const isNewWeek =
-          !completedHabit.lastCompleted ||
-          new Date(today) >=
-            getNextWeekStartDate(new Date(completedHabit.lastCompleted));
-        console.log(isNewWeek);
-        const completedSessions = isNewWeek
-          ? 1
-          : completedHabit.completedSessions
-            ? completedHabit.completedSessions + 1
-            : 1;
-        streak =
-          isNewWeek && completedSessions < completedHabit.sessionsPerWeek
-            ? 0
-            : completedSessions === completedHabit.sessionsPerWeek
-              ? (completedHabit.streak ?? 0) + 1
-              : completedHabit.streak ?? 1;
-        input = {
-          id: completedHabit.id,
-          name: completedHabit.name,
-          type: completedHabit.type,
-          sessionsPerWeek: completedHabit.sessionsPerWeek,
-          completedSessions,
-          lastCompleted: today,
-          streak: streak,
-        };
-        result = await HabitService.updateActivityHabit(
-          input as CreateActivityHabitInput,
-        );
-        break;
-      case HabitType.GENERAL:
-        completedHabit = habit as GeneralHabit;
-        if (
-          habit.lastCompleted &&
-          isConsecutiveDay(today, habit.lastCompleted)
-        ) {
-          streak += 1;
-        } else {
-          streak = 1; // Reset streak if not consecutive
-        }
-        input = {
-          id: completedHabit.id,
-          name: completedHabit.name,
-          type: completedHabit.type,
-          completed: !completedHabit.completed, // Adjust as necessary
-          lastCompleted: today,
-          streak,
-        };
-        result = await HabitService.updateGeneralHabit(
-          input as CreateGeneralHabitInput,
-        );
-        break;
-    }
-    console.log('Habit updated:', result);
-  };
   return (
-    <SearchModal isOpen={true} onClose={setShowCreateHabitModal}></SearchModal>
+    <div className="flex flex-col flex-grow space-y-4 p-4">
+      <SearchModal
+        isOpen={showWorkoutCreationTemplate}
+        onClose={setShowCreateWorkoutTemplate}
+        setWorkouts={setWorkouts}
+      />
+      <CompleteWorkoutModal
+        workout={currWorkout}
+        isOpen={showCompleteWorkout}
+        onClose={setShowCompleteWorkout}
+      />
+      <div className="grid grid-cols-3 gap-4">
+        {workouts.map((workout, index) => (
+          <WorkoutCard
+            workout={workout as MyWorkoutTemplate}
+            setShowCompleteWorkout={setShowCompleteWorkout}
+            setCurrWorkout={setCurrWorkout}
+          />
+        ))}
+      </div>
+      <Button
+        className="bg-deep-purple-200"
+        onClick={() => setShowCreateWorkoutTemplate(true)}
+      >
+        Create Habit
+      </Button>
+    </div>
   );
 }
