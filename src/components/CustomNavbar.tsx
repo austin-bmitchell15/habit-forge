@@ -46,7 +46,6 @@ export default function CustomNavbar({ user, signOut }: CustomNavbarProps) {
       label: 'Habit Tracker',
       path: '/habits',
     },
-    { icon: AccountCircleOutlinedIcon, label: 'Profile', path: '/profile' },
   ];
 
   return (
