@@ -21,8 +21,9 @@ import {
   ProgressiveHabit,
 } from '@/API';
 import { generateClient } from 'aws-amplify/api';
+import SearchModal from '@/components/WorkoutModals/SearchModal';
 
-export default function Habits() {
+export default function WorkoutPlanner() {
   const [showCreateHabitModal, setShowCreateHabitModal] = useState(false);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
@@ -204,55 +205,7 @@ export default function Habits() {
     }
     console.log('Habit updated:', result);
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>Error: {error}</div>;
-  } else {
-    return (
-      <div className="flex flex-col flex-grow space-y-4 p-4">
-        <CreateHabitModal
-          open={showCreateHabitModal}
-          setOpen={setShowCreateHabitModal}
-        />
-        <EditHabitModal
-          habitData={{ ...currHabit }}
-          open={showEditHabitModal}
-          setOpen={setShowEditHabitModal}
-        />
-        <div className="flex flex-col w-full space-y-4 ">
-          {habits
-            .sort((a, b) => {
-              if (a.lastCompleted === today && b.lastCompleted !== today) {
-                return 1;
-              } else if (
-                a.lastCompleted !== today &&
-                b.lastCompleted === today
-              ) {
-                return -1;
-              }
-              return 0;
-            })
-            .map((habit, index) => (
-              <HabitCard
-                habit={habit}
-                key={index}
-                setCurrHabit={setCurrHabit}
-                showEdit={setShowEditHabitModal}
-                onDelete={onDelete}
-                onComplete={onComplete}
-              />
-            ))}
-        </div>
-        <Button
-          className="bg-deep-purple-200"
-          onClick={() => setShowCreateHabitModal(true)}
-        >
-          Create Habit
-        </Button>
-      </div>
-    );
-  }
+  return (
+    <SearchModal isOpen={true} onClose={setShowCreateHabitModal}></SearchModal>
+  );
 }

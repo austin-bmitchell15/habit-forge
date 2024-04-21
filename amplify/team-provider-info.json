@@ -35,7 +35,7 @@
         },
         "habitforge691ff618": {
           "deploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
-          "s3Key": "amplify-builds/habitforge691ff618-6a414e6133427a565356-build.zip"
+          "s3Key": "amplify-builds/habitforge691ff618-68435a66724b65574532-build.zip"
         }
       },
       "api": {

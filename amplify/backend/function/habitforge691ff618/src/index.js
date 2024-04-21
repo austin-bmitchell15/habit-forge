@@ -56,6 +56,16 @@ const createExercise = /* GraphQL */ `mutation CreateExercise($input: CreateExer
 }
 `
 
+function capitalizeWords(input) {
+  const words = input.trim().split(" ");
+
+  const capitalizedWords = words.map(word => {
+      if (word === "") return word;
+      return word[0].toUpperCase() + word.slice(1).toLowerCase();
+  });
+  return capitalizedWords.join(" ");
+}
+
 /**
  * @type {import('@types/aws-lambda').APIGatewayProxyHandler}
  */
@@ -93,9 +103,9 @@ const createExercise = /* GraphQL */ `mutation CreateExercise($input: CreateExer
       for (const object of body) {
         const variables = {
           input: {
-            name: object.name,
-            primaryTarget: object.target,
-            equipment: object.equipment,
+            name: capitalizeWords(object.name),
+            primaryTarget: capitalizeWords(object.target),
+            equipment: capitalizeWords(object.equipment),
             gifUrl: object.gifUrl,
             instructions: object.instructions,
           }
