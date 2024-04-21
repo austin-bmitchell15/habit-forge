@@ -16,7 +16,7 @@ import CheckIcon from '@mui/icons-material/Check'; // Check icon for selected it
 import { Exercise } from '@/API'; // Adjust if the path is different
 import ExerciseService from '@/services/ExerciseService';
 import { handler } from '@material-tailwind/react/types/components/dialog';
-import PaginationComponent from '../PaginationComponent';
+import PaginationComponent from './PaginationComponent';
 import { value } from '@material-tailwind/react/types/components/chip';
 
 // Define the categories and their respective parts
