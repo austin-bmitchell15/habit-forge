@@ -29,8 +29,10 @@ export default function CompleteWorkoutModal({
   const [sets, setSets] = useState<string>();
   const [reps, setReps] = useState<string>();
   const [weight, setWeights] = useState<string>();
-  const exercises = workout?.exercises?.items
-  const [paginatedExercises, setPaginatedExercises] = useState<MyExercise[]>([]);
+  const exercises = workout?.exercises?.items;
+  const [paginatedExercises, setPaginatedExercises] = useState<MyExercise[]>(
+    [],
+  );
 
   useEffect(() => {
     setCurrentPage(1);
@@ -40,10 +42,10 @@ export default function CompleteWorkoutModal({
   const updatePagination = () => {
     const itemsPerPage = 5;
     const startIndex = (currentPage - 1) * itemsPerPage;
-    if (exercises){
-        setPaginatedExercises(
-            exercises.slice(startIndex, startIndex + itemsPerPage),
-          );
+    if (exercises) {
+      setPaginatedExercises(
+        exercises.slice(startIndex, startIndex + itemsPerPage),
+      );
     }
   };
 
@@ -89,12 +91,12 @@ export default function CompleteWorkoutModal({
           </div>
         ))}
       </DialogBody>
-      <DialogFooter className='flex space-x-4'>
+      <DialogFooter className="flex space-x-4">
         <Button color="blue" onClick={handleComplete}>
           Complete
         </Button>
         {exercises && (
-            <PaginationComponent
+          <PaginationComponent
             items={exercises}
             itemsPerPage={ITEMS_PER_PAGE}
             currentPage={currentPage}

@@ -41,13 +41,18 @@ export default function WorkoutPlanner() {
   const [showCompleteWorkout, setShowCompleteWorkout] =
     useState<boolean>(false);
   const today = new Date().toISOString().split('T')[0];
-  const [currWorkout, setCurrWorkout] = useState<MyWorkoutTemplate | undefined>(undefined);
-  const [isExerciseInfoModalOpen, setIsExerciseInfoModalOpen] = useState<boolean>(false);
-  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(null);
+  const [currWorkout, setCurrWorkout] = useState<MyWorkoutTemplate | undefined>(
+    undefined,
+  );
+  const [showExerciseDisplay, setShowExerciseDisplay] =
+    useState<boolean>(false);
+  const [selectedExercise, setSelectedExercise] = useState<Exercise | null>(
+    null,
+  );
 
-  const handleExerciseSelect = (exercise : Exercise) => {
-      setSelectedExercise(exercise);
-      setIsExerciseInfoModalOpen(true);
+  const handleExerciseSelect = (exercise: Exercise) => {
+    setSelectedExercise(exercise);
+    setShowExerciseDisplay(true);
   };
 
   useEffect(() => {
@@ -59,9 +64,9 @@ export default function WorkoutPlanner() {
         const workouts = await WorkoutService.getWorkouts();
         setWorkouts(workouts);
         if (workouts.length > 0) {
-            setCurrWorkout(workouts[0] as MyWorkoutTemplate);
-          } else {
-            setCurrWorkout(undefined);
+          setCurrWorkout(workouts[0] as MyWorkoutTemplate);
+        } else {
+          setCurrWorkout(undefined);
         }
       } catch (err: any) {
         setError(err.message);
@@ -74,11 +79,11 @@ export default function WorkoutPlanner() {
   }, []);
 
   function deleteWorkout() {
-    const id = currWorkout?.id
+    const id = currWorkout?.id;
     const input = {
-        id
-    }
-    WorkoutService.deleteWorkoutTemplate(input as DeleteWorkoutTemplateInput)
+      id,
+    };
+    WorkoutService.deleteWorkoutTemplate(input as DeleteWorkoutTemplateInput);
   }
 
   if (loading) return <div>Loading...</div>;
@@ -96,18 +101,20 @@ export default function WorkoutPlanner() {
           setWorkouts={setWorkouts}
         />
       )}
-      {isExerciseInfoModalOpen && selectedExercise && 
-        (<ExerciseDisplay
+      {showExerciseDisplay && selectedExercise && (
+        <ExerciseDisplay
           exercise={selectedExercise}
-          isOpen={isExerciseInfoModalOpen}
-          onClose={setIsExerciseInfoModalOpen}
-        />)
-      } 
-      <CompleteWorkoutModal
-        workout={currWorkout}
-        isOpen={showCompleteWorkout}
-        onClose={setShowCompleteWorkout}
-      />
+          isOpen={showExerciseDisplay}
+          onClose={setShowExerciseDisplay}
+        />
+      )}
+      {currWorkout && (
+        <CompleteWorkoutModal
+          workout={currWorkout}
+          isOpen={showCompleteWorkout}
+          onClose={setShowCompleteWorkout}
+        />
+      )}
       <div className="grid grid-cols-3 gap-4">
         {workouts.map((workout, index) => (
           <WorkoutCard

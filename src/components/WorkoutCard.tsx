@@ -17,7 +17,7 @@ interface WorkoutCardProps {
   workout: MyWorkoutTemplate;
   setShowCompleteWorkout: handler;
   setCurrWorkout: handler;
-  deleteWorkout: Function
+  deleteWorkout: Function;
 }
 
 const MAX_DISPLAYED_EXERCISES = 5; // Max number of exercises to display
@@ -26,7 +26,7 @@ export default function WorkoutCard({
   workout,
   setShowCompleteWorkout,
   setCurrWorkout,
-  deleteWorkout
+  deleteWorkout,
 }: WorkoutCardProps) {
   function onComplete() {
     setCurrWorkout(workout);
@@ -34,9 +34,9 @@ export default function WorkoutCard({
   }
 
   function onDelete() {
-    console.log(workout)
+    console.log(workout);
     setCurrWorkout(workout);
-    deleteWorkout()
+    deleteWorkout();
   }
 
   return (

@@ -5,7 +5,7 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from "react";
+import * as React from 'react';
 import {
   Badge,
   Button,
@@ -17,10 +17,10 @@ import {
   Text,
   TextField,
   useTheme,
-} from "@aws-amplify/ui-react";
-import { fetchByPath, getOverrideProps, validateField } from "./utils";
-import { generateClient } from "aws-amplify/api";
-import { createExercise } from "../graphql/mutations";
+} from '@aws-amplify/ui-react';
+import { fetchByPath, getOverrideProps, validateField } from './utils';
+import { generateClient } from 'aws-amplify/api';
+import { createExercise } from '../graphql/mutations';
 const client = generateClient();
 function ArrayField({
   items = [],
@@ -62,7 +62,7 @@ function ArrayField({
     if (
       currentFieldValue !== undefined &&
       currentFieldValue !== null &&
-      currentFieldValue !== "" &&
+      currentFieldValue !== '' &&
       !hasError
     ) {
       const newItems = [...items];
@@ -79,18 +79,18 @@ function ArrayField({
   const arraySection = (
     <React.Fragment>
       {!!items?.length && (
-        <ScrollView height="inherit" width="inherit" maxHeight={"7rem"}>
+        <ScrollView height="inherit" width="inherit" maxHeight={'7rem'}>
           {items.map((value, index) => {
             return (
               <Badge
                 key={index}
                 style={{
-                  cursor: "pointer",
-                  alignItems: "center",
+                  cursor: 'pointer',
+                  alignItems: 'center',
                   marginRight: 3,
                   marginTop: 3,
                   backgroundColor:
-                    index === selectedBadgeIndex ? "#B8CEF9" : "",
+                    index === selectedBadgeIndex ? '#B8CEF9' : '',
                 }}
                 onClick={() => {
                   setSelectedBadgeIndex(index);
@@ -101,7 +101,7 @@ function ArrayField({
                 {getBadgeText ? getBadgeText(value) : value.toString()}
                 <Icon
                   style={{
-                    cursor: "pointer",
+                    cursor: 'pointer',
                     paddingLeft: 3,
                     width: 20,
                     height: 20,
@@ -109,8 +109,8 @@ function ArrayField({
                   viewBox={{ width: 20, height: 20 }}
                   paths={[
                     {
-                      d: "M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z",
-                      stroke: "black",
+                      d: 'M10 10l5.09-5.09L10 10l5.09 5.09L10 10zm0 0L4.91 4.91 10 10l-5.09 5.09L10 10z',
+                      stroke: 'black',
                     },
                   ]}
                   ariaLabel="button"
@@ -169,7 +169,7 @@ function ArrayField({
             ></Button>
           )}
           <Button size="small" variation="link" onClick={addItem}>
-            {selectedBadgeIndex !== undefined ? "Save" : "Add"}
+            {selectedBadgeIndex !== undefined ? 'Save' : 'Add'}
           </Button>
         </Flex>
       )}
@@ -189,20 +189,20 @@ export default function ExerciseCreateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: "",
-    primaryTarget: "",
-    equipment: "",
-    gifUrl: "",
+    name: '',
+    primaryTarget: '',
+    equipment: '',
+    gifUrl: '',
     instructions: [],
   };
   const [name, setName] = React.useState(initialValues.name);
   const [primaryTarget, setPrimaryTarget] = React.useState(
-    initialValues.primaryTarget
+    initialValues.primaryTarget,
   );
   const [equipment, setEquipment] = React.useState(initialValues.equipment);
   const [gifUrl, setGifUrl] = React.useState(initialValues.gifUrl);
   const [instructions, setInstructions] = React.useState(
-    initialValues.instructions
+    initialValues.instructions,
   );
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -211,23 +211,23 @@ export default function ExerciseCreateForm(props) {
     setEquipment(initialValues.equipment);
     setGifUrl(initialValues.gifUrl);
     setInstructions(initialValues.instructions);
-    setCurrentInstructionsValue("");
+    setCurrentInstructionsValue('');
     setErrors({});
   };
   const [currentInstructionsValue, setCurrentInstructionsValue] =
-    React.useState("");
+    React.useState('');
   const instructionsRef = React.createRef();
   const validations = {
-    name: [{ type: "Required" }],
-    primaryTarget: [{ type: "Required" }],
-    equipment: [{ type: "Required" }],
-    gifUrl: [{ type: "Required" }],
+    name: [{ type: 'Required' }],
+    primaryTarget: [{ type: 'Required' }],
+    equipment: [{ type: 'Required' }],
+    gifUrl: [{ type: 'Required' }],
     instructions: [],
   };
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue
+    getDisplayValue,
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -261,16 +261,16 @@ export default function ExerciseCreateForm(props) {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item)
-                )
+                  runValidationTasks(fieldName, item),
+                ),
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName])
+              runValidationTasks(fieldName, modelFields[fieldName]),
             );
             return promises;
-          }, [])
+          }, []),
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -280,12 +280,12 @@ export default function ExerciseCreateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === "string" && value === "") {
+            if (typeof value === 'string' && value === '') {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: createExercise.replaceAll("__typename", ""),
+            query: createExercise.replaceAll('__typename', ''),
             variables: {
               input: {
                 ...modelFields,
@@ -300,12 +300,12 @@ export default function ExerciseCreateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join("\n");
+            const messages = err.errors.map((e) => e.message).join('\n');
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, "ExerciseCreateForm")}
+      {...getOverrideProps(overrides, 'ExerciseCreateForm')}
       {...rest}
     >
       <TextField
@@ -327,14 +327,14 @@ export default function ExerciseCreateForm(props) {
             value = result?.name ?? value;
           }
           if (errors.name?.hasError) {
-            runValidationTasks("name", value);
+            runValidationTasks('name', value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks("name", name)}
+        onBlur={() => runValidationTasks('name', name)}
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, "name")}
+        {...getOverrideProps(overrides, 'name')}
       ></TextField>
       <TextField
         label="Primary target"
@@ -355,14 +355,14 @@ export default function ExerciseCreateForm(props) {
             value = result?.primaryTarget ?? value;
           }
           if (errors.primaryTarget?.hasError) {
-            runValidationTasks("primaryTarget", value);
+            runValidationTasks('primaryTarget', value);
           }
           setPrimaryTarget(value);
         }}
-        onBlur={() => runValidationTasks("primaryTarget", primaryTarget)}
+        onBlur={() => runValidationTasks('primaryTarget', primaryTarget)}
         errorMessage={errors.primaryTarget?.errorMessage}
         hasError={errors.primaryTarget?.hasError}
-        {...getOverrideProps(overrides, "primaryTarget")}
+        {...getOverrideProps(overrides, 'primaryTarget')}
       ></TextField>
       <TextField
         label="Equipment"
@@ -383,14 +383,14 @@ export default function ExerciseCreateForm(props) {
             value = result?.equipment ?? value;
           }
           if (errors.equipment?.hasError) {
-            runValidationTasks("equipment", value);
+            runValidationTasks('equipment', value);
           }
           setEquipment(value);
         }}
-        onBlur={() => runValidationTasks("equipment", equipment)}
+        onBlur={() => runValidationTasks('equipment', equipment)}
         errorMessage={errors.equipment?.errorMessage}
         hasError={errors.equipment?.hasError}
-        {...getOverrideProps(overrides, "equipment")}
+        {...getOverrideProps(overrides, 'equipment')}
       ></TextField>
       <TextField
         label="Gif url"
@@ -411,14 +411,14 @@ export default function ExerciseCreateForm(props) {
             value = result?.gifUrl ?? value;
           }
           if (errors.gifUrl?.hasError) {
-            runValidationTasks("gifUrl", value);
+            runValidationTasks('gifUrl', value);
           }
           setGifUrl(value);
         }}
-        onBlur={() => runValidationTasks("gifUrl", gifUrl)}
+        onBlur={() => runValidationTasks('gifUrl', gifUrl)}
         errorMessage={errors.gifUrl?.errorMessage}
         hasError={errors.gifUrl?.hasError}
-        {...getOverrideProps(overrides, "gifUrl")}
+        {...getOverrideProps(overrides, 'gifUrl')}
       ></TextField>
       <ArrayField
         onChange={async (items) => {
@@ -435,19 +435,19 @@ export default function ExerciseCreateForm(props) {
             values = result?.instructions ?? values;
           }
           setInstructions(values);
-          setCurrentInstructionsValue("");
+          setCurrentInstructionsValue('');
         }}
         currentFieldValue={currentInstructionsValue}
-        label={"Instructions"}
+        label={'Instructions'}
         items={instructions}
         hasError={errors?.instructions?.hasError}
         runValidationTasks={async () =>
-          await runValidationTasks("instructions", currentInstructionsValue)
+          await runValidationTasks('instructions', currentInstructionsValue)
         }
         errorMessage={errors?.instructions?.errorMessage}
         setFieldValue={setCurrentInstructionsValue}
         inputFieldRef={instructionsRef}
-        defaultFieldValue={""}
+        defaultFieldValue={''}
       >
         <TextField
           label="Instructions"
@@ -457,23 +457,23 @@ export default function ExerciseCreateForm(props) {
           onChange={(e) => {
             let { value } = e.target;
             if (errors.instructions?.hasError) {
-              runValidationTasks("instructions", value);
+              runValidationTasks('instructions', value);
             }
             setCurrentInstructionsValue(value);
           }}
           onBlur={() =>
-            runValidationTasks("instructions", currentInstructionsValue)
+            runValidationTasks('instructions', currentInstructionsValue)
           }
           errorMessage={errors.instructions?.errorMessage}
           hasError={errors.instructions?.hasError}
           ref={instructionsRef}
           labelHidden={true}
-          {...getOverrideProps(overrides, "instructions")}
+          {...getOverrideProps(overrides, 'instructions')}
         ></TextField>
       </ArrayField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, "CTAFlex")}
+        {...getOverrideProps(overrides, 'CTAFlex')}
       >
         <Button
           children="Clear"
@@ -482,18 +482,18 @@ export default function ExerciseCreateForm(props) {
             event.preventDefault();
             resetStateValues();
           }}
-          {...getOverrideProps(overrides, "ClearButton")}
+          {...getOverrideProps(overrides, 'ClearButton')}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
+          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
         >
           <Button
             children="Submit"
             type="submit"
             variation="primary"
             isDisabled={Object.values(errors).some((e) => e?.hasError)}
-            {...getOverrideProps(overrides, "SubmitButton")}
+            {...getOverrideProps(overrides, 'SubmitButton')}
           ></Button>
         </Flex>
       </Flex>

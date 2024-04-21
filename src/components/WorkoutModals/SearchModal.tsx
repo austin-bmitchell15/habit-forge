@@ -41,7 +41,7 @@ interface SearchModalProps {
   isOpen: boolean;
   onClose: handler;
   setWorkouts: Function;
-  onSelectedExercise: (exercise: Exercise) => void
+  onSelectedExercise: (exercise: Exercise) => void;
 }
 
 export default function SearchModal({
@@ -143,96 +143,98 @@ export default function SearchModal({
   return (
     <>
       <Dialog open={isOpen} handler={onClose}>
-      <DialogHeader className="flex justify-between">
-        Create New Exercises ({selectedIds.size} selected)
-        {selectedIds.size > 0 && !showNamingForm && (
-          <Button
-            className="mt-4 p-2"
-            variant="outlined"
-            onClick={() => setShowNamingForm(true)}
-          >
-            Next Step
-          </Button>
-        )}
-      </DialogHeader>
-      <DialogBody className="flex flex-col space-y-4">
-        {showNamingForm ? (
-          <Input
-            label="Workout Name"
-            value={workoutName}
-            onChange={(e) => setWorkoutName(e.target.value)}
-          />
-        ) : (
-          <>
-            <Input
-              label="Search"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <Select
-              label="Filter by Category"
-              onChange={(filter: value) => {
-                setSelectedCategory(filter as string);
-              }}
-              value={selectedCategory}
+        <DialogHeader className="flex justify-between">
+          Create New Exercises ({selectedIds.size} selected)
+          {selectedIds.size > 0 && !showNamingForm && (
+            <Button
+              className="mt-4 p-2"
+              variant="outlined"
+              onClick={() => setShowNamingForm(true)}
             >
-              <Option value="">All Categories</Option>
-              <Option value="Cardio">Cardio</Option>
-              <Option value="Back">Back</Option>
-              <Option value="Shoulders">Shoulders</Option>
-              <Option value="Legs">Legs</Option>
-              <Option value="Arms">Arms</Option>
-              <Option value="Abs">Abs</Option>
-            </Select>
-            <div className="flex flex-col justify-center gap-4">
-              {paginatedExercises.map((exercise) => (
-                <Card
-                  key={exercise.id}
-                  className="p-2 cursor-pointer"
-                >
-                  <CardBody className="p-2">
-                    <div className="flex flex-row items-center justify-between">
-                      <div className="flex flex-col" onClick={() => {
-                        onSelectedExercise(exercise)
-                        }}>
-                        <Typography variant="h6">{exercise.name}</Typography>
-                        <Typography variant="small">
-                          {exercise.primaryTarget}
-                        </Typography>
+              Next Step
+            </Button>
+          )}
+        </DialogHeader>
+        <DialogBody className="flex flex-col space-y-4">
+          {showNamingForm ? (
+            <Input
+              label="Workout Name"
+              value={workoutName}
+              onChange={(e) => setWorkoutName(e.target.value)}
+            />
+          ) : (
+            <>
+              <Input
+                label="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <Select
+                label="Filter by Category"
+                onChange={(filter: value) => {
+                  setSelectedCategory(filter as string);
+                }}
+                value={selectedCategory}
+              >
+                <Option value="">All Categories</Option>
+                <Option value="Cardio">Cardio</Option>
+                <Option value="Back">Back</Option>
+                <Option value="Shoulders">Shoulders</Option>
+                <Option value="Legs">Legs</Option>
+                <Option value="Arms">Arms</Option>
+                <Option value="Abs">Abs</Option>
+              </Select>
+              <div className="flex flex-col justify-center gap-4">
+                {paginatedExercises.map((exercise) => (
+                  <Card key={exercise.id} className="p-2 cursor-pointer">
+                    <CardBody className="p-2">
+                      <div className="flex flex-row items-center justify-between">
+                        <div
+                          className="flex flex-col"
+                          onClick={() => {
+                            onSelectedExercise(exercise);
+                          }}
+                        >
+                          <Typography variant="h6">{exercise.name}</Typography>
+                          <Typography variant="small">
+                            {exercise.primaryTarget}
+                          </Typography>
+                        </div>
+                        <Checkbox
+                          onClick={() => toggleSelection(exercise.id)}
+                        />
                       </div>
-                      <Checkbox onClick={() => toggleSelection(exercise.id)}/>
-                    </div>
-                  </CardBody>
-                </Card>
-              ))}
-            </div>
-          </>
-        )}
-      </DialogBody>
-      <DialogFooter>
-        {showNamingForm ? (
-          <Button color="green" onClick={handleSubmit}>
-            Save Workout
-          </Button>
-        ) : (
-          <PaginationComponent
-            items={exercises.filter(
-              (exercise) =>
-                exercise.name
-                  .toLowerCase()
-                  .includes(searchTerm.toLowerCase()) &&
-                (selectedCategory === '' ||
-                  BODY_PART_CATEGORIES[selectedCategory].includes(
-                    exercise.primaryTarget,
-                  )),
-            )}
-            itemsPerPage={5}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-          />
-        )}
-      </DialogFooter>
-    </Dialog>
+                    </CardBody>
+                  </Card>
+                ))}
+              </div>
+            </>
+          )}
+        </DialogBody>
+        <DialogFooter>
+          {showNamingForm ? (
+            <Button color="green" onClick={handleSubmit}>
+              Save Workout
+            </Button>
+          ) : (
+            <PaginationComponent
+              items={exercises.filter(
+                (exercise) =>
+                  exercise.name
+                    .toLowerCase()
+                    .includes(searchTerm.toLowerCase()) &&
+                  (selectedCategory === '' ||
+                    BODY_PART_CATEGORIES[selectedCategory].includes(
+                      exercise.primaryTarget,
+                    )),
+              )}
+              itemsPerPage={5}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+            />
+          )}
+        </DialogFooter>
+      </Dialog>
     </>
   );
 }
