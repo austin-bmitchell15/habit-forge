@@ -148,3 +148,88 @@ export const listGeneralHabits = /* GraphQL */ `query ListGeneralHabits(
   APITypes.ListGeneralHabitsQueryVariables,
   APITypes.ListGeneralHabitsQuery
 >;
+export const getWorkoutTemplate =
+  /* GraphQL */ `query GetWorkoutTemplate($id: ID!) {
+  getWorkoutTemplate(id: $id) {
+    id
+    name
+    exercises {
+      nextToken
+      __typename
+    }
+    createdAt
+    updatedAt
+    owner
+    __typename
+  }
+}
+` as GeneratedQuery<
+    APITypes.GetWorkoutTemplateQueryVariables,
+    APITypes.GetWorkoutTemplateQuery
+  >;
+export const listWorkoutTemplates = /* GraphQL */ `query ListWorkoutTemplates(
+  $filter: ModelWorkoutTemplateFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listWorkoutTemplates(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListWorkoutTemplatesQueryVariables,
+  APITypes.ListWorkoutTemplatesQuery
+>;
+export const getExercise = /* GraphQL */ `query GetExercise($id: ID!) {
+  getExercise(id: $id) {
+    id
+    name
+    primaryTarget
+    equipment
+    gifUrl
+    instructions
+    createdAt
+    updatedAt
+    workoutTemplateExercisesId
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.GetExerciseQueryVariables,
+  APITypes.GetExerciseQuery
+>;
+export const listExercises = /* GraphQL */ `query ListExercises(
+  $filter: ModelExerciseFilterInput
+  $limit: Int
+  $nextToken: String
+) {
+  listExercises(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    items {
+      id
+      name
+      primaryTarget
+      equipment
+      gifUrl
+      instructions
+      createdAt
+      updatedAt
+      workoutTemplateExercisesId
+      __typename
+    }
+    nextToken
+    __typename
+  }
+}
+` as GeneratedQuery<
+  APITypes.ListExercisesQueryVariables,
+  APITypes.ListExercisesQuery
+>;

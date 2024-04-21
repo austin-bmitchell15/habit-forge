@@ -100,6 +100,22 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "habitforge691ff618": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput",
+            "GraphQLAPIEndpointOutput",
+            "GraphQLAPIKeyOutput"
+          ],
+          "category": "api",
+          "resourceName": "habitforge"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "habitforged058b5f2": {
       "build": true,
       "dependsOn": [
@@ -152,6 +168,22 @@
         {
           "category": "function",
           "resourceName": "habitforge545b7266"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforge691ff618_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforge691ff618"
+        }
+      ]
+    },
+    "AMPLIFY_function_habitforge691ff618_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "habitforge691ff618"
         }
       ]
     },

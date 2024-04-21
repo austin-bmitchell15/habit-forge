@@ -23,15 +23,19 @@
         },
         "habitforge545b7266": {
           "deploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
-          "s3Key": "amplify-builds/habitforge545b7266-597855545a62696d5873-build.zip"
+          "s3Key": "amplify-builds/habitforge545b7266-4933596357706f433738-build.zip"
         },
         "habitforge02281f5b": {
           "deploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
-          "s3Key": "amplify-builds/habitforge02281f5b-4e6e326979585654712b-build.zip"
+          "s3Key": "amplify-builds/habitforge02281f5b-4963697077333630524d-build.zip"
         },
         "habitforged058b5f2": {
           "deploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
-          "s3Key": "amplify-builds/habitforged058b5f2-4c473151756e54777342-build.zip"
+          "s3Key": "amplify-builds/habitforged058b5f2-562f63624865584f4f66-build.zip"
+        },
+        "habitforge691ff618": {
+          "deploymentBucketName": "amplify-habitforge-dev-9ad2b-deployment",
+          "s3Key": "amplify-builds/habitforge691ff618-6a414e6133427a565356-build.zip"
         }
       },
       "api": {
