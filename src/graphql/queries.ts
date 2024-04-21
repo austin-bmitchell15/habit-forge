@@ -2,14 +2,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from '../API';
+import * as APITypes from "../API";
 type GeneratedQuery<InputType, OutputType> = string & {
   __generatedQueryInput: InputType;
   __generatedQueryOutput: OutputType;
 };
 
-export const getProgressiveHabit =
-  /* GraphQL */ `query GetProgressiveHabit($id: ID!) {
+export const getProgressiveHabit = /* GraphQL */ `query GetProgressiveHabit($id: ID!) {
   getProgressiveHabit(id: $id) {
     id
     name
@@ -26,9 +25,9 @@ export const getProgressiveHabit =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetProgressiveHabitQueryVariables,
-    APITypes.GetProgressiveHabitQuery
-  >;
+  APITypes.GetProgressiveHabitQueryVariables,
+  APITypes.GetProgressiveHabitQuery
+>;
 export const listProgressiveHabits = /* GraphQL */ `query ListProgressiveHabits(
   $filter: ModelProgressiveHabitFilterInput
   $limit: Int
@@ -57,8 +56,7 @@ export const listProgressiveHabits = /* GraphQL */ `query ListProgressiveHabits(
   APITypes.ListProgressiveHabitsQueryVariables,
   APITypes.ListProgressiveHabitsQuery
 >;
-export const getActivityHabit =
-  /* GraphQL */ `query GetActivityHabit($id: ID!) {
+export const getActivityHabit = /* GraphQL */ `query GetActivityHabit($id: ID!) {
   getActivityHabit(id: $id) {
     id
     name
@@ -74,9 +72,9 @@ export const getActivityHabit =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetActivityHabitQueryVariables,
-    APITypes.GetActivityHabitQuery
-  >;
+  APITypes.GetActivityHabitQueryVariables,
+  APITypes.GetActivityHabitQuery
+>;
 export const listActivityHabits = /* GraphQL */ `query ListActivityHabits(
   $filter: ModelActivityHabitFilterInput
   $limit: Int
@@ -148,8 +146,7 @@ export const listGeneralHabits = /* GraphQL */ `query ListGeneralHabits(
   APITypes.ListGeneralHabitsQueryVariables,
   APITypes.ListGeneralHabitsQuery
 >;
-export const getWorkoutTemplate =
-  /* GraphQL */ `query GetWorkoutTemplate($id: ID!) {
+export const getWorkoutTemplate = /* GraphQL */ `query GetWorkoutTemplate($id: ID!) {
   getWorkoutTemplate(id: $id) {
     id
     name
@@ -164,9 +161,9 @@ export const getWorkoutTemplate =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetWorkoutTemplateQueryVariables,
-    APITypes.GetWorkoutTemplateQuery
-  >;
+  APITypes.GetWorkoutTemplateQueryVariables,
+  APITypes.GetWorkoutTemplateQuery
+>;
 export const listWorkoutTemplates = /* GraphQL */ `query ListWorkoutTemplates(
   $filter: ModelWorkoutTemplateFilterInput
   $limit: Int
@@ -237,8 +234,7 @@ export const listExercises = /* GraphQL */ `query ListExercises(
   APITypes.ListExercisesQueryVariables,
   APITypes.ListExercisesQuery
 >;
-export const getWorkoutTemplateExercise =
-  /* GraphQL */ `query GetWorkoutTemplateExercise($id: ID!) {
+export const getWorkoutTemplateExercise = /* GraphQL */ `query GetWorkoutTemplateExercise($id: ID!) {
   getWorkoutTemplateExercise(id: $id) {
     id
     workoutTemplateId
@@ -270,11 +266,10 @@ export const getWorkoutTemplateExercise =
   }
 }
 ` as GeneratedQuery<
-    APITypes.GetWorkoutTemplateExerciseQueryVariables,
-    APITypes.GetWorkoutTemplateExerciseQuery
-  >;
-export const listWorkoutTemplateExercises =
-  /* GraphQL */ `query ListWorkoutTemplateExercises(
+  APITypes.GetWorkoutTemplateExerciseQueryVariables,
+  APITypes.GetWorkoutTemplateExerciseQuery
+>;
+export const listWorkoutTemplateExercises = /* GraphQL */ `query ListWorkoutTemplateExercises(
   $filter: ModelWorkoutTemplateExerciseFilterInput
   $limit: Int
   $nextToken: String
@@ -298,11 +293,10 @@ export const listWorkoutTemplateExercises =
   }
 }
 ` as GeneratedQuery<
-    APITypes.ListWorkoutTemplateExercisesQueryVariables,
-    APITypes.ListWorkoutTemplateExercisesQuery
-  >;
-export const workoutTemplateExercisesByWorkoutTemplateId =
-  /* GraphQL */ `query WorkoutTemplateExercisesByWorkoutTemplateId(
+  APITypes.ListWorkoutTemplateExercisesQueryVariables,
+  APITypes.ListWorkoutTemplateExercisesQuery
+>;
+export const workoutTemplateExercisesByWorkoutTemplateId = /* GraphQL */ `query WorkoutTemplateExercisesByWorkoutTemplateId(
   $workoutTemplateId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelWorkoutTemplateExerciseFilterInput
@@ -330,11 +324,10 @@ export const workoutTemplateExercisesByWorkoutTemplateId =
   }
 }
 ` as GeneratedQuery<
-    APITypes.WorkoutTemplateExercisesByWorkoutTemplateIdQueryVariables,
-    APITypes.WorkoutTemplateExercisesByWorkoutTemplateIdQuery
-  >;
-export const workoutTemplateExercisesByExerciseId =
-  /* GraphQL */ `query WorkoutTemplateExercisesByExerciseId(
+  APITypes.WorkoutTemplateExercisesByWorkoutTemplateIdQueryVariables,
+  APITypes.WorkoutTemplateExercisesByWorkoutTemplateIdQuery
+>;
+export const workoutTemplateExercisesByExerciseId = /* GraphQL */ `query WorkoutTemplateExercisesByExerciseId(
   $exerciseId: ID!
   $sortDirection: ModelSortDirection
   $filter: ModelWorkoutTemplateExerciseFilterInput
@@ -362,6 +355,6 @@ export const workoutTemplateExercisesByExerciseId =
   }
 }
 ` as GeneratedQuery<
-    APITypes.WorkoutTemplateExercisesByExerciseIdQueryVariables,
-    APITypes.WorkoutTemplateExercisesByExerciseIdQuery
-  >;
+  APITypes.WorkoutTemplateExercisesByExerciseIdQueryVariables,
+  APITypes.WorkoutTemplateExercisesByExerciseIdQuery
+>;

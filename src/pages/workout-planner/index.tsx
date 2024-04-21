@@ -16,6 +16,8 @@ import {
   DeleteActivityHabitInput,
   DeleteGeneralHabitInput,
   DeleteProgressiveHabitInput,
+  DeleteWorkoutTemplateExerciseInput,
+  DeleteWorkoutTemplateInput,
   GeneralHabit,
   HabitType,
   ProgressiveHabit,
@@ -60,6 +62,13 @@ export default function WorkoutPlanner() {
     workouts[0] as MyWorkoutTemplate,
   );
 
+  function deleteWorkout() {
+    const input = {
+        id: currWorkout.id
+    }
+    WorkoutService.deleteWorkoutTemplate(input as DeleteWorkoutTemplateInput)
+  }
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>Error: {error}</div>;
 
@@ -83,6 +92,7 @@ export default function WorkoutPlanner() {
             workout={workout as MyWorkoutTemplate}
             setShowCompleteWorkout={setShowCompleteWorkout}
             setCurrWorkout={setCurrWorkout}
+            deleteWorkout={deleteWorkout}
           />
         ))}
       </div>

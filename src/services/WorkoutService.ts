@@ -1,11 +1,12 @@
 import { generateClient, get } from 'aws-amplify/api';
 import * as mutations from '../graphql/mutations';
 import * as queries from '../graphql/queries';
-import * as customQueries from '../graphql/custom-queries';
+import * as customQueries from '../utils/custom-queries';
 import * as subscriptions from '../graphql/subscriptions';
 import {
   CreateWorkoutTemplateExerciseInput,
   CreateWorkoutTemplateInput,
+  DeleteWorkoutTemplateInput,
   WorkoutTemplate,
 } from '@/API';
 
@@ -78,6 +79,19 @@ class ExerciseService {
         error: (error: any) => console.warn(error),
       });
     return { createWorkoutSub };
+  }
+
+  async deleteWorkoutTemplate(input: DeleteWorkoutTemplateInput) {
+    try {
+      const newHabit = await this.client.graphql({
+        query: mutations.deleteWorkoutTemplate,
+        variables: { input },
+      });
+      return newHabit;
+    } catch (error) {
+      console.error('Error deleting general habit', error);
+      throw new Error('Failed to delete general habit');
+    }
   }
 }
 

@@ -5,12 +5,12 @@
  **************************************************************************/
 
 /* eslint-disable */
-import * as React from 'react';
-import { Button, Flex, Grid, TextField } from '@aws-amplify/ui-react';
-import { fetchByPath, getOverrideProps, validateField } from './utils';
-import { generateClient } from 'aws-amplify/api';
-import { getWorkoutTemplate } from '../graphql/queries';
-import { updateWorkoutTemplate } from '../graphql/mutations';
+import * as React from "react";
+import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import { fetchByPath, getOverrideProps, validateField } from "./utils";
+import { generateClient } from "aws-amplify/api";
+import { getWorkoutTemplate } from "../graphql/queries";
+import { updateWorkoutTemplate } from "../graphql/mutations";
 const client = generateClient();
 export default function WorkoutTemplateUpdateForm(props) {
   const {
@@ -25,7 +25,7 @@ export default function WorkoutTemplateUpdateForm(props) {
     ...rest
   } = props;
   const initialValues = {
-    name: '',
+    name: "",
   };
   const [name, setName] = React.useState(initialValues.name);
   const [errors, setErrors] = React.useState({});
@@ -37,14 +37,14 @@ export default function WorkoutTemplateUpdateForm(props) {
     setErrors({});
   };
   const [workoutTemplateRecord, setWorkoutTemplateRecord] = React.useState(
-    workoutTemplateModelProp,
+    workoutTemplateModelProp
   );
   React.useEffect(() => {
     const queryData = async () => {
       const record = idProp
         ? (
             await client.graphql({
-              query: getWorkoutTemplate.replaceAll('__typename', ''),
+              query: getWorkoutTemplate.replaceAll("__typename", ""),
               variables: { id: idProp },
             })
           )?.data?.getWorkoutTemplate
@@ -55,12 +55,12 @@ export default function WorkoutTemplateUpdateForm(props) {
   }, [idProp, workoutTemplateModelProp]);
   React.useEffect(resetStateValues, [workoutTemplateRecord]);
   const validations = {
-    name: [{ type: 'Required' }],
+    name: [{ type: "Required" }],
   };
   const runValidationTasks = async (
     fieldName,
     currentValue,
-    getDisplayValue,
+    getDisplayValue
   ) => {
     const value =
       currentValue && getDisplayValue
@@ -90,16 +90,16 @@ export default function WorkoutTemplateUpdateForm(props) {
             if (Array.isArray(modelFields[fieldName])) {
               promises.push(
                 ...modelFields[fieldName].map((item) =>
-                  runValidationTasks(fieldName, item),
-                ),
+                  runValidationTasks(fieldName, item)
+                )
               );
               return promises;
             }
             promises.push(
-              runValidationTasks(fieldName, modelFields[fieldName]),
+              runValidationTasks(fieldName, modelFields[fieldName])
             );
             return promises;
-          }, []),
+          }, [])
         );
         if (validationResponses.some((r) => r.hasError)) {
           return;
@@ -109,12 +109,12 @@ export default function WorkoutTemplateUpdateForm(props) {
         }
         try {
           Object.entries(modelFields).forEach(([key, value]) => {
-            if (typeof value === 'string' && value === '') {
+            if (typeof value === "string" && value === "") {
               modelFields[key] = null;
             }
           });
           await client.graphql({
-            query: updateWorkoutTemplate.replaceAll('__typename', ''),
+            query: updateWorkoutTemplate.replaceAll("__typename", ""),
             variables: {
               input: {
                 id: workoutTemplateRecord.id,
@@ -127,12 +127,12 @@ export default function WorkoutTemplateUpdateForm(props) {
           }
         } catch (err) {
           if (onError) {
-            const messages = err.errors.map((e) => e.message).join('\n');
+            const messages = err.errors.map((e) => e.message).join("\n");
             onError(modelFields, messages);
           }
         }
       }}
-      {...getOverrideProps(overrides, 'WorkoutTemplateUpdateForm')}
+      {...getOverrideProps(overrides, "WorkoutTemplateUpdateForm")}
       {...rest}
     >
       <TextField
@@ -150,18 +150,18 @@ export default function WorkoutTemplateUpdateForm(props) {
             value = result?.name ?? value;
           }
           if (errors.name?.hasError) {
-            runValidationTasks('name', value);
+            runValidationTasks("name", value);
           }
           setName(value);
         }}
-        onBlur={() => runValidationTasks('name', name)}
+        onBlur={() => runValidationTasks("name", name)}
         errorMessage={errors.name?.errorMessage}
         hasError={errors.name?.hasError}
-        {...getOverrideProps(overrides, 'name')}
+        {...getOverrideProps(overrides, "name")}
       ></TextField>
       <Flex
         justifyContent="space-between"
-        {...getOverrideProps(overrides, 'CTAFlex')}
+        {...getOverrideProps(overrides, "CTAFlex")}
       >
         <Button
           children="Reset"
@@ -171,11 +171,11 @@ export default function WorkoutTemplateUpdateForm(props) {
             resetStateValues();
           }}
           isDisabled={!(idProp || workoutTemplateModelProp)}
-          {...getOverrideProps(overrides, 'ResetButton')}
+          {...getOverrideProps(overrides, "ResetButton")}
         ></Button>
         <Flex
           gap="15px"
-          {...getOverrideProps(overrides, 'RightAlignCTASubFlex')}
+          {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
           <Button
             children="Submit"
@@ -185,7 +185,7 @@ export default function WorkoutTemplateUpdateForm(props) {
               !(idProp || workoutTemplateModelProp) ||
               Object.values(errors).some((e) => e?.hasError)
             }
-            {...getOverrideProps(overrides, 'SubmitButton')}
+            {...getOverrideProps(overrides, "SubmitButton")}
           ></Button>
         </Flex>
       </Flex>

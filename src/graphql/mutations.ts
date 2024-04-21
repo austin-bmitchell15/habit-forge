@@ -2,14 +2,13 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-import * as APITypes from '../API';
+import * as APITypes from "../API";
 type GeneratedMutation<InputType, OutputType> = string & {
   __generatedMutationInput: InputType;
   __generatedMutationOutput: OutputType;
 };
 
-export const createProgressiveHabit =
-  /* GraphQL */ `mutation CreateProgressiveHabit(
+export const createProgressiveHabit = /* GraphQL */ `mutation CreateProgressiveHabit(
   $input: CreateProgressiveHabitInput!
   $condition: ModelProgressiveHabitConditionInput
 ) {
@@ -29,11 +28,10 @@ export const createProgressiveHabit =
   }
 }
 ` as GeneratedMutation<
-    APITypes.CreateProgressiveHabitMutationVariables,
-    APITypes.CreateProgressiveHabitMutation
-  >;
-export const updateProgressiveHabit =
-  /* GraphQL */ `mutation UpdateProgressiveHabit(
+  APITypes.CreateProgressiveHabitMutationVariables,
+  APITypes.CreateProgressiveHabitMutation
+>;
+export const updateProgressiveHabit = /* GraphQL */ `mutation UpdateProgressiveHabit(
   $input: UpdateProgressiveHabitInput!
   $condition: ModelProgressiveHabitConditionInput
 ) {
@@ -53,11 +51,10 @@ export const updateProgressiveHabit =
   }
 }
 ` as GeneratedMutation<
-    APITypes.UpdateProgressiveHabitMutationVariables,
-    APITypes.UpdateProgressiveHabitMutation
-  >;
-export const deleteProgressiveHabit =
-  /* GraphQL */ `mutation DeleteProgressiveHabit(
+  APITypes.UpdateProgressiveHabitMutationVariables,
+  APITypes.UpdateProgressiveHabitMutation
+>;
+export const deleteProgressiveHabit = /* GraphQL */ `mutation DeleteProgressiveHabit(
   $input: DeleteProgressiveHabitInput!
   $condition: ModelProgressiveHabitConditionInput
 ) {
@@ -77,9 +74,9 @@ export const deleteProgressiveHabit =
   }
 }
 ` as GeneratedMutation<
-    APITypes.DeleteProgressiveHabitMutationVariables,
-    APITypes.DeleteProgressiveHabitMutation
-  >;
+  APITypes.DeleteProgressiveHabitMutationVariables,
+  APITypes.DeleteProgressiveHabitMutation
+>;
 export const createActivityHabit = /* GraphQL */ `mutation CreateActivityHabit(
   $input: CreateActivityHabitInput!
   $condition: ModelActivityHabitConditionInput
@@ -209,8 +206,7 @@ export const deleteGeneralHabit = /* GraphQL */ `mutation DeleteGeneralHabit(
   APITypes.DeleteGeneralHabitMutationVariables,
   APITypes.DeleteGeneralHabitMutation
 >;
-export const createWorkoutTemplate =
-  /* GraphQL */ `mutation CreateWorkoutTemplate(
+export const createWorkoutTemplate = /* GraphQL */ `mutation CreateWorkoutTemplate(
   $input: CreateWorkoutTemplateInput!
   $condition: ModelWorkoutTemplateConditionInput
 ) {
@@ -228,11 +224,10 @@ export const createWorkoutTemplate =
   }
 }
 ` as GeneratedMutation<
-    APITypes.CreateWorkoutTemplateMutationVariables,
-    APITypes.CreateWorkoutTemplateMutation
-  >;
-export const updateWorkoutTemplate =
-  /* GraphQL */ `mutation UpdateWorkoutTemplate(
+  APITypes.CreateWorkoutTemplateMutationVariables,
+  APITypes.CreateWorkoutTemplateMutation
+>;
+export const updateWorkoutTemplate = /* GraphQL */ `mutation UpdateWorkoutTemplate(
   $input: UpdateWorkoutTemplateInput!
   $condition: ModelWorkoutTemplateConditionInput
 ) {
@@ -250,11 +245,10 @@ export const updateWorkoutTemplate =
   }
 }
 ` as GeneratedMutation<
-    APITypes.UpdateWorkoutTemplateMutationVariables,
-    APITypes.UpdateWorkoutTemplateMutation
-  >;
-export const deleteWorkoutTemplate =
-  /* GraphQL */ `mutation DeleteWorkoutTemplate(
+  APITypes.UpdateWorkoutTemplateMutationVariables,
+  APITypes.UpdateWorkoutTemplateMutation
+>;
+export const deleteWorkoutTemplate = /* GraphQL */ `mutation DeleteWorkoutTemplate(
   $input: DeleteWorkoutTemplateInput!
   $condition: ModelWorkoutTemplateConditionInput
 ) {
@@ -272,9 +266,9 @@ export const deleteWorkoutTemplate =
   }
 }
 ` as GeneratedMutation<
-    APITypes.DeleteWorkoutTemplateMutationVariables,
-    APITypes.DeleteWorkoutTemplateMutation
-  >;
+  APITypes.DeleteWorkoutTemplateMutationVariables,
+  APITypes.DeleteWorkoutTemplateMutation
+>;
 export const createExercise = /* GraphQL */ `mutation CreateExercise(
   $input: CreateExerciseInput!
   $condition: ModelExerciseConditionInput
@@ -350,8 +344,7 @@ export const deleteExercise = /* GraphQL */ `mutation DeleteExercise(
   APITypes.DeleteExerciseMutationVariables,
   APITypes.DeleteExerciseMutation
 >;
-export const createWorkoutTemplateExercise =
-  /* GraphQL */ `mutation CreateWorkoutTemplateExercise(
+export const createWorkoutTemplateExercise = /* GraphQL */ `mutation CreateWorkoutTemplateExercise(
   $input: CreateWorkoutTemplateExerciseInput!
   $condition: ModelWorkoutTemplateExerciseConditionInput
 ) {
@@ -386,11 +379,10 @@ export const createWorkoutTemplateExercise =
   }
 }
 ` as GeneratedMutation<
-    APITypes.CreateWorkoutTemplateExerciseMutationVariables,
-    APITypes.CreateWorkoutTemplateExerciseMutation
-  >;
-export const updateWorkoutTemplateExercise =
-  /* GraphQL */ `mutation UpdateWorkoutTemplateExercise(
+  APITypes.CreateWorkoutTemplateExerciseMutationVariables,
+  APITypes.CreateWorkoutTemplateExerciseMutation
+>;
+export const updateWorkoutTemplateExercise = /* GraphQL */ `mutation UpdateWorkoutTemplateExercise(
   $input: UpdateWorkoutTemplateExerciseInput!
   $condition: ModelWorkoutTemplateExerciseConditionInput
 ) {
@@ -425,11 +417,10 @@ export const updateWorkoutTemplateExercise =
   }
 }
 ` as GeneratedMutation<
-    APITypes.UpdateWorkoutTemplateExerciseMutationVariables,
-    APITypes.UpdateWorkoutTemplateExerciseMutation
-  >;
-export const deleteWorkoutTemplateExercise =
-  /* GraphQL */ `mutation DeleteWorkoutTemplateExercise(
+  APITypes.UpdateWorkoutTemplateExerciseMutationVariables,
+  APITypes.UpdateWorkoutTemplateExerciseMutation
+>;
+export const deleteWorkoutTemplateExercise = /* GraphQL */ `mutation DeleteWorkoutTemplateExercise(
   $input: DeleteWorkoutTemplateExerciseInput!
   $condition: ModelWorkoutTemplateExerciseConditionInput
 ) {
@@ -464,6 +455,6 @@ export const deleteWorkoutTemplateExercise =
   }
 }
 ` as GeneratedMutation<
-    APITypes.DeleteWorkoutTemplateExerciseMutationVariables,
-    APITypes.DeleteWorkoutTemplateExerciseMutation
-  >;
+  APITypes.DeleteWorkoutTemplateExerciseMutationVariables,
+  APITypes.DeleteWorkoutTemplateExerciseMutation
+>;

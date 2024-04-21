@@ -66,18 +66,21 @@ export default function CompleteWorkoutModal({
             <div className="flex space-x-2">
               <Input
                 type="number"
+                label="Sets"
                 placeholder="Sets"
                 value={sets}
                 onChange={(e) => setSets(e.target.value)}
               />
               <Input
                 type="number"
+                label="Reps"
                 placeholder="Reps"
                 value={reps}
                 onChange={(e) => setReps(e.target.value)}
               />
               <Input
                 type="number"
+                label="Weight"
                 placeholder="Weight"
                 value={weight}
                 onChange={(e) => setWeights(e.target.value)}
@@ -86,16 +89,18 @@ export default function CompleteWorkoutModal({
           </div>
         ))}
       </DialogBody>
-      <DialogFooter>
+      <DialogFooter className='flex space-x-4'>
         <Button color="blue" onClick={handleComplete}>
           Complete
         </Button>
-        <PaginationComponent
-          items={exercises}
-          itemsPerPage={ITEMS_PER_PAGE}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
+        {exercises && (
+            <PaginationComponent
+            items={exercises}
+            itemsPerPage={ITEMS_PER_PAGE}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+          />
+        )}
       </DialogFooter>
     </Dialog>
   );
