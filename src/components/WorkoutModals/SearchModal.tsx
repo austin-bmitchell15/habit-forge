@@ -233,6 +233,7 @@ export default function SearchModal({
               itemsPerPage={5}
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
+              updatePagination={updatePagination}
             />
           )}
         </DialogFooter>

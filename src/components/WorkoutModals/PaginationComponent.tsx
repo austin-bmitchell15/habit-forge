@@ -9,6 +9,7 @@ interface PaginationProps {
   itemsPerPage: number;
   currentPage: number;
   setCurrentPage: (page: number) => void;
+  updatePagination: Function;
 }
 
 export default function PaginationComponent({
@@ -16,6 +17,7 @@ export default function PaginationComponent({
   itemsPerPage,
   currentPage,
   setCurrentPage,
+  updatePagination,
 }: PaginationProps) {
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
@@ -23,12 +25,14 @@ export default function PaginationComponent({
   const prevPage = () => {
     const page = Math.max(1, currentPage - 1);
     setCurrentPage(page);
+    updatePagination();
   };
 
   // Function to go to the next page
   const nextPage = () => {
     const page = Math.min(totalPages, currentPage + 1);
     setCurrentPage(page);
+    updatePagination();
   };
 
   return (
