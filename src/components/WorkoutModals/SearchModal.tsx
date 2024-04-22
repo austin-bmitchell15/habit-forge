@@ -35,7 +35,7 @@ const BODY_PART_CATEGORIES: { [key: string]: string[] } = {
   Legs: ['Abductors', 'Adductors', 'Calves', 'Glutes', 'Hamstrings', 'Quads'],
   Arms: ['Biceps', 'Forearms', 'Triceps'],
   Abs: ['Abs', 'Spine'],
-  Chest: ['Pectorals']
+  Chest: ['Pectorals'],
 };
 
 interface SearchModalProps {
