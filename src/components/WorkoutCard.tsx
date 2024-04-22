@@ -78,7 +78,7 @@ export default function WorkoutCard({
           className="flex-grow bg-red-500"
           aria-label="Delete habit"
           onClick={() => {
-            onDelete(workout.id);
+            onDelete();
           }}
         >
           <DeleteIcon />
