@@ -35,6 +35,7 @@ const BODY_PART_CATEGORIES: { [key: string]: string[] } = {
   Legs: ['Abductors', 'Adductors', 'Calves', 'Glutes', 'Hamstrings', 'Quads'],
   Arms: ['Biceps', 'Forearms', 'Triceps'],
   Abs: ['Abs', 'Spine'],
+  Chest: ['Pectorals']
 };
 
 interface SearchModalProps {
@@ -177,12 +178,13 @@ export default function SearchModal({
                 value={selectedCategory}
               >
                 <Option value="">All Categories</Option>
-                <Option value="Cardio">Cardio</Option>
+                <Option value="Abs">Abs</Option>
+                <Option value="Arms">Arms</Option>
                 <Option value="Back">Back</Option>
+                <Option value="Cardio">Cardio</Option>
+                <Option value="Chest">Chest</Option>
                 <Option value="Shoulders">Shoulders</Option>
                 <Option value="Legs">Legs</Option>
-                <Option value="Arms">Arms</Option>
-                <Option value="Abs">Abs</Option>
               </Select>
               <div className="flex flex-col justify-center gap-4">
                 {paginatedExercises.map((exercise) => (
