@@ -118,6 +118,7 @@ export default function WorkoutPlanner() {
       <div className="grid grid-cols-3 gap-4">
         {workouts.map((workout, index) => (
           <WorkoutCard
+            key={workout.name}
             workout={workout as MyWorkoutTemplate}
             setShowCompleteWorkout={setShowCompleteWorkout}
             setCurrWorkout={setCurrWorkout}
