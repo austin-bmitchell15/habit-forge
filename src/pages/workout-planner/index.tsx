@@ -130,7 +130,7 @@ export default function WorkoutPlanner() {
         className="bg-deep-purple-200"
         onClick={() => setShowCreateWorkoutTemplate(true)}
       >
-        Create Habit
+        Create Workout Template
       </Button>
     </div>
   );
