@@ -101,6 +101,7 @@ export default function CompleteWorkoutModal({
             itemsPerPage={ITEMS_PER_PAGE}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
+            updatePagination={updatePagination}
           />
         )}
       </DialogFooter>
